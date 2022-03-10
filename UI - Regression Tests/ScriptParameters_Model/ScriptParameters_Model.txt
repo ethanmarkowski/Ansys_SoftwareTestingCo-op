@@ -1,0 +1,76 @@
+
+Depth = 0.0
+Height = 0.0
+Width = 0.0
+
+Depth = 10.0
+Height = 30.0
+Width = 20.0
+
+Depth = 10.0
+Height = 35.0
+Width = 20.0
+
+Depth = 10.0
+Height = 35.0
+Width = 25.0
+
+Depth = 5.0
+Height = 35.0
+Width = 25.0
+
+Depth = 5.0
+Height = 32.5
+Width = 25.0
+
+Depth = 5.0
+Height = 32.5
+Width = 27.5
+
+Depth = 6.096
+Height = 32.5
+Width = 27.5
+
+Depth = 6.096
+Height = 23.0
+Width = 27.5
+
+Depth = 6.096
+Height = 32.5
+Width = 27.5
+
+Depth = 6.096
+Height = 23.0
+Width = 27.5
+
+Depth = 6.096
+Height = 23.0
+ScriptParameter4 = 0.0
+Width = 27.5
+
+Depth = 6.096
+Depth_2 = 10.0
+Height = 23.0
+Width = 27.5
+
+Depth = 6.096
+Depth_2 = 0.0
+Height = 23.0
+ScriptParameter4 = 0.0
+Width = 27.5
+
+Depth = 6.096
+Depth_2 = 10.0
+Height = 23.0
+Width = 27.5
+
+Depth = 6.096
+Depth_2 = 10.0
+Height = 30.0
+Width = 27.5
+
+Depth = 6.096
+Depth_2 = 10.0
+Height = 30.0
+Width = 27.5
+

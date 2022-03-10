@@ -1,0 +1,10 @@
+Add filepaths for all machines used for testing below
+\\CHQW10REG03\PerformanceLogging
+\\chq2cjconnel1\PerformanceLogging
+\\CHQW10REG01\PerformanceLogging
+\\CHQW10REG02\PerformanceLogging
+\\CHQ2CJCONNEL2\PerformanceLogging
+\\CHQ2COOP4393\PerformanceLogging
+\\CHQ2DISCOTEST04\PerformanceLogging
+\\CHQ2DISCOTEST01\PerformanceLogging
+\\CHQ2DISCOTEST02\PerformanceLogging

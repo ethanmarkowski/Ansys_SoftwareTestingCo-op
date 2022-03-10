@@ -1,0 +1,1812 @@
+//
+// Test Name:    ParamSweeps_Structural_Analyze
+// Author:       Ethan Markowski
+//
+// Objective:    Validate correct behavior of parameter sweeps tables when switching to and from Analyze mode
+//
+// Steps:        Create a three body geometry
+//               Create a 3DVs parameter sweeps table
+//               Create a simple static structural simulation with one support and one force
+//               Select, solve, and validate each defined variation individually
+//               Navigate to Analyze mode, solve, and validate
+//               Navigate back to Explore mode
+//               Edit one of the unselected variants
+//               Select that new variant, solve, and validate
+//
+//SpaceClaim Journal File
+//Started(UniversalTime): 10-Jun-2020 19:03:39
+//
+//User: emarkows
+//Computer: CHQ2COOP4393
+//CLR version: 4.0.30319.42000
+//OS Culture: en-US
+//SpaceClaim Culture: en-US
+//
+// Microsoft Windows NT 6.2.9200.0
+// Virtual memory 134217727Mb
+// Physical memory 130997Mb
+// 64-bit
+//
+//Processor: Intel(R) Xeon(R) CPU E5-2687W 0 @ 3.10GHz
+//Description: Intel64 Family 6 Model 45 Stepping 7
+//Manufacturer: GenuineIntel
+//Processor count: 16
+//
+//
+//GPU: NVIDIA Quadro M4000
+// Device id: PCI\VEN_10DE&DEV_13F1&SUBSYS_115310DE&REV_A1\4&203AE56E&0&0010
+// Driver version: 26.21.14.4292
+// Driver date: April 2020
+//Renderer: OpenGL
+//Antialiasing: 3
+//
+//Program Version: 2021.1.40960.8973
+//
+//License: ANSYS-3
+//
+//BuildNumber: "SpaceClaim-Release+Debug-AMD64_20200604.13" 
+//
+//KeyShot installed: No
+//KeyShot License: KeyShot not licensed
+//KeyShot Animation: No
+//KeyShot VR: No
+//
+// Build Info: 20210604.13
+//
+//Debug: No
+S=1,WC=MF,DC=JV,1.01
+S=2,WC=MF,DC=OV,1.348
+S=3,WC=MF,DC=OP,Pixel
+**SetIncubatorOption,Small Units Modeling=true
+S=4,UI_CMD=Disco.SetParticlesEmitterMode,false
+S=5,UI_CMD=Disco.SetParticlesSymbolSize,5
+S=6,UI_CMD=Disco.SetParticlesMaxValue,1.0
+S=7,UI_CMD=Disco.SetParticlesMinValue,0.0
+S=8,UI_CMD=Disco.SetParticlesEmissionRate,0.0
+S=9,UI_CMD=Disco.SetParticlesEmissionRate,0.7
+S=10,UI_CMD=Disco.ChangeCalculationType,{"Item1":"ProgramControlled","Item2":"Static"}
+S=11,UI_CMD=Disco.ChangeStructuralModelCriteria,{"Item1":"ProgramControlled","Item2":"ForcedNonlinear"}
+S=12,UI_CMD=Disco.ChangeFlowModelCriteria,{"Item1":"ProgramControlled","Item2":"Turbulent_KO_SST"}
+S=13,WC=MF,DC=SetUserSettingsCommand,<UserSettings><IsMultiTouchPresent>false</IsMultiTouchPresent><RibbonStyle>Office2016</RibbonStyle><ColorScheme>2</ColorScheme><RibbonBackgroundStyle>Image</RibbonBackgroundStyle><RibbonCanvasColor /><RibbonBaseColor /><RibbonColorGenerator>SpaceClaimBlue</RibbonColorGenerator><DesignBackGroundColor>97, 97, 97</DesignBackGroundColor><DesignBgGradientColor1>30, 30, 30</DesignBgGradientColor1><DesignBgGradientColor2>97, 97, 97</DesignBgGradientColor2><DrawingBackGroundColor>Gray</DrawingBackGroundColor><DesignGridLineColor>Black</DesignGridLineColor><DesignGridXAxisColor>LightCoral</DesignGridXAxisColor><DesignGridYAxisColor>LightGreen</DesignGridYAxisColor><DesignRulerDimensionColor>Black</DesignRulerDimensionColor><ClipFaceColor>0, 0, 0, 0</ClipFaceColor><FirstLayerColor>128, 128, 255</FirstLayerColor><ClipViewPreviewColor>Orange</ClipViewPreviewColor><MeshBackFaceColorEnabled>true</MeshBackFaceColorEnabled><MeshBackFaceColor>51, 255, 0, 0</MeshBackFaceColor><HighlightColorScheme>Custom</HighlightColorScheme><ObjectColorScheme>Default</ObjectColorScheme><ShareTopoColorScheme>Default</ShareTopoColorScheme><FacePrimaryHighlightColor>255, 216, 0</FacePrimaryHighlightColor><FacePrimarySelectColor>255, 106, 0</FacePrimarySelectColor><FacePrimaryHighlightSelectColor>196, 80, 0</FacePrimaryHighlightSelectColor><FaceSecondaryHighlightColor>0, 148, 255</FaceSecondaryHighlightColor><FaceSecondarySelectColor>0, 38, 255</FaceSecondarySelectColor><FaceSecondaryHighlightSelectColor>0, 19, 127</FaceSecondaryHighlightSelectColor><MeshHighlightColorScheme>Custom</MeshHighlightColorScheme><MeshPrimaryHighlightColor>255, 216, 0</MeshPrimaryHighlightColor><MeshPrimarySelectColor>255, 106, 0</MeshPrimarySelectColor><MeshPrimaryHighlightSelectColor>196, 80, 0</MeshPrimaryHighlightSelectColor><MeshSecondaryHighlightColor>0, 148, 255</MeshSecondaryHighlightColor><MeshSecondarySelectColor>0, 38, 255</MeshSecondarySelectColor><MeshSecondaryHighlightSelectColor>0, 19, 127</MeshSecondaryHighlightSelectColor><AnalysisModifiedMeshFaceColor>255, 255, 100</AnalysisModifiedMeshFaceColor><AnalysisFailedMeshFaceColor>192, 0, 0</AnalysisFailedMeshFaceColor><AnalysisFailedMeshEdgeColor>0, 0, 0, 0</AnalysisFailedMeshEdgeColor><AnalysisGoodMeshFaceColor>0, 0, 0, 0</AnalysisGoodMeshFaceColor><AnalysisGoodMeshEdgeColor>0, 0, 0, 0</AnalysisGoodMeshEdgeColor><AnalysisDefeaturedMeshFaceColor>192, 192, 192</AnalysisDefeaturedMeshFaceColor><AnalysisSectionedMeshFaceColor>0, 0, 0, 0</AnalysisSectionedMeshFaceColor><SharedFaceColor>Chartreuse</SharedFaceColor><FreeBeamCurveColor>Red</FreeBeamCurveColor><OnePointBeamCurveColor>Orange</OnePointBeamCurveColor><TwoPointBeamCurveColor>Lime</TwoPointBeamCurveColor><TripleSharedEdgeColor>215, 0, 215</TripleSharedEdgeColor><SharedTripleEdgeThickness>Thin</SharedTripleEdgeThickness><LaminarEdgeColor>Red</LaminarEdgeColor><NotSharedSingleEdgeThickness>Thin</NotSharedSingleEdgeThickness><DoubleSharedEdgeColor>Blue</DoubleSharedEdgeColor><SharedDoubleEdgeThickness>Thin</SharedDoubleEdgeThickness><MultiSharedEdgeColor>Yellow</MultiSharedEdgeColor><SharedMultipleEdgeThickness>Thin</SharedMultipleEdgeThickness><NotSharedEdgeColor>LightGray</NotSharedEdgeColor><NotSharedDoubleEdgeThickness>Thin</NotSharedDoubleEdgeThickness><SettingsReset>false</SettingsReset><WindowState>Normal</WindowState><WindowSize><Width>1240</Width><Height>800</Height></WindowSize><WindowLocation><X>0</X><Y>0</Y></WindowLocation><Modeler>Parasolid</Modeler><ShowScrollBars>false</ShowScrollBars><ForceOfflineActivation>false</ForceOfflineActivation><PowerSelection>true</PowerSelection><PowerSelectionResultsLimit>500</PowerSelectionResultsLimit><TessellationQuality>5</TessellationQuality><CustomTessSurfaceTol>0</CustomTessSurfaceTol><CustomTessNormalTol>0</CustomTessNormalTol><CustomTessMaxEdgeLength>0</CustomTessMaxEdgeLength><Renderer>Direct3D11</Renderer><PreviousJournalLocation>C:\Users\emarkows\AppData\Local\Temp/Discovery\20200610.1453.1684\App\10-Jun-2020 14.53.57_1684.scjournal</PreviousJournalLocation><CurrentJournalLocation>C:\Users\emarkows\AppData\Local\Temp/Discovery\20200610.1503.13268\App\10-Jun-2020 15.03.39_13268.scjournal</CurrentJournalLocation><JournalPixelOrPercentage>Pixel</JournalPixelOrPercentage><MruFileList /><MruScriptFileList /><AntiAliasing>3</AntiAliasing><MaxMruEntries>8</MaxMruEntries><UpdaterTimeout>30000</UpdaterTimeout><FileOpenDialogInitialDirectory /><FileSaveDialogInitialDirectory /><JournalFileDialogInitialDirectory /><MiniToolbarMaxOpacity>0.99</MiniToolbarMaxOpacity><QATLayout /><SnapSettings><SnapPixels>10</SnapPixels><SnapSolidsEnabled>true</SnapSolidsEnabled><Snap3DCurvesEnabled>true</Snap3DCurvesEnabled><SnapAxisParallel>true</SnapAxisParallel><SnapCylinderRadius>true</SnapCylinderRadius><SnapFilletRadius>true</SnapFilletRadius><SnapFaceParallel>true</SnapFaceParallel><SnapFaceRotateParallel>true</SnapFaceRotateParallel><SnapFaceRotatePerpendicular>true</SnapFaceRotatePerpendicular><SnapEdge>true</SnapEdge><SnapFaceGeometry>false</SnapFaceGeometry><RotationSnapTolerance>0.0349</RotationSnapTolerance><SnapSolidsAngularEnabled>true</SnapSolidsAngularEnabled><SnapSolidsAngleIncrement>1</SnapSolidsAngleIncrement><SnapSolidsLinearEnabled>true</SnapSolidsLinearEnabled><SnapSolidsLinearIncrement>0.000254</SnapSolidsLinearIncrement><SnapSolidsLinearIncrementMetric>1E-05</SnapSolidsLinearIncrementMetric><SnapSketchEnabled>true</SnapSketchEnabled><SnapEndpoint>true</SnapEndpoint><SnapCurve>true</SnapCurve><SnapMidpoint>true</SnapMidpoint><SnapCenter>true</SnapCenter><SnapEndpointPerpendicular>true</SnapEndpointPerpendicular><SnapEndpointTangent>true</SnapEndpointTangent><SnapEndpointAngle>true</SnapEndpointAngle><SnapCurveParallel>true</SnapCurveParallel><SnapCurveAngle>true</SnapCurveAngle><SnapGrid>true</SnapGrid><SnapGridParallel>true</SnapGridParallel><SnapIntersection>true</SnapIntersection><SnapSketchAngularEnabled>true</SnapSketchAngularEnabled><SnapSketchAngleIncrement>15</SnapSketchAngleIncrement></SnapSettings><JournalSettings><WriteValidation>true</WriteValidation><MeshStatisticsAccuracy>0.05</MeshStatisticsAccuracy></JournalSettings><NudgeSettings><Distance><Imperial>0.00508</Imperial><Metric>0.0002</Metric></Distance><DistanceSmall><Imperial>0.00127</Imperial><Metric>5E-05</Metric></DistanceSmall><DistanceBig><Imperial>0.050800000000000005</Imperial><Metric>0.002</Metric></DistanceBig><Angle>0.2</Angle><AngleSmall>0.05</AngleSmall><AngleBig>2</AngleBig></NudgeSettings><ShowStatusInView>false</ShowStatusInView><ShowStatusBarBalloonPopup>true</ShowStatusBarBalloonPopup><StatusMessageLimit>0</StatusMessageLimit><FindFixResultsLimit>250</FindFixResultsLimit><FindFixImprintsLimit>1000</FindFixImprintsLimit><ResetSelectionFilterOnToolChange>true</ResetSelectionFilterOnToolChange><UnitsType>Metric</UnitsType><UnitsSymbolDisplay>true</UnitsSymbolDisplay><UnitsSymbolDisplayInAnnotation>true</UnitsSymbolDisplayInAnnotation><UnitsLengthType>INCHES</UnitsLengthType><UnitsMetricLengthType>MM</UnitsMetricLengthType><UnitsTrailingZeros>true</UnitsTrailingZeros><UnitsSymbol>in</UnitsSymbol><UnitsSecondSymbol>in</UnitsSecondSymbol><UnitsFractionSeparator>45</UnitsFractionSeparator><UnitsExtendedDisplay>None</UnitsExtendedDisplay><UnitsMetricExtendedDisplay>None</UnitsMetricExtendedDisplay><UnitsShowNearestFromBothSides>false</UnitsShowNearestFromBothSides><UnitsMetricShowNearestFromBothSides>false</UnitsMetricShowNearestFromBothSides><UnitsNearestFractionLargestDenominator>16</UnitsNearestFractionLargestDenominator><UnitsMetricNearestFractionLargestDenominator>16</UnitsMetricNearestFractionLargestDenominator><UnitsSecondaryDecimalPlaces>3</UnitsSecondaryDecimalPlaces><UnitsMetricSecondaryDecimalPlaces>2</UnitsMetricSecondaryDecimalPlaces><UnitsSecondaryTrailingZeros>true</UnitsSecondaryTrailingZeros><UnitsMetricSecondaryTrailingZeros>false</UnitsMetricSecondaryTrailingZeros><UnitsSecondaryLengthType>INCHES</UnitsSecondaryLengthType><UnitsMetricSecondaryLengthType>MM</UnitsMetricSecondaryLengthType><UnitsDecimalPlaces>3</UnitsDecimalPlaces><UnitsAngularPrecision>1</UnitsAngularPrecision><UnitsLargestDenominator>0</UnitsLargestDenominator><UnitsMinorsInMajor>8</UnitsMinorsInMajor><UnitsMinorTickInterval>0.003175</UnitsMinorTickInterval><UnitsMetricSymbolDisplay>true</UnitsMetricSymbolDisplay><UnitsMetricSymbolDisplayInAnnotation>true</UnitsMetricSymbolDisplayInAnnotation><UnitsMetricTrailingZeros>false</UnitsMetricTrailingZeros><UnitsMetricSymbol>mm</UnitsMetricSymbol><UnitsMetricSecondSymbol>""</UnitsMetricSecondSymbol><UnitsMetricFractionSeparator>32</UnitsMetricFractionSeparator><UnitsMetricDecimalPlaces>2</UnitsMetricDecimalPlaces><UnitsMetricAngularPrecision>1</UnitsMetricAngularPrecision><UnitsMetricAngularShowTrailingZero>false</UnitsMetricAngularShowTrailingZero><UnitsAngularShowTrailingZero>false</UnitsAngularShowTrailingZero><UnitsMetricLargestDenominator>0</UnitsMetricLargestDenominator><UnitsMetricMinorsInMajor>10</UnitsMetricMinorsInMajor><UnitsMetricMinorTickInterval>0.001</UnitsMetricMinorTickInterval><UnitsMetricMassType>GRAMS</UnitsMetricMassType><UnitsMassType>POUNDS</UnitsMassType><UnitsDensityMassType>OUNCES</UnitsDensityMassType><UnitsDensityLengthType>INCHES</UnitsDensityLengthType><UnitsMetricDensityMassType>GRAMS</UnitsMetricDensityMassType><UnitsMetricDensityLengthType>CM</UnitsMetricDensityLengthType><UnitsDensityDerived>true</UnitsDensityDerived><UnitsMetricDensityDerived>true</UnitsMetricDensityDerived><DefaultViewStateShortcut>-1</DefaultViewStateShortcut><DefaultViewStateStoreOrientation>true</DefaultViewStateStoreOrientation><DefaultViewStateStoreEntityGraphics>true</DefaultViewStateStoreEntityGraphics><DefaultViewStateStoreEntityVisibility>true</DefaultViewStateStoreEntityVisibility><DefaultViewStateStoreLayerVisibility>false</DefaultViewStateStoreLayerVisibility><DefaultViewStateStoreLayerGraphics>false</DefaultViewStateStoreLayerGraphics><DefaultViewStateRestoreVisibilityBehavior>Default</DefaultViewStateRestoreVisibilityBehavior><MeasureLengthPrecision>4</MeasureLengthPrecision><MeasureAngularPrecision>2</MeasureAngularPrecision><AngularUnits>Degrees</AngularUnits><MetricAngularUnits>Degrees</MetricAngularUnits><ZoomFactor>0.5</ZoomFactor><HitRadius>5</HitRadius><QuerySelectLoopEdges>true</QuerySelectLoopEdges><SelectEdgeLoopsMultiTouch>true</SelectEdgeLoopsMultiTouch><IncrementalTessellation>true</IncrementalTessellation><ShowPreviewBar>false</ShowPreviewBar><ShowDebugTooltips>false</ShowDebugTooltips><IncludeMeshMassPropsValidation>false</IncludeMeshMassPropsValidation><UICulture>Default</UICulture><DsmLocale>Default</DsmLocale><OptionsFormSize><Width>0</Width><Height>0</Height></OptionsFormSize><OptionsFormLocation><X>0</X><Y>0</Y></OptionsFormLocation><Convergence>false</Convergence><ShowSplash>true</ShowSplash><FileSettings><SupportFileSearchPath /><DocumentSaveAsCopy>false</DocumentSaveAsCopy><RememberMissingFileDirectories>true</RememberMissingFileDirectories><Autocad><ExportSolidsOption>HiddenLineCurves</ExportSolidsOption><ImportReplacementFont /><OverrideExportUnits>false</OverrideExportUnits><CenterImportedModel>true</CenterImportedModel><IncludeDrawingFormat>true</IncludeDrawingFormat><ScaleDWGOutput>false</ScaleDWGOutput><InsertAssumeModelSpaceUnitsAreSameAsDocumentUnits>false</InsertAssumeModelSpaceUnitsAreSameAsDocumentUnits><InsertSetDocumentPropertiesToAutoCADProperties>true</InsertSetDocumentPropertiesToAutoCADProperties><AllowCPConversion>true</AllowCPConversion><DwgExport>OpenDesignAlliance</DwgExport><DwgImport>OpenDesignAlliance</DwgImport><ExportVersion>AutoCAD_2007</ExportVersion><BlackAndWhite>false</BlackAndWhite><AssociateDimsOnExport>true</AssociateDimsOnExport><AssociateDimsOnImport>true</AssociateDimsOnImport><TryInferUnits>true</TryInferUnits><AutoCADFileUnits>INCHES</AutoCADFileUnits><DrawingImportOption>ImportInto3DModel</DrawingImportOption><Polyface3DOptions>Wireframe</Polyface3DOptions><HatchOptions>Nothing</HatchOptions><Polyface2DOptions>SketchCurves</Polyface2DOptions><ExportViewProjection>Current</ExportViewProjection></Autocad><Stl><MergeFaces>false</MergeFaces><UseSystemGraphics>false</UseSystemGraphics><ImportType>ConnectedMesh</ImportType><IsBinary>true</IsBinary><Deviation>0.00075</Deviation><AspectRatio>-3</AspectRatio><MaxEdgeLength>0</MaxEdgeLength><Angle>20</Angle><ResolutionType>Medium</ResolutionType><OutputOption>FilePerDesign</OutputOption><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits></Stl><Tgf><Deviation>0.00075</Deviation><AspectRatio>-3</AspectRatio><MaxEdgeLength>0</MaxEdgeLength><ExtractFeatureEdges>true</ExtractFeatureEdges><Angle>20</Angle><FeatureAngle>40</FeatureAngle><ResolutionType>Medium</ResolutionType><ObjectGranularityLevel>ObjectPerBody</ObjectGranularityLevel><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits></Tgf><Fmd><Deviation>0.00075</Deviation><AspectRatio>-3</AspectRatio><MaxEdgeLength>0</MaxEdgeLength><Angle>20</Angle><ResolutionType>Medium</ResolutionType><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits></Fmd><Amf><MergeFaces>false</MergeFaces><CompressFile>true</CompressFile><ImportType>ConnectedMesh</ImportType><UseSystemGraphics>false</UseSystemGraphics><Deviation>0.00075</Deviation><AspectRatio>-3</AspectRatio><MaxEdgeLength>0</MaxEdgeLength><Angle>8</Angle><ResolutionType>Medium</ResolutionType><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits></Amf><Catia><ImportPmiData>false</ImportPmiData><ImportTrimControlPointsOutsideFaceBoundaries>true</ImportTrimControlPointsOutsideFaceBoundaries><ExportTrimControlPointsOutsideFaceBoundaries>true</ExportTrimControlPointsOutsideFaceBoundaries><MapCATIAGeometricSetsToSpaceClaimGroups>false</MapCATIAGeometricSetsToSpaceClaimGroups><MapPublicationsOnlyToSpaceClaimGroups>false</MapPublicationsOnlyToSpaceClaimGroups><ExportVersion>V25</ExportVersion><CGRInputOption>ConnectedMesh</CGRInputOption><MergeFaces>false</MergeFaces><EnableHybridDesign>false</EnableHybridDesign></Catia><SolidWorks><SearchForExternalFilesInLastKnownSubfolder>false</SearchForExternalFilesInLastKnownSubfolder></SolidWorks><LightWeight><ImportLightWeightAssemblies>false</ImportLightWeightAssemblies><ImportSaveHeavyLoadLight>true</ImportSaveHeavyLoadLight><ImportLightWeightAssembliesAndGeometry>false</ImportLightWeightAssembliesAndGeometry></LightWeight><FeatherWeight><ImportFeatherWeight>false</ImportFeatherWeight></FeatherWeight><ImportProcessing><ImproveImportedBodies>true</ImproveImportedBodies><BodyHealingLevel>0</BodyHealingLevel><ImportFreeCurves>true</ImportFreeCurves><ImportFreeSurfaces>true</ImportFreeSurfaces><CleanAndSimplifyGeometry>true</CleanAndSimplifyGeometry><StitchNearbySurfacesTogether>true</StitchNearbySurfacesTogether><FindCoincidentSurfaces>false</FindCoincidentSurfaces><StitchTolerance>1E-07</StitchTolerance><ImportObjectNames>false</ImportObjectNames><ImportPoints>true</ImportPoints><ImportPlanes>false</ImportPlanes><ImportAxes>false</ImportAxes><ImportCoordinateSystems>false</ImportCoordinateSystems><UseMultiThreading>true</UseMultiThreading></ImportProcessing><ExportProcessing><ImproveDataOnExport>true</ImproveDataOnExport><ExportObjectNames>true</ExportObjectNames><SplitPeriodicFaces>true</SplitPeriodicFaces></ExportProcessing><Acis><ImportConvertBodiesToComponents>true</ImportConvertBodiesToComponents><ImportSplitBodyName>true</ImportSplitBodyName><ImportSplitBodyNameDelimiters>.</ImportSplitBodyNameDelimiters><ExportVersion>V27</ExportVersion><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits><ImportPmiData>false</ImportPmiData><ExportPmiData>false</ExportPmiData><ExportMaterialInformation>false</ExportMaterialInformation></Acis><Parasolid><ExportVersion>V27</ExportVersion><ShallowAssemblyExport>false</ShallowAssemblyExport></Parasolid><Step><ExportVersion>V214</ExportVersion><ImportStepMethod>UseFacewiseConnections</ImportStepMethod><OverrideUnits>false</OverrideUnits><NewUnits>MM</NewUnits><ExportFaceAndEdgeObjectIds>true</ExportFaceAndEdgeObjectIds><ImportPmiData>false</ImportPmiData></Step><ComponentSettings><AllowHiddenImport>false</AllowHiddenImport><AllowHiddenExport>true</AllowHiddenExport></ComponentSettings><Pdf><OverrideUnits>false</OverrideUnits><NewUnits>MM</NewUnits><ImportPmiData>false</ImportPmiData><ExportPmiData>false</ExportPmiData><U3DInputOption>ConnectedMesh</U3DInputOption><MergeFaces>false</MergeFaces></Pdf><PlmXml><ImportPmiData>true</ImportPmiData><ExportPmiData>false</ExportPmiData></PlmXml><Rhino><ImportConvertLayersToComponents>false</ImportConvertLayersToComponents><ExportConvertComponentsToLayers>false</ExportConvertComponentsToLayers><ExportVersion>V50</ExportVersion><OverrideUnits>false</OverrideUnits><NewUnits>MM</NewUnits><MeshInputOption>ConnectedMesh</MeshInputOption><MergeFaces>false</MergeFaces></Rhino><ProEngineer><ImportQuilts>true</ImportQuilts><ImportPmiData>false</ImportPmiData></ProEngineer><NX><ImportPmiData>false</ImportPmiData></NX><JT><Deviation>-1</Deviation><Angle>-1</Angle><JtkConfigFileUnits>Unknown</JtkConfigFileUnits><ResolutionType>Default</ResolutionType><ImportPmiData>false</ImportPmiData><ImportPolylines>false</ImportPolylines><ExportPmiData>false</ExportPmiData><ExportVersion>V81</ExportVersion><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits><FacetsInputOption>ConnectedMesh</FacetsInputOption><MergeFaces>false</MergeFaces><DataInputOption>Brep</DataInputOption></JT><IGES><ExportBodyType>MSBO</ExportBodyType><ExportUsingJAMAIgesSubset>false</ExportUsingJAMAIgesSubset><ImportIgesMethod>UseFacewiseConnections</ImportIgesMethod><OverrideUnits>false</OverrideUnits><NewUnits>MM</NewUnits></IGES><Vrml><Deviation>0.00075</Deviation><Angle>20</Angle><AspectRatio>-3</AspectRatio><ResolutionType>Medium</ResolutionType><OverrideQuality>false</OverrideQuality><OverrideUnits>true</OverrideUnits><NewUnits>M</NewUnits></Vrml><WorkbenchSettings><AlwaysUseSpatialReader>false</AlwaysUseSpatialReader><SolidBodies>true</SolidBodies><SurfaceBodies>true</SurfaceBodies><LineBodies>false</LineBodies><Parameters>1</Parameters><ParameterKey>ANS;DS</ParameterKey><NamedSelections>false</NamedSelections><NamedSelectionsKey>NS</NamedSelectionsKey><Attributes>false</Attributes><AttributeKey>SDFEA;DDM</AttributeKey><MaterialProperties>false</MaterialProperties><AnalysisType>1</AnalysisType><UseAssociativity>true</UseAssociativity><CoordinateSystems>false</CoordinateSystems><CoordinateSystemKey /><WorkPoints>false</WorkPoints><MergeBeams>true</MergeBeams><ReaderModeSavesUpdatedFile>false</ReaderModeSavesUpdatedFile><ImportUsingInstances>true</ImportUsingInstances><SmartCADUpdate>true</SmartCADUpdate><DecomposeDisjoingGeometry>true</DecomposeDisjoingGeometry><MixedImportResolution>0</MixedImportResolution><PMDBLengthUnitType>M</PMDBLengthUnitType></WorkbenchSettings><Obj><Deviation>0.00075</Deviation><Angle>20</Angle><AspectRatio>-3</AspectRatio><MaxEdgeLength>0</MaxEdgeLength><ResolutionType>Medium</ResolutionType><OverrideQuality>false</OverrideQuality><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits></Obj><Xaml><OverrideUnits>true</OverrideUnits><NewUnits>M</NewUnits></Xaml><Bip><Camera>Perspective</Camera></Bip><SketchUp><ImportAsMesh>false</ImportAsMesh><SimplifyToSurfaces>false</SimplifyToSurfaces><FixFaceNormals>false</FixFaceNormals><ExportVersion>MostRecent</ExportVersion></SketchUp><QIF><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits></QIF><TeamcenterFile><InstallLocation /><Discriminator>ANSYSWBPlugInTC</Discriminator></TeamcenterFile><TeamcenterUser><UserName /><Password /><Group /><Role /><SaveUserInfo>true</SaveUserInfo></TeamcenterUser><Icemcfd><ImportAsIndividualSurfaceBodies>true</ImportAsIndividualSurfaceBodies><OutputOption>FilePerDesign</OutputOption></Icemcfd><Fluent><OutputOption>FilePerDesign</OutputOption><MeshType>BlockingMesh</MeshType><MeshFormat>FaceBased</MeshFormat></Fluent><Gltf><TextureAsExternal>false</TextureAsExternal></Gltf></FileSettings><BetaOptions>false</BetaOptions><AdvSketching>true</AdvSketching><CreateDynamicConstraints>true</CreateDynamicConstraints><ViewProjectionAnimation>true</ViewProjectionAnimation><ConfigurationAnimation>false</ConfigurationAnimation><SkipReadOnlyFiles>false</SkipReadOnlyFiles><Animation>true</Animation><AnimateFullPull>true</AnimateFullPull><ShowKeyTips>false</ShowKeyTips><ShowTooltips>true</ShowTooltips><ShowViewOrientation>true</ShowViewOrientation><ShowMiniToolbarOnSelection>false</ShowMiniToolbarOnSelection><LogFilesToKeep>7</LogFilesToKeep><ToolGuidePosition>NotShown</ToolGuidePosition><GridGuidePosition>Corner</GridGuidePosition><GridGuideSize>Small</GridGuideSize><QATMru /><SymbolFileSearchPath /><UpgradeSettings>true</UpgradeSettings><AdjustAnsysSettings>true</AdjustAnsysSettings><AdjustOEMSettings>true</AdjustOEMSettings><AdjustSTLLicense>true</AdjustSTLLicense><CustomizedPanelTabs /><CustomizedRibbonTabs><item><key>JournalRibbonTab</key><value>False</value></item><item><key>RSRibbonTab</key><value>False</value></item><item><key>Ami.ControlsRibbonTab</key><value>False</value></item><item><key>KeyShotRibbonTab</key><value>False</value></item><item><key>GetKeyShotRibbonTab</key><value>True</value></item><item><key>HyperShotRibbonTab</key><value>False</value></item></CustomizedRibbonTabs><ShowAmiControlsRibbonTab>false</ShowAmiControlsRibbonTab><ShowJournalRibbonTab>false</ShowJournalRibbonTab><ShowRsAlliedRibbonTab>false</ShowRsAlliedRibbonTab><ShowRsAlliedRibbonTabModifiedOnce>false</ShowRsAlliedRibbonTabModifiedOnce><IsReducedTTM>true</IsReducedTTM><ColorSchemeBaseColor /><ShowStoredSelection>false</ShowStoredSelection><PreviewMode>Auto</PreviewMode><PreviewAutoThreshold>15000</PreviewAutoThreshold><DetailSettings><ProjectionArrowLength>0.014</ProjectionArrowLength><ShowAuxiliaryViewArrows>false</ShowAuxiliaryViewArrows><ShowProjectedViewArrows>false</ShowProjectedViewArrows><AuxiliaryViewLabelPrefix>VIEW</AuxiliaryViewLabelPrefix><ProjectedViewLabelPrefix>VIEW</ProjectedViewLabelPrefix><ShowNotesForAuxiliaryViews>false</ShowNotesForAuxiliaryViews><ShowNotesForProjectedViews>false</ShowNotesForProjectedViews><ChamferDimensionTextStyle>X45</ChamferDimensionTextStyle><ChamferDimensionStyle>Linear</ChamferDimensionStyle><ProjectionArrowsStyle>Double</ProjectionArrowsStyle><OrdinateDimsDimensionLineAndTextOrientation>HideCommonDimensionLineTextVertical</OrdinateDimsDimensionLineAndTextOrientation><OrdinateDimsShowZeroBaseline>true</OrdinateDimsShowZeroBaseline><DefaultDimensionArrowShape>Arrow</DefaultDimensionArrowShape><VirtualSharpRendering>None</VirtualSharpRendering><DetailViewBoundaryLineWeight>THIN</DetailViewBoundaryLineWeight><CrossSectionArrowLineWeight>THICK</CrossSectionArrowLineWeight><CenterLinesExtend>0.003</CenterLinesExtend><CentermarkCrossRadius>0</CentermarkCrossRadius><DatumSymbolAttachment /><DatumSymbolFrame /><ShowConstructionCurvesOffPlane>true</ShowConstructionCurvesOffPlane><AssignmentArray><Key>Annotation</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>AreaCrossHatchingBorderLines</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>BrokenOutSectionClippingEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>BrokenViewClippingEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CenterLines</Key><Value><LineStyleId>LongDashDash</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CrossHatching</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CrossHatchingBorderLines</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CrossSectionCutLineTips</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DatumTargetAreaBorder</Key><Value><LineStyleId>LongDashDoubleDotted</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DatumTargetLine</Key><Value><LineStyleId>LongDashDoubleDotted</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DetailViewClippingEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DrawingHiddenEdges</Key><Value><LineStyleId>Dash</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DrawingVisibleEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>ProjectionArrowTipsType</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>ProjectionArrowType</Key><Value><LineStyleId>LongDashDotted</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><UseThickLineWeightForAreaCrossSectionBorderLines>true</UseThickLineWeightForAreaCrossSectionBorderLines><DefaultThickLineWeight>0.0007</DefaultThickLineWeight><DefaultMediumLineWeight>0.000525</DefaultMediumLineWeight><DefaultDetailViewClippedEdgeExtent>0</DefaultDetailViewClippedEdgeExtent><DefaultBrokenViewClippedEdgeExtent>0</DefaultBrokenViewClippedEdgeExtent><DefaultForeshortenedCenterSize>0.004</DefaultForeshortenedCenterSize><DefaultThinLineWeight>0.00035</DefaultThinLineWeight><DefaultSectionNameNotePrefix>SECTION</DefaultSectionNameNotePrefix><CrossSectionArrowOutwardDistance>0</CrossSectionArrowOutwardDistance><CrossSectionArrowPenetrationDistance>0.0075</CrossSectionArrowPenetrationDistance><IsTrimBackProportional>false</IsTrimBackProportional><DetailViewNoteDetailText>DETAIL</DetailViewNoteDetailText><DetailViewNoteScaleText>SCALE</DetailViewNoteScaleText><DefaultTextHeight>0.0035</DefaultTextHeight><DetailViewNameTextHeightRatio>1.4</DetailViewNameTextHeightRatio><SectionLineArrowSize>0.0028</SectionLineArrowSize><SectionLineLength>0.014</SectionLineLength><LeaderCircleSize>0.0009</LeaderCircleSize><LeaderArrowLength>0.0025</LeaderArrowLength><LeaderArrowWidth>0.0006</LeaderArrowWidth><DefaultLeaderShoulderLength>0.00564444444</DefaultLeaderShoulderLength><LeaderTextBoxGap>0.00141111111</LeaderTextBoxGap><EnforceDimensionLine>false</EnforceDimensionLine><DimensionTextIsHorizontal>true</DimensionTextIsHorizontal><TightDimensionTextDistance>false</TightDimensionTextDistance><DimensionTextOffset>0</DimensionTextOffset><DefaultGtolFontName>SpaceClaim ASME CB</DefaultGtolFontName><DefaultGtolFontGdtStandard>ASME</DefaultGtolFontGdtStandard><ExtensionLineGap>0.001</ExtensionLineGap><ExtensionLineExtend>0.002</ExtensionLineExtend><DimensionLineExtend>0.006</DimensionLineExtend><MinimumDefaultHatchSpacing>0.0007</MinimumDefaultHatchSpacing><MaximumDefaultHatchSpacing>0.02</MaximumDefaultHatchSpacing><AnnotationCreationColor>Black</AnnotationCreationColor><DetailViewClippedEdgesColor>Black</DetailViewClippedEdgesColor><BrokenViewClippedEdgesColor>Black</BrokenViewClippedEdgesColor><DetailViewBoundaryRendering>PhantomThin</DetailViewBoundaryRendering><CrossSectionArrowsRendering>PhantomThick</CrossSectionArrowsRendering><DetailViewNoteLayout>TwoLines</DetailViewNoteLayout><DetailViewNotePlacementOnBoundary>Centered</DetailViewNotePlacementOnBoundary><DefaultViewProjection>ThirdAngle</DefaultViewProjection><DefaultViewLayout>BottomLeft</DefaultViewLayout><DefaultFillStyle>Filled</DefaultFillStyle><DefaultDimensionTextLocation>MiddleOfTopLine</DefaultDimensionTextLocation><DefaultToleranceVerticalPosition>Middle</DefaultToleranceVerticalPosition><CrossSectionArrowDirectionDisplayStyle>From</CrossSectionArrowDirectionDisplayStyle><FractionalScaleDivider>:</FractionalScaleDivider><ThreadDisplayStandard>AsmeSimplified</ThreadDisplayStandard><ThreadDiameterDimensionDesignationTextOption>Never</ThreadDiameterDimensionDesignationTextOption><DatumCalloutTextHeightRatio>3.5</DatumCalloutTextHeightRatio><DatumTargetPointSize>0.00494975</DatumTargetPointSize><DatumTargetHatchSpacing>0.001</DatumTargetHatchSpacing><DatumTargetHatchAngle>0.78539816339744828</DatumTargetHatchAngle><DatumCalloutDefaultLeaderArrowShape>None</DatumCalloutDefaultLeaderArrowShape><DatumTargetShowLineEndPoints>true</DatumTargetShowLineEndPoints><HideAnnotationsBehindModel>false</HideAnnotationsBehindModel><WeldingSymbolStandard>AWS</WeldingSymbolStandard><GDTStandard>ASME</GDTStandard><SystemOfFits>HoleBasis</SystemOfFits><HoleFundamentalDeviation>H_H</HoleFundamentalDeviation><ShaftFundamentalDeviation>S_h</ShaftFundamentalDeviation><HoleInternationalToleranceGrade>IT7</HoleInternationalToleranceGrade><ShaftInternationalToleranceGrade>IT6</ShaftInternationalToleranceGrade><MethodOfDesignatingTolerances>ToleranceClass</MethodOfDesignatingTolerances><DefaultNoteSpace>ViewSpace</DefaultNoteSpace></DetailSettings><ShowOrigin>true</ShowOrigin><ShowSpinCenter>true</ShowSpinCenter><RotationType>AroundPoint</RotationType><MouseWheelZoom>ZoomDefault</MouseWheelZoom><ShowCrossSections>true</ShowCrossSections><ShowCrossSectionsFaces>true</ShowCrossSectionsFaces><ShowCursorHints>true</ShowCursorHints><ShowFaceHighlight>true</ShowFaceHighlight><ShowFaceSpotlight>false</ShowFaceSpotlight><PreferShadedEnhanced>true</PreferShadedEnhanced><CursorHintsTransparency>25</CursorHintsTransparency><MoveGizmoSize>110</MoveGizmoSize><UseBackgroundLoading>true</UseBackgroundLoading><AllowXMLErrors>false</AllowXMLErrors><DefaultFormatSetting><UseFormat>true</UseFormat><IsCustom>false</IsCustom><Width>0.4318</Width><Height>0.2794</Height><RelativeFormatName>B Landscape.scdoc</RelativeFormatName></DefaultFormatSetting><DefaultFontForNewWindows>SpaceClaim ASME CB</DefaultFontForNewWindows><DefaultGraphicsStyle>Shaded</DefaultGraphicsStyle><DefaultHatchFillStyle>Hatch</DefaultHatchFillStyle><AutoscaleDrawingOption>true</AutoscaleDrawingOption><CreateAreaCrossSections>false</CreateAreaCrossSections><DefaultDrawingScaleOption>1</DefaultDrawingScaleOption><CarGridSettings><DrawBaloon>false</DrawBaloon><AutomaticallyShowCarGridDescription>false</AutomaticallyShowCarGridDescription><CarGridDescriptionLabel> Modular grid : </CarGridDescriptionLabel><FormatSettings><XNegativeSuffix>X</XNegativeSuffix><XZeroSuffix>X</XZeroSuffix><XPositiveSuffix>X</XPositiveSuffix><YNegativeSuffix>Y</YNegativeSuffix><YZeroSuffix>Y</YZeroSuffix><YPositiveSuffix>Y</YPositiveSuffix><ZNegativeSuffix>Z</ZNegativeSuffix><ZZeroSuffix>Z</ZZeroSuffix><ZPositiveSuffix>Z</ZPositiveSuffix><XNegativeAxisPrefix>-</XNegativeAxisPrefix><XPositiveAxisPrefix /><YNegativeAxisPrefix>-</YNegativeAxisPrefix><YPositiveAxisPrefix /><ZNegativeAxisPrefix>-</ZNegativeAxisPrefix><ZPositiveAxisPrefix /><XAxisName>X</XAxisName><YAxisName>Y</YAxisName><ZAxisName>Z</ZAxisName></FormatSettings><FontName>SpaceClaim ASME CB</FontName><FontSize>0.0035</FontSize><AutoCreateMode>DoNotCreate</AutoCreateMode><AutomaticallyShowOrigin>true</AutomaticallyShowOrigin><CarGridColor>Black</CarGridColor><LineStyle>Solid</LineStyle><LineWeight>Thin</LineWeight><Interval>0.01</Interval><IntervalsPerGridLine>1</IntervalsPerGridLine><HorizontalAxisDescriptionLocation>Both</HorizontalAxisDescriptionLocation><VerticalAxisDescriptionLocation>Both</VerticalAxisDescriptionLocation></CarGridSettings><CheckForUpdatesOnStartup>true</CheckForUpdatesOnStartup><ShowCurvesCenters>true</ShowCurvesCenters><OffsetEdgesByGeodesicCalculation>false</OffsetEdgesByGeodesicCalculation><CreateDefaultComponent>false</CreateDefaultComponent><SpaceClaimColorScheme>true</SpaceClaimColorScheme><LightweightAssemblies>false</LightweightAssemblies><AddIns /><StickyDatumAxisCount>3</StickyDatumAxisCount><ShowOffsetBaselineFaces>true</ShowOffsetBaselineFaces><ShowCoaxialFaces>true</ShowCoaxialFaces><ImportCreatesExternalAssembly>false</ImportCreatesExternalAssembly><LicenseExpirationDays>45</LicenseExpirationDays><LicenseExclusions /><AnsysLicenseInclusions /><BorrowLicenseExclusions /><RotateAboutPreselected>false</RotateAboutPreselected><FastImport>false</FastImport><ClipSceneWithGrid>true</ClipSceneWithGrid><DimSceneUnderGrid>true</DimSceneUnderGrid><MaxNumberJournalFiles>50</MaxNumberJournalFiles><MaxUndoSteps>50</MaxUndoSteps><ApplicationInvocationCount>0</ApplicationInvocationCount><EmbeddedInvocationCount>0</EmbeddedInvocationCount><ShowAimPopup>true</ShowAimPopup><ShowSuppressPopup>true</ShowSuppressPopup><CockpitTreePinned>false</CockpitTreePinned><CockpitTreeCollapsed>false</CockpitTreeCollapsed><CockpitOptionsPinned>false</CockpitOptionsPinned><CockpitOptionsCollapsed>false</CockpitOptionsCollapsed><CockpitHintsShown>true</CockpitHintsShown><SaveAfterImport>false</SaveAfterImport><SplashAssemblyCount>0</SplashAssemblyCount><DragThresholdMiliseconds>150</DragThresholdMiliseconds><SheetMetalSettings><DefaultThickness>0.001</DefaultThickness><DefaultInnerBendRadius>0.0005</DefaultInnerBendRadius><DefaultInnerBendRadiusRatio>1</DefaultInnerBendRadiusRatio><DefaultInnerBendRadiusValueType>Ratio</DefaultInnerBendRadiusValueType><DefaultKFactorType>Variable</DefaultKFactorType><DefaultKFactor>0.27323954473516271</DefaultKFactor><DefaultFaceRipRatioWidth>0.1</DefaultFaceRipRatioWidth><DefaultFaceRipAbsoluteWidth>0.0001</DefaultFaceRipAbsoluteWidth><DefaultFaceRipWidthValueType>AbsoluteValue</DefaultFaceRipWidthValueType><DefaultJunctionOverlap>0.5</DefaultJunctionOverlap><DefaultWallClearanceRatio>0.0001</DefaultWallClearanceRatio><DefaultWallClearanceAbsolute>1E-07</DefaultWallClearanceAbsolute><DefaultWallClearanceValueType>AbsoluteValue</DefaultWallClearanceValueType><DefaultBendReliefType>RoundedNotch</DefaultBendReliefType><DefaultBendReliefWidthValueType>Ratio</DefaultBendReliefWidthValueType><DefaultBendReliefRatioWidth>0.5</DefaultBendReliefRatioWidth><DefaultBendReliefAbsoluteWidth>0.0005</DefaultBendReliefAbsoluteWidth><DefaultBendReliefDepthValueType>Ratio</DefaultBendReliefDepthValueType><DefaultBendReliefRatioDepth>0.5</DefaultBendReliefRatioDepth><DefaultBendReliefAbsoluteDepth>0.0005</DefaultBendReliefAbsoluteDepth><DefaultCornerReliefType>Default</DefaultCornerReliefType><DefaultCornerReliefDepthValueType>Ratio</DefaultCornerReliefDepthValueType><DefaultCornerReliefRatioDepth>0.25</DefaultCornerReliefRatioDepth><DefaultCornerReliefAbsoluteDepth>0.00025</DefaultCornerReliefAbsoluteDepth><Create2DCorners>false</Create2DCorners><AutoRoundDXFRadiusValueType>Ratio</AutoRoundDXFRadiusValueType><AutoRoundDXF>false</AutoRoundDXF><AutoRoundDXFRadiusRatio>0.5</AutoRoundDXFRadiusRatio><AutoRoundDXFRadiusAbsolute>0.0005</AutoRoundDXFRadiusAbsolute><ExportBendExtentLinesDXF>false</ExportBendExtentLinesDXF><HighlightSheets>true</HighlightSheets><HighlightBaselines>false</HighlightBaselines><HighlightJunctions>true</HighlightJunctions><HighlightReliefs>true</HighlightReliefs><HighlightForms>true</HighlightForms><HighlightJoggles>true</HighlightJoggles><HighlightNotches>true</HighlightNotches><HighlightBeads>true</HighlightBeads><HighlightHems>true</HighlightHems><HighlightGussets>true</HighlightGussets><HighlightTabs>true</HighlightTabs><HighlightHinges>true</HighlightHinges><HighlightMiters>true</HighlightMiters><HighlightPanelBends>true</HighlightPanelBends><ShowFlatBendExtents>true</ShowFlatBendExtents><BaseColor>143, 159, 175</BaseColor><JunctionColor>183, 120, 210</JunctionColor><EdgeReliefColor>254, 253, 134</EdgeReliefColor><CornerReliefColor>254, 253, 134</CornerReliefColor><JoggleColor>255, 147, 198</JoggleColor><FormColor>191, 139, 64</FormColor><NotchColor>10, 255, 139</NotchColor><BeadColor>191, 139, 64</BeadColor><HemColor>140, 180, 14</HemColor><GussetColor>191, 139, 64</GussetColor><TabColor>Cyan</TabColor><HingeColor>Cyan</HingeColor><MiterColor>254, 200, 134</MiterColor><PanelBendColor>191, 139, 64</PanelBendColor><LayerBendLinesUp><Color>Green</Color><Visible>false</Visible><LineStyleType>Solid</LineStyleType><LineWeight>Thin</LineWeight></LayerBendLinesUp><LayerBendLinesDown><Color>Green</Color><Visible>false</Visible><LineStyleType>Dash</LineStyleType><LineWeight>Thin</LineWeight></LayerBendLinesDown><LayerForms><Color>Blue</Color><Visible>false</Visible><LineStyleType>Dash</LineStyleType><LineWeight>Thin</LineWeight></LayerForms><LayerBendText><Color>Black</Color><Visible>false</Visible><LineStyleType>Solid</LineStyleType><LineWeight>Thin</LineWeight></LayerBendText><LayerDimensions><Color>Black</Color><Visible>true</Visible><LineStyleType>Solid</LineStyleType><LineWeight>Thin</LineWeight></LayerDimensions><LayerMarkers><Color>Blue</Color><Visible>true</Visible><LineStyleType>Dash</LineStyleType><LineWeight>Thin</LineWeight></LayerMarkers><BendAnnotations>PlusMinusAngle</BendAnnotations><TrimBendLinesUnfolded>false</TrimBendLinesUnfolded><ToolOptionsSetting><SheetSide>None</SheetSide><DimensionReference>None</DimensionReference><HemOption>None</HemOption></ToolOptionsSetting></SheetMetalSettings><HoleSettings><DefaultThreadDepthRatio>2</DefaultThreadDepthRatio><DefaultDrillPointAngle>118</DefaultDrillPointAngle></HoleSettings><MeshSettings><Deviation>0.00075</Deviation><AspectRatio>-3</AspectRatio><MaxEdgeLength>0</MaxEdgeLength><Angle>8</Angle><ResolutionType>Medium</ResolutionType></MeshSettings><InflationSettings><DefaultInflationOption>SmoothTransition</DefaultInflationOption><DefaultTransitionRatio>0.272</DefaultTransitionRatio><DefaultFirstAspectRatio>5</DefaultFirstAspectRatio><DefaultFirstLayerHeight>0.001</DefaultFirstLayerHeight><DefaultMaxLayers>5</DefaultMaxLayers><DefaultNumLayers>5</DefaultNumLayers><DefaultGrowthRate>1.2</DefaultGrowthRate><DefaultMaxThickness>0.001</DefaultMaxThickness><DefaultAspectRatio>3</DefaultAspectRatio><DefaultCollisionAvoidance>StairStepping</DefaultCollisionAvoidance><DefaultFixFirstLayer>No</DefaultFixFirstLayer><DefaultGapFactor>0.5</DefaultGapFactor><DefaultMaxHeightOverBase>0.1</DefaultMaxHeightOverBase><DefaultMaxAngle>2.4434609527920612</DefaultMaxAngle><DefaultFilletRatio>1</DefaultFilletRatio><DefaultGrowthRateType>Geometric</DefaultGrowthRateType><DefaultUsePostSmoothing>Yes</DefaultUsePostSmoothing><DefaultSmoothIteration>5</DefaultSmoothIteration></InflationSettings><BlockingSettings><AutomaticMultiThreading>true</AutomaticMultiThreading><UseParallelPartBlocking>false</UseParallelPartBlocking><NumberOfThreads>16</NumberOfThreads><EnableAdvancedTools>true</EnableAdvancedTools><NormalProjection>false</NormalProjection><AssociateInner>false</AssociateInner></BlockingSettings><AmiMeshSettings><ElementOrderOption>Quadratic</ElementOrderOption><FreeMeshTypeOption>HexCore</FreeMeshTypeOption><CurvatureFlag>false</CurvatureFlag><ProximityFlag>false</ProximityFlag><BiasEdgeSizesFlag>true</BiasEdgeSizesFlag></AmiMeshSettings><RadialMenuSettings><Enabled>false</Enabled><ShowOnLeftMouseHold>false</ShowOnLeftMouseHold><ShowOnRocker>true</ShowOnRocker><LeftMouseHoldDelay>500</LeftMouseHoldDelay><Diameter>250</Diameter></RadialMenuSettings><MouseGestures><string>L, Undo</string><string>R, Redo</string><string>RLR, Delete</string><string>9L3, Cut</string><string>93, Copy</string><string>39, Paste</string><string>93L, SelectAll</string><string>UR1, Print</string><string>U, Select</string><string>D, PullTool</string><string>DU, Transform</string><string>UDUD, MeasureTool</string><string>LDR, IntersectTool</string><string>DRU, ShellTool</string><string>DRD, ThinTool</string><string>131, SplitBodyTool</string><string>9393, Mirror</string><string>LU, SetModeSketch</string><string>LR, SetModeSection</string><string>LD, SetMode3D</string><string>DR, Line</string><string>DL, Circle</string><string>DUR, Rect</string><string>URD, Home</string><string>R1R, ZoomExtents</string><string>RU, ViewTrimetric</string><string>RD, ViewOntoSection</string><string>1R, PreviousView</string><string>3L, NextView</string><string>79, ZoomOut</string><string>97, ZoomOut</string><string>31, ZoomIn</string><string>13, ZoomIn</string><string>7R, ViewRotate90Clockwise</string><string>9L, ViewRotate90CounterClockwise</string><string>U3U, New</string><string>U3UR, NewWindow</string><string>LRL, CloseDocument</string><string>UL, NavigateWindowsReverse</string><string>UR, NavigateWindowsForward</string><string>URL, CreateRefDatum</string><string>RDLU, Fill</string><string>DUD, SplitFace</string><string>3R, ProjectToSketch</string><string>DRL, CreateDatumLine</string><string>+,ShowRadialMenu</string><string>-,ShowRadialMenu</string><string>RLD, InsertFromFile</string><string>LDRU, Open</string><string>U3UL, NewDrawingSheet</string><string>91, Rotate</string><string>19, Pan</string><string>37, Zoom</string><string>RUR, SaveAs</string><string>UD, Hide</string><string>UR3, ReplaceComponent</string><string>RLU, TrimCorner</string><string>RL, TrimExtend</string><string>LDL, Spline</string><string>R3D, ThreePointArc</string><string>U9R, TangentArc</string><string>73, CreateRulerDimension</string><string>3U, ToolGuideUpTo</string><string>9D, AnnotationPlaneDimension</string><string>7D, CreateNote</string><string>DR7, Loft</string></MouseGestures><TextHeightUnits>INCHES</TextHeightUnits><MetricTextHeightUnits>MM</MetricTextHeightUnits><EnableAutoExtrude>false</EnableAutoExtrude><ShowWelcomeScreen>false</ShowWelcomeScreen><CheckForWelcomeScreenUpdates>true</CheckForWelcomeScreenUpdates><AutoCalculatePowerSelection>true</AutoCalculatePowerSelection><PowerSelectionAbsoluteTolerance>1E-06</PowerSelectionAbsoluteTolerance><PowerSelectionRelativeTolerance>0.01</PowerSelectionRelativeTolerance><SpinStyle>MMB</SpinStyle><PanStyle>MMBandShift</PanStyle><ZoomStyle>MMBandCtrl</ZoomStyle><RotationStyle>ArcBall</RotationStyle><ZoomInDirection>DownWards</ZoomInDirection><ZoomInWheelDirection>DownWards</ZoomInWheelDirection><ZoomSpeed>1</ZoomSpeed><SpinSpeed>1</SpinSpeed><FillToolShowDeviation>false</FillToolShowDeviation><HyperShotCamera>Perspective</HyperShotCamera><OemFileFilterName /><OemFileExtension>.dsco</OemFileExtension><CheckGeometryOnImport>false</CheckGeometryOnImport><ImageCompareTolerance>1</ImageCompareTolerance><MultiTouch>true</MultiTouch><ShowTouchSpots>true</ShowTouchSpots><MultiTouchStyle>Alternative</MultiTouchStyle><MultiTouchGizmo>Right</MultiTouchGizmo><MultiTouchQueryNextDirection>N</MultiTouchQueryNextDirection><ConsumeAnsysLicensesForSession>false</ConsumeAnsysLicensesForSession><ConsumeTranslatorLicensesForSession>true</ConsumeTranslatorLicensesForSession><TopViewDirection>Z</TopViewDirection><ShowSpaceClaimDefaultFormatsInTheUserInterface>true</ShowSpaceClaimDefaultFormatsInTheUserInterface><PrintShadedQuality>0</PrintShadedQuality><ClipViewClipSelection>false</ClipViewClipSelection><AutosaveInterval>15</AutosaveInterval><AutosaveLocation /><Autosave>true</Autosave><AutosavePurgeInterval>5</AutosavePurgeInterval><CheckLoadTime>false</CheckLoadTime><InitialLoadTimeThreshold>3</InitialLoadTimeThreshold><FullLoadTimeThreshold>15</FullLoadTimeThreshold><JournalUpload>false</JournalUpload><ZipArchive>false</ZipArchive><DefaultPullExtrudeBehavior>Automatic</DefaultPullExtrudeBehavior><AddToolGraphicsToSceneImage>false</AddToolGraphicsToSceneImage><AddDatumsToSceneImage>true</AddDatumsToSceneImage><ShowProgressPopup>true</ShowProgressPopup><FIPSCompliance>false</FIPSCompliance><UseTemplateFile>false</UseTemplateFile><TemplateFileLocation /><UseDefaultOpen>false</UseDefaultOpen><DefaultOpenLocation /><UseDefaultSave>false</UseDefaultSave><DefaultSaveLocation /><ShowStandardHoles>true</ShowStandardHoles><PrintToPdf>false</PrintToPdf><ExpandAssembly>false</ExpandAssembly><DesignBackground>Gradient</DesignBackground><DesignBackgroundGradient>Radial</DesignBackgroundGradient><DesignEnvironment /><ShowDesignEnvironment>false</ShowDesignEnvironment><ShowGestureTrail>true</ShowGestureTrail><ShowMeshSelectionOccluded>true</ShowMeshSelectionOccluded><LightingScheme>Default</LightingScheme><Pdf2DShadedQuality>110</Pdf2DShadedQuality><Pdf2DSaveAllSheets>false</Pdf2DSaveAllSheets><DrawingExportImageQuality>100</DrawingExportImageQuality><DrawingExportImageContent>Sheet</DrawingExportImageContent><SceneAsImageTransparentBackground>false</SceneAsImageTransparentBackground><StandardHoleColor>0, 195, 218</StandardHoleColor><CatiaTimeout>2</CatiaTimeout><LockSpinInDrawings>false</LockSpinInDrawings><RenderingEnvironmentsFolder>%SPACECLAIMINSTALLDIR%\Library\Rendering\Environments</RenderingEnvironmentsFolder><UseBomTemplateFile>false</UseBomTemplateFile><SearchSpecialFolders>false</SearchSpecialFolders><BomTemplateFileLocation /><ImportStlUnits /><ImportObjUnits /><MeshSelectionGranularity>Fine</MeshSelectionGranularity><MeshSectionFitCurves>true</MeshSectionFitCurves><MeshPaintSelectionRadius>10</MeshPaintSelectionRadius><ShowSectionPoints>false</ShowSectionPoints><ShowMechSparkStepWarning>true</ShowMechSparkStepWarning><ShowXPWarning>true</ShowXPWarning><ShowRsBlankPartNumberWarning>true</ShowRsBlankPartNumberWarning><ConnectServerAddress>beta.sc-cloud.com</ConnectServerAddress><ConnectOverrideDefaultServer>false</ConnectOverrideDefaultServer><OverlayVectorEdges>false</OverlayVectorEdges><ConnectProxyServerAddress /><ConnectProxyPort /><ConnectProxyUserName /><ConnectProxyUserPassword /><ConnectProxyOptionalDomain /><ConnectUserName /><ShowKeyShotTab>false</ShowKeyShotTab><ShowGetKeyShotTab>true</ShowGetKeyShotTab><ShowHyperShotTab>false</ShowHyperShotTab><KeyShotInstalled>false</KeyShotInstalled><MfgCurveTableCreateTableForMfg>false</MfgCurveTableCreateTableForMfg><MfgCurveTableUseDiamAboutAxis>true</MfgCurveTableUseDiamAboutAxis><MfgCurveTableUseIJKForArcCenter>true</MfgCurveTableUseIJKForArcCenter><MfgCurveTableUseAbsIJKForArcCenter>false</MfgCurveTableUseAbsIJKForArcCenter><FacetsExtendSelectionSharpAngle>0.7853981634</FacetsExtendSelectionSharpAngle><ClipViewShape>Sphere</ClipViewShape><ShowDiscoveryLastError>true</ShowDiscoveryLastError><ShowDiscoveryUndoStackClearedMessage>true</ShowDiscoveryUndoStackClearedMessage><IgnoreFindFixLimit>false</IgnoreFindFixLimit><CopyPasteCascadeOffset>2</CopyPasteCascadeOffset><EnableLefthandMirrorTransforms>false</EnableLefthandMirrorTransforms><TryReplaceSrMaterialLibrary>true</TryReplaceSrMaterialLibrary><ShowApolloMinimumFeatureSize>false</ShowApolloMinimumFeatureSize><MultiThreadedFaceting>true</MultiThreadedFaceting><SkipFastMouseThreshold>500</SkipFastMouseThreshold><UnitsUseWorkbenchProjectUnit>false</UnitsUseWorkbenchProjectUnit><UseWorkbenchLanguage>false</UseWorkbenchLanguage><WorkbenchLanguage>en</WorkbenchLanguage></UserSettings>
+S=14,WC=MF,DC=SetApplicationSettingsCommand,<ApplicationSettings><ClickThreshold>5</ClickThreshold><DragThreshold>3</DragThreshold><CoordSysAxisLength>30</CoordSysAxisLength></ApplicationSettings>
+S=15,WC=MF,DC=OS,True
+S=16,WC=MF,DC=OD,RenderingMode (Shaded)
+S=17,WC=MF,DC=OW,1
+S=18,WC=MF,DC=InitializeDetailSettingsCommand,<SetDetailSettingsCommandArguments><ApplyToAllFutureDocuments>false</ApplyToAllFutureDocuments><ApplyToCurrentObject>true</ApplyToCurrentObject><UserSettings><ProjectionArrowLength>0.014</ProjectionArrowLength><ShowAuxiliaryViewArrows>false</ShowAuxiliaryViewArrows><ShowProjectedViewArrows>false</ShowProjectedViewArrows><AuxiliaryViewLabelPrefix>VIEW</AuxiliaryViewLabelPrefix><ProjectedViewLabelPrefix>VIEW</ProjectedViewLabelPrefix><ShowNotesForAuxiliaryViews>false</ShowNotesForAuxiliaryViews><ShowNotesForProjectedViews>false</ShowNotesForProjectedViews><ChamferDimensionTextStyle>X45</ChamferDimensionTextStyle><ChamferDimensionStyle>Linear</ChamferDimensionStyle><ProjectionArrowsStyle>Double</ProjectionArrowsStyle><OrdinateDimsDimensionLineAndTextOrientation>HideCommonDimensionLineTextVertical</OrdinateDimsDimensionLineAndTextOrientation><OrdinateDimsShowZeroBaseline>true</OrdinateDimsShowZeroBaseline><DefaultDimensionArrowShape>Arrow</DefaultDimensionArrowShape><VirtualSharpRendering>None</VirtualSharpRendering><DetailViewBoundaryLineWeight>THIN</DetailViewBoundaryLineWeight><CrossSectionArrowLineWeight>THICK</CrossSectionArrowLineWeight><CenterLinesExtend>0.003</CenterLinesExtend><CentermarkCrossRadius>0</CentermarkCrossRadius><DatumSymbolAttachment /><DatumSymbolFrame /><ShowConstructionCurvesOffPlane>true</ShowConstructionCurvesOffPlane><AssignmentArray><Key>Annotation</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>AreaCrossHatchingBorderLines</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>BrokenOutSectionClippingEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>BrokenViewClippingEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CenterLines</Key><Value><LineStyleId>LongDashDash</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CrossHatching</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CrossHatchingBorderLines</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CrossSectionCutLineTips</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DatumTargetAreaBorder</Key><Value><LineStyleId>LongDashDoubleDotted</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DatumTargetLine</Key><Value><LineStyleId>LongDashDoubleDotted</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DetailViewClippingEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DrawingHiddenEdges</Key><Value><LineStyleId>Dash</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DrawingVisibleEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>ProjectionArrowTipsType</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>ProjectionArrowType</Key><Value><LineStyleId>LongDashDotted</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><UseThickLineWeightForAreaCrossSectionBorderLines>true</UseThickLineWeightForAreaCrossSectionBorderLines><DefaultThickLineWeight>0.0007</DefaultThickLineWeight><DefaultMediumLineWeight>0.000525</DefaultMediumLineWeight><DefaultDetailViewClippedEdgeExtent>0</DefaultDetailViewClippedEdgeExtent><DefaultBrokenViewClippedEdgeExtent>0</DefaultBrokenViewClippedEdgeExtent><DefaultForeshortenedCenterSize>0.004</DefaultForeshortenedCenterSize><DefaultThinLineWeight>0.00035</DefaultThinLineWeight><DefaultSectionNameNotePrefix>SECTION</DefaultSectionNameNotePrefix><CrossSectionArrowOutwardDistance>0</CrossSectionArrowOutwardDistance><CrossSectionArrowPenetrationDistance>0.0075</CrossSectionArrowPenetrationDistance><IsTrimBackProportional>false</IsTrimBackProportional><DetailViewNoteDetailText>DETAIL</DetailViewNoteDetailText><DetailViewNoteScaleText>SCALE</DetailViewNoteScaleText><DefaultTextHeight>0.0035</DefaultTextHeight><DetailViewNameTextHeightRatio>1.4</DetailViewNameTextHeightRatio><SectionLineArrowSize>0.0028</SectionLineArrowSize><SectionLineLength>0.014</SectionLineLength><LeaderCircleSize>0.0009</LeaderCircleSize><LeaderArrowLength>0.0025</LeaderArrowLength><LeaderArrowWidth>0.0006</LeaderArrowWidth><DefaultLeaderShoulderLength>0.00564444444</DefaultLeaderShoulderLength><LeaderTextBoxGap>0.00141111111</LeaderTextBoxGap><EnforceDimensionLine>false</EnforceDimensionLine><DimensionTextIsHorizontal>true</DimensionTextIsHorizontal><TightDimensionTextDistance>false</TightDimensionTextDistance><DimensionTextOffset>0</DimensionTextOffset><DefaultGtolFontName>SpaceClaim ASME CB</DefaultGtolFontName><DefaultGtolFontGdtStandard>ASME</DefaultGtolFontGdtStandard><ExtensionLineGap>0.001</ExtensionLineGap><ExtensionLineExtend>0.002</ExtensionLineExtend><DimensionLineExtend>0.006</DimensionLineExtend><MinimumDefaultHatchSpacing>0.0007</MinimumDefaultHatchSpacing><MaximumDefaultHatchSpacing>0.02</MaximumDefaultHatchSpacing><AnnotationCreationColor>Black</AnnotationCreationColor><DetailViewClippedEdgesColor>Black</DetailViewClippedEdgesColor><BrokenViewClippedEdgesColor>Black</BrokenViewClippedEdgesColor><DetailViewBoundaryRendering>PhantomThin</DetailViewBoundaryRendering><CrossSectionArrowsRendering>PhantomThick</CrossSectionArrowsRendering><DetailViewNoteLayout>TwoLines</DetailViewNoteLayout><DetailViewNotePlacementOnBoundary>Centered</DetailViewNotePlacementOnBoundary><DefaultViewProjection>ThirdAngle</DefaultViewProjection><DefaultViewLayout>BottomLeft</DefaultViewLayout><DefaultFillStyle>Filled</DefaultFillStyle><DefaultDimensionTextLocation>MiddleOfTopLine</DefaultDimensionTextLocation><DefaultToleranceVerticalPosition>Middle</DefaultToleranceVerticalPosition><CrossSectionArrowDirectionDisplayStyle>From</CrossSectionArrowDirectionDisplayStyle><FractionalScaleDivider>:</FractionalScaleDivider><ThreadDisplayStandard>AsmeSimplified</ThreadDisplayStandard><ThreadDiameterDimensionDesignationTextOption>Never</ThreadDiameterDimensionDesignationTextOption><DatumCalloutTextHeightRatio>3.5</DatumCalloutTextHeightRatio><DatumTargetPointSize>0.00494975</DatumTargetPointSize><DatumTargetHatchSpacing>0.001</DatumTargetHatchSpacing><DatumTargetHatchAngle>0.78539816339744828</DatumTargetHatchAngle><DatumCalloutDefaultLeaderArrowShape>None</DatumCalloutDefaultLeaderArrowShape><DatumTargetShowLineEndPoints>true</DatumTargetShowLineEndPoints><HideAnnotationsBehindModel>false</HideAnnotationsBehindModel><WeldingSymbolStandard>AWS</WeldingSymbolStandard><GDTStandard>ASME</GDTStandard><SystemOfFits>HoleBasis</SystemOfFits><HoleFundamentalDeviation>H_H</HoleFundamentalDeviation><ShaftFundamentalDeviation>S_h</ShaftFundamentalDeviation><HoleInternationalToleranceGrade>IT7</HoleInternationalToleranceGrade><ShaftInternationalToleranceGrade>IT6</ShaftInternationalToleranceGrade><MethodOfDesignatingTolerances>ToleranceClass</MethodOfDesignatingTolerances><DefaultNoteSpace>ViewSpace</DefaultNoteSpace></UserSettings></SetDetailSettingsCommandArguments>
+S=19,WINDOW=WINDOWSIZE,1327,683,False
+
+S=20,UI_CMD=Disco.CloseWelcomeScreen
+S=21,UI_CMD=Disco.CloseStartPage
+S=22,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=23,WC=DesignScene-1:1,MC=MM,1186,0,0,0,"None",-8586097910265141055
+S=24,WC=DesignScene-1:1,MC=MM,1177,3,0,0,"None",-8586097910261760173
+S=25,WC=DesignScene-1:1,MC=MM,1170,5,0,0,"None",-8586097910261603545
+S=26,WC=DesignScene-1:1,MC=MM,1168,7,0,0,"None",-8586097910261134777
+S=27,WC=DesignScene-1:1,MC=MM,1164,10,0,0,"None",-8586097910260978576
+S=28,WC=DesignScene-1:1,MC=MM,1155,15,0,0,"None",-8586097910260822425
+S=29,WC=DesignScene-1:1,MC=MM,1147,22,0,0,"None",-8586097910260288125
+S=30,WC=DesignScene-1:1,MC=MM,1141,24,0,0,"None",-8586097910259754057
+S=31,WC=DesignScene-1:1,MC=MM,1107,27,0,0,"None",-8586097910259128827
+S=32,WC=DesignScene-1:1,MC=MM,971,32,0,0,"None",-8586097910258438236
+S=33,WC=DesignScene-1:1,MC=MM,665,52,0,0,"None",-8586097910257969526
+S=34,WC=DesignScene-1:1,MC=MM,438,56,0,0,"None",-8586097910257279071
+S=35,WC=DesignScene-1:1,MC=MM,404,45,0,0,"None",-8586097910256745047
+S=36,WC=DesignScene-1:1,MC=MM,361,20,0,0,"None",-8586097910256119818
+S=37,UI_CMD=Rect
+S=38,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=39,WC=DesignScene-1:1,MC=MM,297,37,0,0,"None",-8586097910239922330
+S=40,WC=DesignScene-1:1,MC=MM,396,107,0,0,"None",-8586097910239700907
+S=41,WC=DesignScene-1:1,MC=MM,416,122,0,0,"None",-8586097910239544491
+S=42,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=43,WC=DesignScene-1:1,MC=MM,586,217,0,0,"None",-8586097910238919412
+S=44,WC=DesignScene-1:1,MC=MM,726,252,0,0,"None",-8586097910238385286
+S=45,UI_CMD=CenterRectangle
+S=46,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=47,WC=DesignScene-1:1,MC=MM,912,228,0,0,"None",-8586097910219871301
+S=48,WC=DesignScene-1:1,MC=MM,857,254,0,0,"None",-8586097910219649597
+S=49,WC=DesignScene-1:1,MC=MM,660,341,0,0,"None",-8586097910202614539
+S=50,WC=DesignScene-1:1,MC=MM,661,341,0,0,"None",-8586097910201833183
+S=51,WC=DesignScene-1:1,MC=MD,661,341,0,0,"Left",-8586097910197441919
+S=52,WC=DesignScene-1:1,MC=MU,661,341,0,0,"Left",-8586097910196817241
+//Within drag threshold: 62ms
+S=53,WC=DesignScene-1:1,MC=MM,662,343,0,0,"None",-8586097910195124501
+S=54,WC=DesignScene-1:1,MC=MM,688,379,0,0,"None",-8586097910194968257
+S=55,WC=DesignScene-1:1,MC=MM,705,399,0,0,"None",-8586097910194655769
+S=56,WC=DesignScene-1:1,MC=MM,727,418,0,0,"None",-8586097910194278117
+S=57,WC=DesignScene-1:1,MC=MM,730,420,0,0,"None",-8586097910193653149
+S=58,WC=DesignScene-1:1,MC=MM,733,423,0,0,"None",-8586097910193155286
+S=59,WC=DesignScene-1:1,MC=MM,734,424,0,0,"None",-8586097910192589000
+S=60,WC=DesignScene-1:1,MC=MM,735,424,0,0,"None",-8586097910191807708
+S=61,WC=DesignScene-1:1,MC=MM,738,426,0,0,"None",-8586097910191273810
+S=62,WC=DesignScene-1:1,MC=MM,764,431,0,0,"None",-8586097910190271080
+S=63,WC=DesignScene-1:1,MC=MM,766,431,0,0,"None",-8586097910190114838
+S=64,WC=DesignScene-1:1,MC=MM,788,436,0,0,"None",-8586097910188955978
+S=65,WC=DesignScene-1:1,MC=MM,790,436,0,0,"None",-8586097910188422100
+S=66,WC=DesignScene-1:1,MC=MM,793,436,0,0,"None",-8586097910188265858
+S=67,WC=DesignScene-1:1,MC=MM,798,436,0,0,"None",-8586097910187575722
+S=68,WC=DesignScene-1:1,KC=KDN,97// NumPad1
+S=69,WC=DesignScene-1:1,KC=KPS,49// D1
+S=70,DIMENSIONEDIT_CMD,1,Next,False,False,False,0
+S=71,WC=DesignScene-1:1,KC=KUP,9// Tab
+S=72,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=73,WC=DesignScene-1:1,MC=MM,1161,489,0,0,"None",-8586097910151695927
+S=74,WC=DesignScene-1:1,KC=KUP,97// NumPad1
+S=75,WC=DesignScene-1:1,KC=KDN,96// NumPad0
+S=76,WC=DesignScene-1:1,KC=KPS,48// D0
+S=77,WC=DesignScene-1:1,MC=MM,1161,489,0,0,"None",-8586097910105028199
+S=78,DIMENSIONEDIT_CMD,0.1,OK,False,False,False,0
+S=79,WC=DesignScene-1:1,KC=KUP,13// Return
+S=80,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=81,WC=DesignScene-1:1,MC=MM,1136,511,0,0,"None",-8586097910103816258
+S=82,WC=DesignScene-1:1,MC=MM,499,22,0,0,"None",-8586097910081548922
+S=83,WC=DesignScene-1:1,MC=MM,493,13,0,0,"None",-8586097910081349014
+S=84,UI_CMD=PullTool
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=0 // InvokeDelay End
+S=85,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=86,WC=DesignScene-1:1,MC=MM,513,16,0,0,"None",-8586097910062985710
+S=87,WC=DesignScene-1:1,MC=MM,511,114,0,0,"None",-8586097910062745514
+S=88,WC=DesignScene-1:1,MC=MM,508,256,0,0,"None",-8586097910047148384
+S=89,WC=DesignScene-1:1,MC=MM,508,259,0,0,"None",-8586097910047098427
+// Pull Action: None
+S=90,WC=DesignScene-1:1,MC=MM,505,276,0,0,"None",-8586097910046548688
+// Pull Action: ExtrudeEdge
+S=91,WC=DesignScene-1:1,MC=MM,505,281,0,0,"None",-8586097910046248727
+S=92,WC=DesignScene-1:1,MC=MM,504,291,0,0,"None",-8586097910046168477
+S=93,WC=DesignScene-1:1,MC=MM,504,295,0,0,"None",-8586097910045948775
+S=94,WC=DesignScene-1:1,MC=MM,504,296,0,0,"None",-8586097910045768975
+S=95,WC=DesignScene-1:1,MC=MM,504,299,0,0,"None",-8586097910045389060
+S=96,WC=DesignScene-1:1,MC=MM,504,300,0,0,"None",-8586097910045059326
+S=97,WC=DesignScene-1:1,MC=MM,503,300,0,0,"None",-8586097909900409848
+S=98,WC=DesignScene-1:1,MC=MM,498,300,0,0,"None",-8586097909897791941
+S=99,WC=DesignScene-1:1,MC=MM,497,300,0,0,"None",-8586097909897701966
+S=100,WC=DesignScene-1:1,MC=MD,497,300,0,0,"Left",-8586097909893045125
+S=101,WC=DesignScene-1:1,MC=MU,497,300,0,0,"Left",-8586097909892839291
+//Within drag threshold: 20ms
+//Within drag threshold: 20ms
+// Validation Summary: Total of 1 object (1 Face)
+S=102;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>0.1</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Surface</Name><FillStyle>Transparent</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=103,WC=DesignScene-1:1,MC=MM,494,305,0,0,"None",-8586097909890389499
+S=104,WC=DesignScene-1:1,MC=MM,492,312,0,0,"None",-8586097909889689823
+S=105,WC=DesignScene-1:1,MC=MM,422,437,0,0,"None",-8586097909886201447
+S=106,WC=DesignScene-1:1,MC=MM,421,438,0,0,"None",-8586097909886091501
+S=107,WC=DesignScene-1:1,MC=MM,420,439,0,0,"None",-8586097909885981548
+S=108,WC=DesignScene-1:1,MC=MM,418,440,0,0,"None",-8586097909885561740
+S=109,WC=DesignScene-1:1,MC=MM,417,441,0,0,"None",-8586097909885491776
+S=110,WC=DesignScene-1:1,KC=KDN,97// NumPad1
+S=111,WC=DesignScene-1:1,KC=KPS,49// D1
+S=112,TransformHandle_EDIT_CMD,0.1,False,False,False
+// Validation Summary: Total of 1 object (1 Face)
+S=113;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>0.1</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=0 // InvokeDelay End
+**InvokeDelay=0 // InvokeDelay End
+**InvokeDelay=0 // InvokeDelay End
+S=114,WC=DesignScene-1:1,KC=KUP,13// Return
+S=115,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=116,WC=DesignScene-1:1,MC=MM,417,441,0,0,"None",-8586097909860668711
+S=117,WC=DesignScene-1:1,MC=MM,663,241,0,0,"None",-8586097909860348705
+S=118,WC=DesignScene-1:1,MC=MM,243,399,0,0,"None",-8586097909806974200
+S=119,WC=DesignScene-1:1,MC=MM,244,401,0,0,"None",-8586097909806874262
+S=120,WC=DesignScene-1:1,MC=MD,244,402,0,0,"Left",-8586097909805974601
+S=121,WC=DesignScene-1:1,MC=MU,244,402,0,0,"Left",-8586097909804436211
+// Pull Action: Extrude
+// Validation Summary: No items selected
+S=122;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items /><Truncated>false</Truncated><TotalCount>0</TotalCount></ValidationInfo>"
+S=123,WC=DesignScene-1:1,MC=MM,249,402,0,0,"None",-8586097909801697570
+S=124,WC=DesignScene-1:1,MC=MM,253,402,0,0,"None",-8586097909801627564
+S=125,WC=DesignScene-1:1,MC=MM,259,399,0,0,"None",-8586097909801387757
+S=126,WC=DesignScene-1:1,MC=MM,261,398,0,0,"None",-8586097909800887885
+S=127,WC=DesignScene-1:1,MC=MM,262,397,0,0,"None",-8586097909800698150
+S=128,WC=DesignScene-1:1,MC=MM,264,394,0,0,"None",-8586097909800438184
+S=129,WC=DesignScene-1:1,MC=MM,265,393,0,0,"None",-8586097909800178207
+S=130,WC=DesignScene-1:1,MC=MM,265,392,0,0,"None",-8586097909800008410
+S=131,WC=DesignScene-1:1,MC=MM,265,391,0,0,"None",-8586097909799808444
+S=132,WC=DesignScene-1:1,MC=MM,265,390,0,0,"None",-8586097909799428581
+S=133,WC=DesignScene-1:1,MC=MM,264,390,0,0,"None",-8586097909799268682
+S=134,WC=DesignScene-1:1,MC=MM,263,390,0,0,"None",-8586097909796197422
+S=135,WC=DesignScene-1:1,MC=MM,257,376,0,0,"None",-8586097909796127480
+S=136,WC=DesignScene-1:1,MC=MM,221,282,0,0,"None",-8586097909795617409
+S=137,WC=DesignScene-1:1,MC=MM,169,141,0,0,"None",-8586097909795497675
+// Pull Action: None
+// Pull Action: Extrude
+S=138,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/0,Physics/Structural%20steel%2C%20S275N
+S=139,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=140,UI_CMD=Rect
+S=141,UI_CMD=Disco.DesignTree,Action=Select,Preview,1,0,Design1
+S=142,UI_CMD=Disco.DesignTree,Action=Select,Preview,0
+S=143,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/0,Physics/Structural%20steel%2C%20S275N
+S=144,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=145,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=146,WC=DesignScene-1:1,MC=MM,167,99,0,0,"None",-8586097909772219160
+S=147,WC=DesignScene-1:1,MC=MM,171,112,0,0,"None",-8586097909771939353
+S=148,WC=DesignScene-1:1,MC=MM,177,125,0,0,"None",-8586097909771789421
+S=149,WC=DesignScene-1:1,MC=MM,181,135,0,0,"None",-8586097909771659334
+S=150,WC=DesignScene-1:1,MC=MM,183,139,0,0,"None",-8586097909771469569
+S=151,WC=DesignScene-1:1,MC=MM,184,140,0,0,"None",-8586097909770819658
+S=152,WC=DesignScene-1:1,MC=MM,170,145,0,0,"None",-8586097909769010718
+S=153,WC=DesignScene-1:1,MC=MM,163,147,0,0,"None",-8586097909768690694
+S=154,WC=DesignScene-1:1,MC=MM,161,148,0,0,"None",-8586097909768470853
+S=155,WC=DesignScene-1:1,MC=MM,159,149,0,0,"None",-8586097909768100990
+S=156,WC=DesignScene-1:1,MC=MM,158,149,0,0,"None",-8586097909767171365
+S=157,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=158,WC=DesignScene-1:1,MC=MouseWheel,158,149,120,0,None
+S=159,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=160,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=161,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=162,WC=DesignScene-1:1,KC=KUP,17// ControlKey
+S=163,WC=DesignScene-1:1,MC=MD,158,149,0,0,"Left",-8586097909738707491
+S=164,WC=DesignScene-1:1,MC=MU,158,149,0,0,"Left",-8586097909738665838
+S=165,WC=DesignScene-1:1,MC=MM,164,156,0,0,"None",-8586097909722577934
+S=166,WC=DesignScene-1:1,MC=MM,179,164,0,0,"None",-8586097909721958214
+S=167,WC=DesignScene-1:1,MC=MM,190,168,0,0,"None",-8586097909721708316
+S=168,WC=DesignScene-1:1,MC=MM,192,168,0,0,"None",-8586097909721498570
+S=169,WC=DesignScene-1:1,MC=MM,194,170,0,0,"None",-8586097909721268524
+S=170,WC=DesignScene-1:1,MC=MM,203,173,0,0,"None",-8586097909721048717
+S=171,WC=DesignScene-1:1,MC=MM,208,174,0,0,"None",-8586097909720808896
+S=172,WC=DesignScene-1:1,MC=MM,215,177,0,0,"None",-8586097909720519030
+S=173,WC=DesignScene-1:1,MC=MM,227,184,0,0,"None",-8586097909720139185
+S=174,WC=DesignScene-1:1,MC=MM,239,190,0,0,"None",-8586097909718576414
+S=175,WC=DesignScene-1:1,MC=MM,240,190,0,0,"None",-8586097909718426486
+S=176,WC=DesignScene-1:1,MC=MM,249,195,0,0,"None",-8586097909717736807
+S=177,UI_CMD=ViewOntoSection
+S=178,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=179,WC=DesignScene-1:1,MC=MM,263,210,0,0,"None",-8586097909704442206
+S=180;VC=DesignScene;ValidateAutoScaleInfo=1, (2.7755575615628914E-17, 1, 0, 0), (0, 0, 1, -0.0066987299105969369), (1, -2.7755575615628914E-17, 0, 0), (0, 0, 0, 0.589514544872918), True
+S=181,WC=DesignScene-1:1,MC=MM,286,209,0,0,"None",-8586097909699242803
+S=182,WC=DesignScene-1:1,MC=MM,297,189,0,0,"None",-8586097909698403110
+S=183,WC=DesignScene-1:1,MC=MM,859,163,0,0,"None",-8586097909681026574
+S=184,WC=DesignScene-1:1,MC=MM,860,163,0,0,"None",-8586097909680766889
+S=185,UI_CMD=CenterRectangle
+S=186,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=187,WC=DesignScene-1:1,MC=MM,778,259,0,0,"None",-8586097909670717997
+S=188,WC=DesignScene-1:1,MC=MM,767,266,0,0,"None",-8586097909670458093
+S=189,WC=DesignScene-1:1,MC=MM,663,293,0,0,"None",-8586097909661622203
+S=190,WC=DesignScene-1:1,MC=MM,662,293,0,0,"None",-8586097909661092449
+S=191,WC=DesignScene-1:1,MC=MM,661,294,0,0,"None",-8586097909659722099
+S=192,WC=DesignScene-1:1,MC=MM,659,294,0,0,"None",-8586097909653475629
+S=193,WC=DesignScene-1:1,MC=MD,659,294,0,0,"Left",-8586097909649324837
+S=194,WC=DesignScene-1:1,MC=MU,659,294,0,0,"Left",-8586097909649284865
+//Within drag threshold: 3ms
+S=195,WC=DesignScene-1:1,MC=MM,659,296,0,0,"None",-8586097909643364495
+S=196,WC=DesignScene-1:1,MC=MM,659,300,0,0,"None",-8586097909643034765
+S=197,WC=DesignScene-1:1,MC=MM,852,493,0,0,"None",-8586097909622037612
+S=198,WC=DesignScene-1:1,MC=MM,853,493,0,0,"None",-8586097909621868001
+S=199,WC=DesignScene-1:1,KC=KDN,97// NumPad1
+S=200,WC=DesignScene-1:1,KC=KPS,49// D1
+S=201,DIMENSIONEDIT_CMD,1,Next,False,False,False,0
+S=202;VC=DesignScene;ValidateAutoScaleInfo=1, (2.7755575615628914E-17, 1, 0, 0), (0, 0, 1, -0.0066987299105969369), (1, -2.7755575615628914E-17, 0, 0), (0, 0, 0, 1.2231966130949252), True
+S=203,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=204,WC=DesignScene-1:1,MC=MM,756,597,0,0,"None",-8586097909578359234
+S=205,WC=DesignScene-1:1,KC=KUP,9// Tab
+S=206,WC=DesignScene-1:1,KC=KDN,97// NumPad1
+S=207,WC=DesignScene-1:1,KC=KPS,49// D1
+S=208,WC=DesignScene-1:1,MC=MM,756,597,0,0,"None",-8586097909540639753
+S=209,DIMENSIONEDIT_CMD,1,OK,False,False,False,0
+S=210,WC=DesignScene-1:1,KC=KUP,13// Return
+S=211,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=212,WC=DesignScene-1:1,MC=MM,940,597,0,0,"None",-8586097909539950070
+S=213,WC=DesignScene-1:1,MC=MM,523,346,0,0,"None",-8586097909507752463
+S=214,WC=DesignScene-1:1,MC=MM,419,14,0,0,"None",-8586097909485182108
+S=215,WC=DesignScene-1:1,MC=MM,414,7,0,0,"None",-8586097909484972203
+S=216,WC=DesignScene-1:1,MC=MM,413,5,0,0,"None",-8586097909484732314
+S=217,UI_CMD=PullTool
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=0 // InvokeDelay End
+S=218,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=219,WC=DesignScene-1:1,MC=MM,363,8,0,0,"None",-8586097909465490271
+S=220,WC=DesignScene-1:1,MC=MM,331,73,0,0,"None",-8586097909465340379
+S=221,WC=DesignScene-1:1,MC=MM,129,536,0,0,"None",-8586097909459213049
+S=222,WC=DesignScene-1:1,MC=MM,127,541,0,0,"None",-8586097909459013298
+S=223,UI_CMD=ViewTrimetric
+S=224;VC=DesignScene;ValidateAutoScaleInfo=1, (0.86602540378443871, 0.5, 5.5511151231257827E-17, 0.0020000040531158178), (-0.25000000000000006, 0.4330127018922193, 0.86602540378443871, -0.039837158972924745), (0.43301270189221935, -0.75, 0.5, -0.02700000256299976), (0, 0, 0, 1.7211534220745439), True
+S=225,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=226,WC=DesignScene-1:1,MC=MM,257,345,0,0,"None",-8586097909350072901
+S=227,WC=DesignScene-1:1,MC=MM,269,336,0,0,"None",-8586097909350012931
+S=228,WC=DesignScene-1:1,MC=MM,275,330,0,0,"None",-8586097909349842983
+S=229,WC=DesignScene-1:1,MC=MM,339,261,0,0,"None",-8586097909348442758
+S=230,WC=DesignScene-1:1,MC=MM,345,254,0,0,"None",-8586097909348262844
+S=231,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=232,WC=DesignScene-1:1,MC=MM,415,207,0,0,"None",-8586097909346201868
+// Pull Action: None
+S=233,WC=DesignScene-1:1,MC=MM,418,207,0,0,"None",-8586097909346011978
+S=234,WC=DesignScene-1:1,MC=MM,423,206,0,0,"None",-8586097909345902002
+S=235,WC=DesignScene-1:1,MC=MM,429,206,0,0,"None",-8586097909345742094
+S=236,WC=DesignScene-1:1,MC=MM,434,207,0,0,"None",-8586097909345622134
+S=237,WC=DesignScene-1:1,MC=MM,438,209,0,0,"None",-8586097909345512184
+S=238,WC=DesignScene-1:1,MC=MM,451,218,0,0,"None",-8586097909345172343
+S=239,WC=DesignScene-1:1,MC=MM,455,219,0,0,"None",-8586097909344942482
+S=240,WC=DesignScene-1:1,MC=MM,455,220,0,0,"None",-8586097909344812542
+S=241,WC=DesignScene-1:1,MC=MM,456,220,0,0,"None",-8586097909344602631
+S=242,WC=DesignScene-1:1,MC=MD,456,220,0,0,"Left",-8586097909327015677
+S=243,WC=DesignScene-1:1,MC=MU,456,220,0,0,"Left",-8586097909326965717
+//Within drag threshold: 4ms
+//Within drag threshold: 4ms
+// Validation Summary: Total of 1 object (1 Face)
+S=244;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>0.98999999999999988</Area><SurfaceType>Plane</SurfaceType><EdgeCount>8</EdgeCount><Name>Surface</Name><FillStyle>Transparent</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=245,WC=DesignScene-1:1,MC=MM,456,225,0,0,"None",-8586097909316693977
+S=246,WC=DesignScene-1:1,MC=MM,495,292,0,0,"None",-8586097909305993607
+S=247,WC=DesignScene-1:1,MC=MM,494,291,0,0,"None",-8586097909305783704
+S=248,WC=DesignScene-1:1,MC=MM,493,291,0,0,"None",-8586097909305153998
+S=249,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=250,WC=DesignScene-1:1,MC=MouseWheel,493,291,120,0,None
+S=251,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=252,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=253,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=254,WC=DesignScene-1:1,KC=KUP,17// ControlKey
+S=255,WC=DesignScene-1:1,MC=MD,493,291,0,0,"Left",-8586097909291225272
+S=256,WC=DesignScene-1:1,MC=MU,493,291,0,0,"Left",-8586097909290743199
+//Within drag threshold: 48ms
+//Within drag threshold: 48ms
+// Validation Summary: Total of 1 object (1 Face)
+S=257;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>0.010000000000000002</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=258,WC=DesignScene-1:1,MC=MM,488,291,0,0,"None",-8586097909279672864
+S=259,WC=DesignScene-1:1,MC=MM,481,287,0,0,"None",-8586097909277306372
+S=260,WC=DesignScene-1:1,MC=MM,480,284,0,0,"None",-8586097909277146007
+S=261,WC=DesignScene-1:1,MC=MM,474,279,0,0,"None",-8586097909276966384
+S=262,WC=DesignScene-1:1,MC=MM,468,274,0,0,"None",-8586097909276636588
+S=263,WC=DesignScene-1:1,MC=MM,444,258,0,0,"None",-8586097909276456742
+S=264,WC=DesignScene-1:1,MC=MM,443,258,0,0,"None",-8586097909276326650
+S=265,WC=DesignScene-1:1,MC=MM,441,257,0,0,"None",-8586097909275996808
+S=266,WC=DesignScene-1:1,MC=MM,440,257,0,0,"None",-8586097909275417045
+S=267,WC=DesignScene-1:1,MC=MM,439,257,0,0,"None",-8586097909274867320
+S=268,WC=DesignScene-1:1,MC=MM,438,257,0,0,"None",-8586097909274557326
+S=269,WC=DesignScene-1:1,MC=MM,438,256,0,0,"None",-8586097909274357594
+S=270,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=271,WC=DesignScene-1:1,MC=MD,438,256,0,0,"Left",-8586097909261699867
+S=272,WC=DesignScene-1:1,MC=MU,438,256,0,0,"Left",-8586097909260799672
+//Within drag threshold: 90ms
+//Within drag threshold: 90ms
+// Validation Summary: Total of 2 objects (2 Faces)
+S=273;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>0.010000000000000002</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face><Face><Area>0.98999999999999988</Area><SurfaceType>Plane</SurfaceType><EdgeCount>8</EdgeCount><Name>Surface</Name><FillStyle>Transparent</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>2</TotalCount></ValidationInfo>"
+S=274,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=275,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=276,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=277,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=278,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=279,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=280,WC=DesignScene-1:1,KC=KUP,17// ControlKey
+S=281,WC=DesignScene-1:1,MC=MM,436,257,0,0,"None",-8586097909249699912
+S=282,WC=DesignScene-1:1,MC=MM,428,267,0,0,"None",-8586097909249210140
+S=283,WC=DesignScene-1:1,MC=MM,728,496,0,0,"None",-8586097909203880340
+S=284,WC=DesignScene-1:1,MC=MM,740,496,0,0,"None",-8586097909175344563
+S=285,WC=DesignScene-1:1,KC=KDN,101// NumPad5
+S=286,WC=DesignScene-1:1,KC=KPS,53// D5
+S=287,TransformHandle_EDIT_CMD,0.05,False,False,False
+// Validation Summary: Total of 1 object (1 Face)
+S=288;VC=ValidateObjectsCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>1</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=0 // InvokeDelay End
+**InvokeDelay=0 // InvokeDelay End
+**InvokeDelay=0 // InvokeDelay End
+S=289,WC=DesignScene-1:1,KC=KUP,13// Return
+S=290,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=291,WC=DesignScene-1:1,MC=MM,740,496,0,0,"None",-8586097909145592867
+S=292,WC=DesignScene-1:1,MC=MM,475,285,0,0,"None",-8586097909145433104
+S=293,WC=DesignScene-1:1,MC=MM,735,474,0,0,"None",-8586097909021829868
+S=294,WC=DesignScene-1:1,MC=MM,733,475,0,0,"None",-8586097909020830398
+S=295,WC=DesignScene-1:1,MC=MD,733,475,0,0,"Left",-8586097909018443469
+S=296,WC=DesignScene-1:1,MC=MU,733,475,0,0,"Left",-8586097909017951650
+//Within drag threshold: 49ms
+//Within drag threshold: 49ms
+// Pull Action: Extrude
+// Validation Summary: No items selected
+S=297;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items /><Truncated>false</Truncated><TotalCount>0</TotalCount></ValidationInfo>"
+S=298,WC=DesignScene-1:1,MC=MM,734,475,0,0,"None",-8586097909015422806
+S=299,WC=DesignScene-1:1,MC=MM,735,475,0,0,"None",-8586097909014632828
+S=300,WC=DesignScene-1:1,MC=MM,729,475,0,0,"None",-8586097909012725640
+S=301,WC=DesignScene-1:1,MC=MM,725,475,0,0,"None",-8586097909012295819
+S=302,WC=DesignScene-1:1,MC=MM,721,475,0,0,"None",-8586097909012055954
+S=303,WC=DesignScene-1:1,MC=MM,707,475,0,0,"None",-8586097909011866041
+S=304,WC=DesignScene-1:1,MC=MM,704,475,0,0,"None",-8586097909011726105
+S=305,WC=DesignScene-1:1,MC=MM,701,475,0,0,"None",-8586097909011596166
+S=306,WC=DesignScene-1:1,MC=MM,694,470,0,0,"None",-8586097909011266345
+S=307,WC=DesignScene-1:1,MC=MM,681,462,0,0,"None",-8586097909011106394
+S=308,WC=DesignScene-1:1,MC=MM,663,441,0,0,"None",-8586097909010966498
+S=309,WC=DesignScene-1:1,MC=MM,652,429,0,0,"None",-8586097909010826559
+S=310,WC=DesignScene-1:1,MC=MM,620,385,0,0,"None",-8586097909010626656
+S=311,WC=DesignScene-1:1,MC=MM,602,357,0,0,"None",-8586097909010496677
+S=312,WC=DesignScene-1:1,MC=MM,578,327,0,0,"None",-8586097909010386733
+// Pull Action: None
+S=313,WC=DesignScene-1:1,MC=MM,532,269,0,0,"None",-8586097909010136844
+// Pull Action: Extrude
+S=314,WC=DesignScene-1:1,MC=MM,509,236,0,0,"None",-8586097909009876999
+// Pull Action: Fillet
+// Pull Action: Extrude
+S=315,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=316,WC=DesignScene-1:1,MC=MM,463,168,0,0,"None",-8586097909009597128
+// Pull Action: None
+S=317,WC=DesignScene-1:1,MC=MM,448,148,0,0,"None",-8586097909009427209
+S=318,WC=DesignScene-1:1,MC=MM,423,117,0,0,"None",-8586097909009307270
+// Pull Action: Extrude
+S=319,WC=DesignScene-1:1,MC=MM,401,92,0,0,"None",-8586097909009127318
+S=320,WC=DesignScene-1:1,MC=MM,385,77,0,0,"None",-8586097909008947399
+S=321,WC=DesignScene-1:1,MC=MM,378,71,0,0,"None",-8586097909008797468
+S=322,WC=DesignScene-1:1,MC=MM,366,56,0,0,"None",-8586097909008527595
+S=323,WC=DesignScene-1:1,MC=MM,353,43,0,0,"None",-8586097909008317692
+S=324,WC=DesignScene-1:1,MC=MM,310,5,0,0,"None",-8586097909007258187
+S=325,UI_CMD=Rect
+S=326,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=327,WC=DesignScene-1:1,MC=MM,206,10,0,0,"None",-8586097908993287826
+S=328,WC=DesignScene-1:1,MC=MM,271,53,0,0,"None",-8586097908993137943
+S=329,WC=DesignScene-1:1,MC=MM,716,283,0,0,"None",-8586097908988987837
+S=330,WC=DesignScene-1:1,MC=MM,725,291,0,0,"None",-8586097908988876266
+S=331,WC=DesignScene-1:1,MC=MM,788,345,0,0,"None",-8586097908986377263
+S=332,WC=DesignScene-1:1,MC=MM,791,353,0,0,"None",-8586097908984635816
+S=333,WC=DesignScene-1:1,MC=MM,791,356,0,0,"None",-8586097908984385986
+S=334,WC=DesignScene-1:1,MC=MM,791,357,0,0,"None",-8586097908984186212
+S=335,WC=DesignScene-1:1,MC=MM,791,358,0,0,"None",-8586097908983426569
+S=336,WC=DesignScene-1:1,MC=MD,791,358,0,0,"Left",-8586097908969349955
+S=337,WC=DesignScene-1:1,MC=MU,791,358,0,0,"Left",-8586097908968886743
+S=338,WC=DesignScene-1:1,MC=MM,793,360,0,0,"None",-8586097908959012318
+S=339,WC=DesignScene-1:1,MC=MM,800,366,0,0,"None",-8586097908958762464
+S=340,WC=DesignScene-1:1,MC=MM,803,367,0,0,"None",-8586097908958392624
+S=341,WC=DesignScene-1:1,MC=MM,809,371,0,0,"None",-8586097908958242677
+S=342,WC=DesignScene-1:1,MC=MM,814,375,0,0,"None",-8586097908958072640
+S=343,WC=DesignScene-1:1,MC=MM,816,377,0,0,"None",-8586097908957862855
+S=344,WC=DesignScene-1:1,MC=MM,818,378,0,0,"None",-8586097908957712926
+S=345,WC=DesignScene-1:1,MC=MM,819,378,0,0,"None",-8586097908957483063
+S=346,WC=DesignScene-1:1,MC=MM,820,379,0,0,"None",-8586097908957253167
+S=347,WC=DesignScene-1:1,MC=MM,822,379,0,0,"None",-8586097908952384983
+S=348,WC=DesignScene-1:1,MC=MM,823,381,0,0,"None",-8586097908952195077
+S=349,WC=DesignScene-1:1,MC=MM,824,381,0,0,"None",-8586097908951755262
+S=350,WC=DesignScene-1:1,MC=MM,825,382,0,0,"None",-8586097908943200779
+S=351,WC=DesignScene-1:1,MC=MD,825,382,0,0,"Left",-8586097908943030852
+S=352,WC=DesignScene-1:1,MC=MU,825,382,0,0,"Left",-8586097908942541126
+//Within drag threshold: 48ms
+S=353,WC=DesignScene-1:1,MC=MM,822,375,0,0,"None",-8586097908940264867
+S=354,WC=DesignScene-1:1,MC=MM,820,373,0,0,"None",-8586097908940034886
+S=355,WC=DesignScene-1:1,MC=MM,812,363,0,0,"None",-8586097908939535216
+S=356,WC=DesignScene-1:1,MC=MM,810,361,0,0,"None",-8586097908939325298
+S=357,WC=DesignScene-1:1,MC=MM,807,358,0,0,"None",-8586097908939025459
+S=358,WC=DesignScene-1:1,MC=MM,806,356,0,0,"None",-8586097908938725602
+S=359,WC=DesignScene-1:1,MC=MM,805,356,0,0,"None",-8586097908938485713
+S=360,WC=DesignScene-1:1,MC=MM,805,355,0,0,"None",-8586097908938225831
+S=361,WC=DesignScene-1:1,MC=MM,804,355,0,0,"None",-8586097908937925967
+S=362,WC=DesignScene-1:1,MC=MM,803,354,0,0,"None",-8586097908937356216
+S=363,WC=DesignScene-1:1,MC=MM,802,354,0,0,"None",-8586097908936696504
+S=364,WC=DesignScene-1:1,MC=MM,801,353,0,0,"None",-8586097908936486604
+S=365,WC=DesignScene-1:1,MC=MM,801,352,0,0,"None",-8586097908935906869
+S=366,WC=DesignScene-1:1,KC=KDN,97// NumPad1
+S=367,WC=DesignScene-1:1,KC=KPS,49// D1
+S=368,WC=DesignScene-1:1,MC=MM,801,352,0,0,"None",-8586097908900423393
+S=369,DIMENSIONEDIT_CMD,0.15,OK,False,False,False,0
+S=370,WC=DesignScene-1:1,KC=KUP,13// Return
+S=371,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=372,WC=DesignScene-1:1,MC=MM,794,349,0,0,"None",-8586097908899553743
+S=373,WC=DesignScene-1:1,MC=MM,788,350,0,0,"None",-8586097908882570467
+S=374,WC=DesignScene-1:1,MC=MM,778,357,0,0,"None",-8586097908881930801
+S=375,WC=DesignScene-1:1,MC=MM,777,357,0,0,"None",-8586097908881620853
+S=376,WC=DesignScene-1:1,MC=MM,773,354,0,0,"None",-8586097908881351071
+S=377,WC=DesignScene-1:1,MC=MM,762,338,0,0,"None",-8586097908881091187
+S=378,WC=DesignScene-1:1,MC=MM,724,293,0,0,"None",-8586097908880811300
+S=379,WC=DesignScene-1:1,MC=MM,677,234,0,0,"None",-8586097908880551440
+S=380,WC=DesignScene-1:1,MC=MM,624,173,0,0,"None",-8586097908880291556
+S=381,WC=DesignScene-1:1,MC=MM,585,128,0,0,"None",-8586097908879981708
+S=382,WC=DesignScene-1:1,MC=MM,574,114,0,0,"None",-8586097908879731825
+S=383,WC=DesignScene-1:1,MC=MM,556,93,0,0,"None",-8586097908879451957
+S=384,WC=DesignScene-1:1,MC=MM,551,87,0,0,"None",-8586097908879212065
+S=385,WC=DesignScene-1:1,MC=MM,534,70,0,0,"None",-8586097908878892216
+S=386,WC=DesignScene-1:1,MC=MM,502,36,0,0,"None",-8586097908878642333
+S=387,WC=DesignScene-1:1,MC=MM,485,21,0,0,"None",-8586097908878392423
+S=388,UI_CMD=PullTool
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=0 // InvokeDelay End
+**InvokeDelay=0 // InvokeDelay End
+**InvokeDelay=0 // InvokeDelay End
+S=389,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=390,WC=DesignScene-1:1,MC=MM,548,204,0,0,"None",-8586097908867023561
+// Pull Action: None
+S=391,WC=DesignScene-1:1,MC=MM,553,221,0,0,"None",-8586097908866513808
+S=392,WC=DesignScene-1:1,MC=MM,555,226,0,0,"None",-8586097908866373863
+S=393,WC=DesignScene-1:1,MC=MM,559,234,0,0,"None",-8586097908866263911
+S=394,WC=DesignScene-1:1,MC=MM,562,239,0,0,"None",-8586097908866153960
+S=395,WC=DesignScene-1:1,MC=MM,565,242,0,0,"None",-8586097908865914075
+S=396,WC=DesignScene-1:1,MC=MM,566,243,0,0,"None",-8586097908865724164
+S=397,WC=DesignScene-1:1,MC=MM,568,245,0,0,"None",-8586097908865604259
+S=398,WC=DesignScene-1:1,MC=MM,577,247,0,0,"None",-8586097908865494310
+S=399,WC=DesignScene-1:1,MC=MM,584,247,0,0,"None",-8586097908865354339
+S=400,WC=DesignScene-1:1,MC=MM,588,247,0,0,"None",-8586097908865144474
+S=401,WC=DesignScene-1:1,MC=MM,595,248,0,0,"None",-8586097908865014530
+// Pull Action: Extrude
+S=402,WC=DesignScene-1:1,MC=MM,599,248,0,0,"None",-8586097908864854609
+// Pull Action: Fillet
+S=403,WC=DesignScene-1:1,MC=MM,607,248,0,0,"None",-8586097908864614719
+S=404,WC=DesignScene-1:1,MC=MM,608,249,0,0,"None",-8586097908864564735
+S=405,WC=DesignScene-1:1,MC=MM,614,251,0,0,"None",-8586097908864344844
+S=406,WC=DesignScene-1:1,MC=MM,616,253,0,0,"None",-8586097908864224897
+S=407,WC=DesignScene-1:1,MC=MM,617,255,0,0,"None",-8586097908864094961
+S=408,WC=DesignScene-1:1,MC=MM,617,257,0,0,"None",-8586097908863655162
+S=409,WC=DesignScene-1:1,MC=MM,610,264,0,0,"None",-8586097908863455260
+S=410,WC=DesignScene-1:1,MC=MM,610,267,0,0,"None",-8586097908863325320
+S=411,WC=DesignScene-1:1,MC=MM,610,273,0,0,"None",-8586097908863155403
+S=412,WC=DesignScene-1:1,MC=MM,612,288,0,0,"None",-8586097908863025462
+S=413,WC=DesignScene-1:1,MC=MM,620,306,0,0,"None",-8586097908862805561
+// Pull Action: None
+S=414,WC=DesignScene-1:1,MC=MM,625,317,0,0,"None",-8586097908862625645
+S=415,WC=DesignScene-1:1,MC=MM,634,332,0,0,"None",-8586097908862495701
+S=416,WC=DesignScene-1:1,MC=MM,655,363,0,0,"None",-8586097908862305791
+S=417,WC=DesignScene-1:1,MC=MM,675,386,0,0,"None",-8586097908862165852
+// Pull Action: Extrude
+S=418,WC=DesignScene-1:1,MC=MM,711,426,0,0,"None",-8586097908861985946
+S=419,WC=DesignScene-1:1,MC=MM,726,442,0,0,"None",-8586097908861875998
+S=420,WC=DesignScene-1:1,MC=MM,799,413,0,0,"None",-8586097908853709797
+S=421,WC=DesignScene-1:1,MC=MM,801,410,0,0,"None",-8586097908853649819
+// Pull Action: None
+S=422,WC=DesignScene-1:1,MC=MM,801,403,0,0,"None",-8586097908853409933
+// Pull Action: Fillet
+S=423,WC=DesignScene-1:1,MC=MM,802,399,0,0,"None",-8586097908853250000
+S=424,WC=DesignScene-1:1,MC=MM,803,397,0,0,"None",-8586097908853130054
+S=425,WC=DesignScene-1:1,MC=MM,804,393,0,0,"None",-8586097908853010113
+S=426,WC=DesignScene-1:1,MC=MM,804,389,0,0,"None",-8586097908852770231
+S=427,WC=DesignScene-1:1,MC=MM,804,388,0,0,"None",-8586097908852590314
+S=428,WC=DesignScene-1:1,MC=MM,805,386,0,0,"None",-8586097908852460370
+S=429,WC=DesignScene-1:1,MC=MM,805,383,0,0,"None",-8586097908852260469
+S=430,WC=DesignScene-1:1,MC=MM,805,382,0,0,"None",-8586097908852130527
+S=431,WC=DesignScene-1:1,MC=MM,806,380,0,0,"None",-8586097908852010583
+// Pull Action: Extrude
+S=432,WC=DesignScene-1:1,MC=MM,807,377,0,0,"None",-8586097908851860653
+S=433,WC=DesignScene-1:1,MC=MM,807,373,0,0,"None",-8586097908851730707
+S=434,WC=DesignScene-1:1,MC=MM,807,371,0,0,"None",-8586097908851610765
+S=435,WC=DesignScene-1:1,MC=MM,808,370,0,0,"None",-8586097908851390867
+// Pull Action: Fillet
+S=436,WC=DesignScene-1:1,MC=MM,808,369,0,0,"None",-8586097908851230947
+S=437,WC=DesignScene-1:1,MC=MM,808,368,0,0,"None",-8586097908851061024
+S=438,WC=DesignScene-1:1,MC=MM,808,367,0,0,"None",-8586097908850821132
+S=439,WC=DesignScene-1:1,MC=MD,808,367,0,0,"Left",-8586097908841400385
+S=440,WC=DesignScene-1:1,MC=MU,808,367,0,0,"Left",-8586097908841000383
+//Within drag threshold: 40ms
+//Within drag threshold: 40ms
+// Validation Summary: Total of 1 object (1 Face)
+S=441;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>0.015000000000000003</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=442,WC=DesignScene-1:1,MC=MM,804,372,0,0,"None",-8586097908839191490
+S=443,WC=DesignScene-1:1,MC=MM,794,389,0,0,"None",-8586097908839031544
+S=444,WC=DesignScene-1:1,MC=MM,786,399,0,0,"None",-8586097908838561624
+S=445,WC=DesignScene-1:1,MC=MM,756,440,0,0,"None",-8586097908838431756
+S=446,WC=DesignScene-1:1,MC=MM,745,455,0,0,"None",-8586097908838261699
+S=447,WC=DesignScene-1:1,MC=MM,740,461,0,0,"None",-8586097908838111946
+S=448,WC=DesignScene-1:1,MC=MM,733,470,0,0,"None",-8586097908837891946
+S=449,WC=DesignScene-1:1,MC=MM,727,477,0,0,"None",-8586097908837692051
+S=450,WC=DesignScene-1:1,MC=MM,723,480,0,0,"None",-8586097908837582039
+S=451,WC=DesignScene-1:1,MC=MM,718,485,0,0,"None",-8586097908837302393
+S=452,WC=DesignScene-1:1,MC=MM,712,491,0,0,"None",-8586097908836722460
+S=453,WC=DesignScene-1:1,MC=MM,709,493,0,0,"None",-8586097908836042957
+S=454,WC=DesignScene-1:1,MC=MM,709,494,0,0,"None",-8586097908835992960
+S=455,WC=DesignScene-1:1,MC=MM,707,494,0,0,"None",-8586097908835652975
+S=456,WC=DesignScene-1:1,KC=KDN,98// NumPad2
+S=457,WC=DesignScene-1:1,KC=KPS,50// D2
+S=458,TransformHandle_EDIT_CMD,0.2,False,False,False
+// Validation Summary: Total of 1 object (1 Face)
+S=459;VC=ValidateObjectsCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>0.015000000000000003</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=0 // InvokeDelay End
+**InvokeDelay=0 // InvokeDelay End
+**InvokeDelay=0 // InvokeDelay End
+S=460,WC=DesignScene-1:1,KC=KUP,13// Return
+S=461,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=462,WC=DesignScene-1:1,MC=MM,707,494,0,0,"None",-8586097908804289404
+S=463,WC=DesignScene-1:1,MC=MM,810,296,0,0,"None",-8586097908804109460
+S=464,WC=DesignScene-1:1,MC=MM,699,522,0,0,"None",-8586097908781354307
+S=465,WC=DesignScene-1:1,MC=MD,699,522,0,0,"Left",-8586097908780093081
+S=466,WC=DesignScene-1:1,MC=MU,699,522,0,0,"Left",-8586097908779212689
+//Within drag threshold: 88ms
+//Within drag threshold: 88ms
+// Pull Action: Extrude
+// Validation Summary: No items selected
+S=467;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items /><Truncated>false</Truncated><TotalCount>0</TotalCount></ValidationInfo>"
+S=468,WC=DesignScene-1:1,MC=MM,699,521,0,0,"None",-8586097908768749689
+S=469,WC=DesignScene-1:1,MC=MM,699,514,0,0,"None",-8586097908768645274
+S=470,WC=DesignScene-1:1,MC=MM,699,511,0,0,"None",-8586097908768494508
+S=471,WC=DesignScene-1:1,MC=MM,697,506,0,0,"None",-8586097908765022547
+S=472,WC=DesignScene-1:1,MC=MM,692,490,0,0,"None",-8586097908764832626
+S=473,WC=DesignScene-1:1,MC=MM,692,484,0,0,"None",-8586097908764052989
+S=474,WC=DesignScene-1:1,MC=MM,691,484,0,0,"None",-8586097908762597303
+S=475,WC=DesignScene-1:1,MC=MM,689,487,0,0,"None",-8586097908762047569
+S=476,WC=DesignScene-1:1,MC=MM,689,436,0,0,"None",-8586097908723205869
+S=477,WC=DesignScene-1:1,MC=MM,689,412,0,0,"None",-8586097908723105931
+S=478,WC=DesignScene-1:1,MC=MM,656,260,0,0,"None",-8586097908722986010
+S=479,WC=DesignScene-1:1,MC=MM,628,164,0,0,"None",-8586097908722826087
+S=480,WC=DesignScene-1:1,MC=MM,627,155,0,0,"None",-8586097908722716132
+S=481,WC=DesignScene-1:1,MC=MM,627,134,0,0,"None",-8586097908722416179
+S=482,WC=DesignScene-1:1,MC=MM,629,109,0,0,"None",-8586097908722276311
+S=483,WC=DesignScene-1:1,MC=MM,635,82,0,0,"None",-8586097908722036438
+S=484,WC=DesignScene-1:1,MC=MM,637,70,0,0,"None",-8586097908721886484
+S=485,WC=DesignScene-1:1,MC=MM,641,40,0,0,"None",-8586097908721696610
+S=486,WC=DesignScene-1:1,MC=MM,644,26,0,0,"None",-8586097908721586663
+S=487,WC=DesignScene-1:1,MC=MM,644,2,0,0,"None",-8586097908721376762
+S=488,UI_CMD=SplitBodyTool
+S=489,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=490,WC=DesignScene-1:1,MC=MM,598,36,0,0,"None",-8586097908700031571
+S=491,WC=DesignScene-1:1,MC=MM,586,66,0,0,"None",-8586097908699931615
+S=492,WC=DesignScene-1:1,MC=MM,579,92,0,0,"None",-8586097908699741705
+S=493,WC=DesignScene-1:1,MC=MM,576,105,0,0,"None",-8586097908699541798
+S=494,WC=DesignScene-1:1,MC=MM,573,113,0,0,"None",-8586097908699411858
+S=495,WC=DesignScene-1:1,MC=MM,569,129,0,0,"None",-8586097908699171968
+S=496,WC=DesignScene-1:1,MC=MM,568,138,0,0,"None",-8586097908699032034
+S=497,WC=DesignScene-1:1,MC=MM,565,153,0,0,"None",-8586097908698782151
+S=498,WC=DesignScene-1:1,MC=MM,561,168,0,0,"None",-8586097908698612139
+S=499,WC=DesignScene-1:1,MC=MM,559,177,0,0,"None",-8586097908698482291
+S=500,WC=DesignScene-1:1,MC=MM,557,189,0,0,"None",-8586097908698302373
+S=501,WC=DesignScene-1:1,MC=MM,554,202,0,0,"None",-8586097908698092471
+S=502,WC=DesignScene-1:1,MC=MM,551,208,0,0,"None",-8586097908697772623
+S=503,WC=DesignScene-1:1,MC=MM,549,215,0,0,"None",-8586097908697632684
+S=504,WC=DesignScene-1:1,MC=MM,548,217,0,0,"None",-8586097908697512741
+S=505,WC=DesignScene-1:1,MC=MM,547,218,0,0,"None",-8586097908697392797
+S=506,WC=DesignScene-1:1,MC=MM,547,220,0,0,"None",-8586097908697092933
+S=507,WC=DesignScene-1:1,MC=MD,547,220,0,0,"Left",-8586097908681083331
+S=508,WC=DesignScene-1:1,MC=MU,547,220,0,0,"Left",-8586097908680426249
+//Within drag threshold: 65ms
+//Within drag threshold: 65ms
+S=509,WC=DesignScene-1:1,MC=MM,539,220,0,0,"None",-8586097908668378424
+S=510,WC=DesignScene-1:1,MC=MM,536,220,0,0,"None",-8586097908668218586
+S=511,WC=DesignScene-1:1,MC=MM,528,220,0,0,"None",-8586097908667808679
+S=512,WC=DesignScene-1:1,MC=MM,517,220,0,0,"None",-8586097908667698742
+S=513,WC=DesignScene-1:1,MC=MM,515,220,0,0,"None",-8586097908667568854
+S=514,WC=DesignScene-1:1,MC=MM,514,220,0,0,"None",-8586097908667398962
+S=515,WC=DesignScene-1:1,MC=MM,513,220,0,0,"None",-8586097908666969111
+S=516,WC=DesignScene-1:1,MC=MM,512,220,0,0,"None",-8586097908666459254
+S=517,WC=DesignScene-1:1,MC=MM,511,220,0,0,"None",-8586097908665539881
+S=518,WC=DesignScene-1:1,MC=MM,510,220,0,0,"None",-8586097908665409771
+S=519,WC=DesignScene-1:1,MC=MM,507,220,0,0,"None",-8586097908665109916
+S=520,WC=DesignScene-1:1,MC=MM,506,220,0,0,"None",-8586097908664990023
+S=521,WC=DesignScene-1:1,MC=MM,505,220,0,0,"None",-8586097908664880022
+S=522,WC=DesignScene-1:1,MC=MM,504,220,0,0,"None",-8586097908664620137
+S=523,WC=DesignScene-1:1,MC=MM,503,220,0,0,"None",-8586097908664480258
+S=524,WC=DesignScene-1:1,MC=MM,502,220,0,0,"None",-8586097908664380276
+S=525,WC=DesignScene-1:1,MC=MM,500,220,0,0,"None",-8586097908664050286
+S=526,WC=DesignScene-1:1,MC=MM,499,220,0,0,"None",-8586097908663930495
+S=527,WC=DesignScene-1:1,MC=MM,498,220,0,0,"None",-8586097908663170823
+S=528,WC=DesignScene-1:1,MC=MD,498,220,0,0,"Left",-8586097908657378619
+S=529,WC=DesignScene-1:1,MC=MU,498,220,0,0,"Left",-8586097908657256982
+//Within drag threshold: 12ms
+//Within drag threshold: 12ms
+S=530,WC=DesignScene-1:1,MC=MM,498,231,0,0,"None",-8586097908645037389
+S=531,WC=DesignScene-1:1,MC=MM,498,242,0,0,"None",-8586097908644517632
+S=532,WC=DesignScene-1:1,MC=MM,515,278,0,0,"None",-8586097908644387647
+S=533,WC=DesignScene-1:1,MC=MM,651,426,0,0,"None",-8586097908636881039
+S=534,WC=DesignScene-1:1,MC=MM,651,427,0,0,"None",-8586097908636691108
+S=535,WC=DesignScene-1:1,MC=MM,652,427,0,0,"None",-8586097908636630898
+S=536,WC=DesignScene-1:1,MC=MD,652,427,0,0,"Left",-8586097908629978076
+S=537,WC=DesignScene-1:1,MC=MU,652,427,0,0,"Left",-8586097908629552445
+//Within drag threshold: 42ms
+//Within drag threshold: 42ms
+S=538,WC=DesignScene-1:1,MC=MM,655,427,0,0,"None",-8586097908625361646
+S=539,WC=DesignScene-1:1,MC=MM,656,427,0,0,"None",-8586097908624926295
+S=540,WC=DesignScene-1:1,MC=MM,740,378,0,0,"None",-8586097908619798682
+S=541,WC=DesignScene-1:1,MC=MM,740,376,0,0,"None",-8586097908619578784
+S=542,WC=DesignScene-1:1,MC=MM,741,376,0,0,"None",-8586097908613157099
+S=543,WC=DesignScene-1:1,MC=MD,741,376,0,0,"Left",-8586097908612057780
+S=544,WC=DesignScene-1:1,MC=MU,741,376,0,0,"Left",-8586097908611602733
+//Within drag threshold: 45ms
+//Within drag threshold: 45ms
+S=545,WC=DesignScene-1:1,MC=MM,741,375,0,0,"None",-8586097908606968802
+S=546,WC=DesignScene-1:1,MC=MM,741,372,0,0,"None",-8586097908606818869
+S=547,WC=DesignScene-1:1,MC=MM,741,370,0,0,"None",-8586097908606698924
+S=548,WC=DesignScene-1:1,MC=MM,737,348,0,0,"None",-8586097908603390464
+S=549,WC=DesignScene-1:1,MC=MM,737,346,0,0,"None",-8586097908602870708
+S=550,WC=DesignScene-1:1,MC=MD,737,346,0,0,"Left",-8586097908593003027
+S=551,WC=DesignScene-1:1,MC=MU,737,346,0,0,"Left",-8586097908592479155
+//Within drag threshold: 52ms
+//Within drag threshold: 52ms
+S=552,WC=DesignScene-1:1,MC=MM,736,346,0,0,"None",-8586097908582441097
+S=553,WC=DesignScene-1:1,MC=MM,736,348,0,0,"None",-8586097908581751415
+S=554,WC=DesignScene-1:1,MC=MM,708,446,0,0,"None",-8586097908577943219
+S=555,WC=DesignScene-1:1,MC=MM,706,448,0,0,"None",-8586097908577873253
+S=556,WC=DesignScene-1:1,MC=MD,706,448,0,0,"Left",-8586097908575834164
+S=557,WC=DesignScene-1:1,MC=MU,706,448,0,0,"Left",-8586097908575444349
+//Within drag threshold: 38ms
+//Within drag threshold: 38ms
+S=558,WC=DesignScene-1:1,MC=MM,704,444,0,0,"None",-8586097908518595418
+S=559,WC=DesignScene-1:1,MC=MM,701,438,0,0,"None",-8586097908518503582
+S=560,WC=DesignScene-1:1,MC=MM,449,4,0,0,"None",-8586097908509217447
+S=561,WC=DesignScene-1:1,MC=MM,446,2,0,0,"None",-8586097908509077512
+S=562,UI_CMD=PullTool
+S=563,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=564,WC=DesignScene-1:1,MC=MM,391,4,0,0,"None",-8586097908483849884
+S=565,WC=DesignScene-1:1,MC=MM,391,14,0,0,"None",-8586097908483759987
+S=566,WC=DesignScene-1:1,MC=MM,391,23,0,0,"None",-8586097908483669910
+S=567,WC=DesignScene-1:1,MC=MM,415,148,0,0,"None",-8586097908481281112
+S=568,WC=DesignScene-1:1,MC=MM,418,158,0,0,"None",-8586097908481051095
+// Pull Action: None
+S=569,WC=DesignScene-1:1,MC=MM,420,163,0,0,"None",-8586097908480861308
+// Pull Action: Fillet
+// Pull Action: Extrude
+S=570,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=571,WC=DesignScene-1:1,MC=MM,442,222,0,0,"None",-8586097908480141577
+// Pull Action: None
+S=572,WC=DesignScene-1:1,MC=MM,445,230,0,0,"None",-8586097908479961660
+S=573,WC=DesignScene-1:1,MC=MM,453,247,0,0,"None",-8586097908479801634
+S=574,WC=DesignScene-1:1,MC=MM,504,256,0,0,"None",-8586097908447040174
+S=575,WC=DesignScene-1:1,MC=MM,530,251,0,0,"None",-8586097908446740312
+S=576,WC=DesignScene-1:1,MC=MM,764,220,0,0,"None",-8586097908446600466
+// Pull Action: Extrude
+S=577,WC=DesignScene-1:1,MC=MM,809,216,0,0,"None",-8586097908446370474
+S=578,WC=DesignScene-1:1,MC=MM,818,215,0,0,"None",-8586097908446220686
+S=579,WC=DesignScene-1:1,MC=MM,842,212,0,0,"None",-8586097908446050674
+S=580,WC=DesignScene-1:1,MC=MM,853,212,0,0,"None",-8586097908445920630
+S=581,WC=DesignScene-1:1,MC=MM,877,212,0,0,"None",-8586097908445730793
+S=582,WC=DesignScene-1:1,MC=MM,890,211,0,0,"None",-8586097908445600718
+S=583,WC=DesignScene-1:1,MC=MM,901,211,0,0,"None",-8586097908445490907
+S=584,UI_CMD=PullIndependent
+S=585,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=586,WC=DesignScene-1:1,MC=MM,855,275,0,0,"None",-8586097908432355213
+S=587,WC=DesignScene-1:1,MC=MM,845,275,0,0,"None",-8586097908432245290
+S=588,WC=DesignScene-1:1,MC=MM,814,275,0,0,"None",-8586097908431955361
+S=589,WC=DesignScene-1:1,MC=MM,794,275,0,0,"None",-8586097908431895427
+S=590,WC=DesignScene-1:1,MC=MM,745,275,0,0,"None",-8586097908431685527
+S=591,WC=DesignScene-1:1,MC=MM,709,275,0,0,"None",-8586097908431565580
+S=592,WC=DesignScene-1:1,MC=MM,674,275,0,0,"None",-8586097908431455648
+S=593,WC=DesignScene-1:1,MC=MM,612,275,0,0,"None",-8586097908431225740
+S=594,WC=DesignScene-1:1,MC=MM,584,277,0,0,"None",-8586097908431065813
+// Pull Action: None
+S=595,WC=DesignScene-1:1,MC=MM,556,278,0,0,"None",-8586097908430885897
+// Pull Action: Extrude
+S=596,WC=DesignScene-1:1,MC=MM,529,281,0,0,"None",-8586097908430735990
+// Pull Action: Fillet
+S=597,WC=DesignScene-1:1,MC=MM,518,283,0,0,"None",-8586097908430586038
+S=598,WC=DesignScene-1:1,MC=MM,510,285,0,0,"None",-8586097908430446117
+// Pull Action: Extrude
+S=599,WC=DesignScene-1:1,MC=MM,508,285,0,0,"None",-8586097908430286190
+S=600,WC=DesignScene-1:1,MC=MM,507,285,0,0,"None",-8586097908429376598
+S=601,WC=DesignScene-1:1,MC=MM,505,285,0,0,"None",-8586097908429226699
+S=602,WC=DesignScene-1:1,MC=MM,501,285,0,0,"None",-8586097908429106740
+S=603,WC=DesignScene-1:1,MC=MM,499,285,0,0,"None",-8586097908428966813
+S=604,WC=DesignScene-1:1,MC=MM,496,285,0,0,"None",-8586097908428726903
+S=605,WC=DesignScene-1:1,MC=MM,483,282,0,0,"None",-8586097908428467023
+S=606,WC=DesignScene-1:1,MC=MM,475,280,0,0,"None",-8586097908428257122
+// Pull Action: Fillet
+S=607,WC=DesignScene-1:1,MC=MM,461,278,0,0,"None",-8586097908428107192
+S=608,WC=DesignScene-1:1,MC=MM,444,274,0,0,"None",-8586097908427917293
+S=609,WC=DesignScene-1:1,MC=MM,438,273,0,0,"None",-8586097908427787352
+S=610,WC=DesignScene-1:1,MC=MM,420,295,0,0,"None",-8586097908417380121
+S=611,WC=DesignScene-1:1,MC=MM,421,296,0,0,"None",-8586097908416940326
+S=612,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=613,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=614,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=615,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=616,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=617,WC=DesignScene-1:1,MC=MouseWheel,421,296,120,0,None
+S=618,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=619,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=620,WC=DesignScene-1:1,KC=KUP,17// ControlKey
+S=621,WC=DesignScene-1:1,MC=MD,421,296,0,0,"Left",-8586097908389550951
+S=622,WC=DesignScene-1:1,MC=MU,421,296,0,0,"Left",-8586097908389069546
+//Within drag threshold: 48ms
+//Within drag threshold: 48ms
+// Validation Summary: Total of 1 object (1 Face)
+S=623;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>1</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid1</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=624,WC=DesignScene-1:1,MC=MM,423,296,0,0,"None",-8586097908375197036
+S=625,WC=DesignScene-1:1,MC=MM,447,293,0,0,"None",-8586097908374637351
+S=626,WC=DesignScene-1:1,MC=MM,598,239,0,0,"None",-8586097908360736927
+S=627,WC=DesignScene-1:1,MC=MM,601,239,0,0,"None",-8586097908360557011
+S=628,WC=DesignScene-1:1,MC=MM,613,239,0,0,"None",-8586097908359837322
+S=629,UI_CMD=CreateRulerDimension
+S=630,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=631,WC=DesignScene-1:1,MC=MM,616,228,0,0,"None",-8586097908334048268
+S=632,WC=DesignScene-1:1,MC=MM,611,226,0,0,"None",-8586097908333848335
+S=633,WC=DesignScene-1:1,MC=MM,531,221,0,0,"None",-8586097908326151916
+S=634,WC=DesignScene-1:1,MC=MM,530,221,0,0,"None",-8586097908325372277
+S=635,WC=DesignScene-1:1,MC=MM,529,221,0,0,"None",-8586097908325112401
+S=636,WC=DesignScene-1:1,MC=MM,528,221,0,0,"None",-8586097908324592642
+S=637,WC=DesignScene-1:1,MC=MD,528,221,0,0,"Left",-8586097908321667998
+S=638,WC=DesignScene-1:1,MC=MU,528,221,0,0,"Left",-8586097908320652097
+//Within drag threshold: 101ms
+//Within drag threshold: 101ms
+S=639,WC=DesignScene-1:1,MC=MM,527,223,0,0,"None",-8586097908309306221
+S=640,WC=DesignScene-1:1,MC=MM,526,226,0,0,"None",-8586097908309076381
+S=641,WC=DesignScene-1:1,MC=MM,526,229,0,0,"None",-8586097908308816436
+S=642,WC=DesignScene-1:1,MC=MM,1031,656,0,0,"None",-8586097908287320253
+S=643,WC=DesignScene-1:1,MC=MM,1032,657,0,0,"None",-8586097908286900447
+S=644,WC=DesignScene-1:1,MC=MM,1032,660,0,0,"None",-8586097908286660595
+S=645,UI_CMD=CreateNamedSelection
+**InvokeDelay=1 // InvokeDelay Start
+// Pull Action: None
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=0 // InvokeDelay End
+**InvokeDelay=0 // InvokeDelay End
+**InvokeDelay=0 // InvokeDelay End
+S=646,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,1,0/0,Driving Dimensions/Group1
+S=647,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,0
+S=648,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,1,0,Driving Dimensions
+S=649,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,0
+S=650,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=651,WC=DesignScene-1:1,MC=MM,846,558,0,0,"None",-8586097908252180138
+S=652,WC=DesignScene-1:1,MC=MM,789,519,0,0,"None",-8586097908252040227
+S=653,WC=DesignScene-1:1,MC=MM,786,517,0,0,"None",-8586097908251840278
+S=654,WC=DesignScene-1:1,MC=MM,750,484,0,0,"None",-8586097908249451408
+S=655,WC=DesignScene-1:1,MC=MM,749,483,0,0,"None",-8586097908243158152
+S=656,WC=DesignScene-1:1,MC=MD,749,483,0,0,"Left",-8586097908240585486
+S=657,WC=DesignScene-1:1,MC=MU,749,483,0,0,"Left",-8586097908240115697
+//Within drag threshold: 46ms
+//Within drag threshold: 46ms
+// Pull Action: Extrude
+// Validation Summary: No items selected
+S=658;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items /><Truncated>false</Truncated><TotalCount>0</TotalCount></ValidationInfo>"
+S=659,WC=DesignScene-1:1,MC=MM,749,482,0,0,"None",-8586097908232478526
+S=660,WC=DesignScene-1:1,MC=MM,761,478,0,0,"None",-8586097908232416841
+S=661,WC=DesignScene-1:1,MC=MM,817,422,0,0,"None",-8586097908228618640
+S=662,WC=DesignScene-1:1,MC=MM,824,418,0,0,"None",-8586097908228388740
+// Pull Action: None
+S=663,WC=DesignScene-1:1,MC=MM,825,415,0,0,"None",-8586097908228188834
+// Pull Action: Offset
+S=664,WC=DesignScene-1:1,MC=MM,828,414,0,0,"None",-8586097908228008920
+S=665,WC=DesignScene-1:1,MC=MM,830,412,0,0,"None",-8586097908227848999
+S=666,WC=DesignScene-1:1,MC=MM,834,410,0,0,"None",-8586097908227729055
+S=667,WC=DesignScene-1:1,MC=MM,835,409,0,0,"None",-8586097908227589120
+S=668,WC=DesignScene-1:1,MC=MM,837,407,0,0,"None",-8586097908227469155
+S=669,WC=DesignScene-1:1,MC=MM,838,406,0,0,"None",-8586097908226879430
+S=670,WC=DesignScene-1:1,MC=MM,838,405,0,0,"None",-8586097908225550068
+// Pull Action: Fillet
+S=671,WC=DesignScene-1:1,MC=MM,838,404,0,0,"None",-8586097908225390138
+S=672,WC=DesignScene-1:1,MC=MM,838,403,0,0,"None",-8586097908225160246
+S=673,WC=DesignScene-1:1,MC=MM,838,402,0,0,"None",-8586097908224790418
+S=674,WC=DesignScene-1:1,MC=MM,838,401,0,0,"None",-8586097908224470565
+S=675,WC=DesignScene-1:1,MC=MM,838,400,0,0,"None",-8586097908224340623
+S=676,WC=DesignScene-1:1,MC=MM,838,399,0,0,"None",-8586097908224200683
+S=677,WC=DesignScene-1:1,MC=MM,838,398,0,0,"None",-8586097908223670938
+S=678,WC=DesignScene-1:1,MC=MM,838,397,0,0,"None",-8586097908222231613
+S=679,WC=DesignScene-1:1,MC=MM,838,394,0,0,"None",-8586097908221951738
+S=680,WC=DesignScene-1:1,MC=MM,838,393,0,0,"None",-8586097908221541875
+S=681,WC=DesignScene-1:1,MC=MM,838,392,0,0,"None",-8586097908221312039
+S=682,WC=DesignScene-1:1,MC=MM,838,391,0,0,"None",-8586097908221102134
+S=683,WC=DesignScene-1:1,MC=MM,838,390,0,0,"None",-8586097908220982190
+S=684,WC=DesignScene-1:1,MC=MD,838,390,0,0,"Left",-8586097908213037759
+S=685,WC=DesignScene-1:1,MC=MU,838,390,0,0,"Left",-8586097908212517977
+//Within drag threshold: 51ms
+//Within drag threshold: 51ms
+// Validation Summary: Total of 1 object (1 Face)
+S=686;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>0.010000000000000002</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=687,WC=DesignScene-1:1,MC=MM,839,390,0,0,"None",-8586097908198222907
+S=688,WC=DesignScene-1:1,MC=MM,855,394,0,0,"None",-8586097908198082991
+S=689,WC=DesignScene-1:1,MC=MM,951,419,0,0,"None",-8586097908194673861
+S=690,WC=DesignScene-1:1,MC=MM,952,420,0,0,"None",-8586097908194543889
+S=691,WC=DesignScene-1:1,MC=MM,955,420,0,0,"None",-8586097908194383964
+S=692,WC=DesignScene-1:1,MC=MM,958,421,0,0,"None",-8586097908194204047
+S=693,WC=DesignScene-1:1,MC=MM,959,421,0,0,"None",-8586097908194084131
+S=694,UI_CMD=CreateRulerDimension
+S=695,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=696,WC=DesignScene-1:1,MC=MM,954,429,0,0,"None",-8586097908181189391
+S=697,WC=DesignScene-1:1,MC=MM,859,418,0,0,"None",-8586097908181009447
+S=698,WC=DesignScene-1:1,MC=MM,737,382,0,0,"None",-8586097908180849553
+S=699,WC=DesignScene-1:1,MC=MM,463,258,0,0,"None",-8586097908165946641
+S=700,WC=DesignScene-1:1,MC=MM,462,258,0,0,"None",-8586097908165716616
+S=701,WC=DesignScene-1:1,MC=MD,462,258,0,0,"Left",-8586097908160048035
+S=702,WC=DesignScene-1:1,MC=MU,462,258,0,0,"Left",-8586097908159352749
+//Within drag threshold: 69ms
+//Within drag threshold: 69ms
+S=703,WC=DesignScene-1:1,MC=MM,460,266,0,0,"None",-8586097908146913565
+S=704,WC=DesignScene-1:1,MC=MM,458,274,0,0,"None",-8586097908146363862
+S=705,WC=DesignScene-1:1,MC=MM,458,292,0,0,"None",-8586097908146163955
+S=706,WC=DesignScene-1:1,MC=MM,471,338,0,0,"None",-8586097908145974038
+S=707,WC=DesignScene-1:1,MC=MM,851,572,0,0,"None",-8586097908117808858
+S=708,WC=DesignScene-1:1,MC=MM,852,572,0,0,"None",-8586097908117699081
+S=709,WC=DesignScene-1:1,MC=MM,857,573,0,0,"None",-8586097908117379231
+S=710,UI_CMD=CreateNamedSelection
+**InvokeDelay=1 // InvokeDelay Start
+// Pull Action: None
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=0 // InvokeDelay End
+**InvokeDelay=0 // InvokeDelay End
+**InvokeDelay=0 // InvokeDelay End
+S=711,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,1,0,Driving Dimensions
+S=712,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,0
+S=713,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=714,WC=DesignScene-1:1,MC=MM,830,535,0,0,"None",-8586097908100276130
+S=715,WC=DesignScene-1:1,MC=MM,801,516,0,0,"None",-8586097908100136195
+S=716,WC=DesignScene-1:1,MC=MM,798,514,0,0,"None",-8586097908099966274
+S=717,WC=DesignScene-1:1,MC=MM,795,511,0,0,"None",-8586097908099866319
+S=718,WC=DesignScene-1:1,MC=MM,786,506,0,0,"None",-8586097908099706396
+S=719,WC=DesignScene-1:1,MC=MM,780,502,0,0,"None",-8586097908099586443
+S=720,WC=DesignScene-1:1,MC=MM,771,496,0,0,"None",-8586097908099376544
+S=721,WC=DesignScene-1:1,MC=MM,768,494,0,0,"None",-8586097908099246603
+S=722,WC=DesignScene-1:1,MC=MM,765,492,0,0,"None",-8586097908098986728
+S=723,WC=DesignScene-1:1,MC=MM,762,491,0,0,"None",-8586097908098786747
+S=724,WC=DesignScene-1:1,MC=MM,761,490,0,0,"None",-8586097908098576916
+S=725,WC=DesignScene-1:1,MC=MD,761,490,0,0,"Left",-8586097908094030253
+S=726,WC=DesignScene-1:1,MC=MU,761,490,0,0,"Left",-8586097908092852723
+//Within drag threshold: 117ms
+//Within drag threshold: 117ms
+// Pull Action: Extrude
+// Validation Summary: No items selected
+S=727;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items /><Truncated>false</Truncated><TotalCount>0</TotalCount></ValidationInfo>"
+S=728,WC=DesignScene-1:1,MC=MM,757,490,0,0,"None",-8586097908085143731
+S=729,WC=DesignScene-1:1,MC=MM,746,490,0,0,"None",-8586097908085072029
+S=730,WC=DesignScene-1:1,MC=MM,662,492,0,0,"None",-8586097908084532348
+S=731,WC=DesignScene-1:1,MC=MM,593,495,0,0,"None",-8586097908083192934
+S=732,WC=DesignScene-1:1,MC=MM,593,492,0,0,"None",-8586097908080357311
+S=733,WC=DesignScene-1:1,MC=MM,591,478,0,0,"None",-8586097908079787578
+S=734,WC=DesignScene-1:1,MC=MM,577,419,0,0,"None",-8586097908079717608
+S=735,WC=DesignScene-1:1,MC=MM,566,264,0,0,"None",-8586097908079567678
+// Pull Action: None
+S=736,WC=DesignScene-1:1,MC=MM,566,215,0,0,"None",-8586097908079297798
+S=737,WC=DesignScene-1:1,MC=MM,563,197,0,0,"None",-8586097908079167868
+S=738,WC=DesignScene-1:1,MC=MM,562,183,0,0,"None",-8586097908079047922
+S=739,WC=DesignScene-1:1,MC=MM,559,158,0,0,"None",-8586097908078868026
+S=740,WC=DesignScene-1:1,MC=MM,558,148,0,0,"None",-8586097908078738064
+S=741,WC=DesignScene-1:1,MC=MM,556,140,0,0,"None",-8586097908078628115
+S=742,WC=DesignScene-1:1,MC=MM,554,122,0,0,"None",-8586097908078448200
+S=743,WC=DesignScene-1:1,MC=MM,553,115,0,0,"None",-8586097908078308264
+S=744,WC=DesignScene-1:1,MC=MM,550,101,0,0,"None",-8586097908078088404
+S=745,WC=DesignScene-1:1,MC=MM,548,97,0,0,"None",-8586097908077968462
+S=746,WC=DesignScene-1:1,MC=MM,547,89,0,0,"None",-8586097908077858514
+S=747,WC=DesignScene-1:1,MC=MM,542,75,0,0,"None",-8586097908077628615
+// Pull Action: Extrude
+S=748,WC=DesignScene-1:1,MC=MM,540,68,0,0,"None",-8586097908077468691
+// Pull Action: Fillet
+S=749,WC=DesignScene-1:1,MC=MM,535,56,0,0,"None",-8586097908077258774
+// Pull Action: Extrude
+S=750,WC=DesignScene-1:1,MC=MM,533,51,0,0,"None",-8586097908077088815
+S=751,WC=DesignScene-1:1,MC=MM,531,47,0,0,"None",-8586097908077038877
+S=752,WC=DesignScene-1:1,MC=MM,524,35,0,0,"None",-8586097908076878929
+S=753,WC=DesignScene-1:1,MC=MM,521,29,0,0,"None",-8586097908076748987
+S=754,WC=DesignScene-1:1,MC=MM,516,20,0,0,"None",-8586097908076589063
+S=755,WC=DesignScene-1:1,MC=MM,513,15,0,0,"None",-8586097908076419144
+S=756,WC=DesignScene-1:1,MC=MM,508,8,0,0,"None",-8586097908076199246
+S=757,UI_CMD=Transform
+S=758,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=759,WC=DesignScene-1:1,MC=MM,461,1,0,0,"None",-8586097908065276611
+S=760,WC=DesignScene-1:1,MC=MM,470,16,0,0,"None",-8586097908065116665
+S=761,WC=DesignScene-1:1,MC=MM,475,24,0,0,"None",-8586097908065046700
+S=762,WC=DesignScene-1:1,MC=MM,409,188,0,0,"None",-8586097908053660343
+S=763,WC=DesignScene-1:1,MC=MM,408,187,0,0,"None",-8586097908053510397
+S=764,WC=DesignScene-1:1,MC=MM,407,187,0,0,"None",-8586097908053390469
+S=765,UI_CMD=ToolGuideSelectComponent
+S=766,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=767,WC=DesignScene-1:1,MC=MM,428,205,0,0,"None",-8586097908045648626
+S=768,WC=DesignScene-1:1,MC=MM,463,216,0,0,"None",-8586097908045438626
+S=769,WC=DesignScene-1:1,MC=MM,811,325,0,0,"None",-8586097908040980820
+S=770,WC=DesignScene-1:1,MC=MM,811,326,0,0,"None",-8586097908040860841
+S=771,WC=DesignScene-1:1,MC=MM,810,329,0,0,"None",-8586097908040630950
+S=772,WC=DesignScene-1:1,MC=MD,810,329,0,0,"Left",-8586097908034895490
+S=773,WC=DesignScene-1:1,MC=MU,810,329,0,0,"Left",-8586097908034290648
+//Within drag threshold: 60ms
+S=774,TransformToolHandles,0.425,0,0.2,1,0,0,0,1,0,0,0,1,0.05,0
+// Validation Summary: Total of 1 object (1 Body)
+S=775;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><Body><Name>Solid1</Name><FaceCount>6</FaceCount><EdgeCount>12</EdgeCount><IsClosedBody>true</IsClosedBody><LayerName>Layer0</LayerName><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Body></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=776,WC=DesignScene-1:1,MC=MM,805,334,0,0,"None",-8586097908025563466
+S=777,WC=DesignScene-1:1,MC=MM,800,335,0,0,"None",-8586097908025363449
+S=778,WC=DesignScene-1:1,MC=MM,750,342,0,0,"None",-8586097908024903647
+S=779,WC=DesignScene-1:1,MC=MM,713,341,0,0,"None",-8586097908024683789
+S=780,WC=DesignScene-1:1,MC=MM,709,339,0,0,"None",-8586097908024543780
+S=781,WC=DesignScene-1:1,MC=MM,707,337,0,0,"None",-8586097908024403758
+S=782,WC=DesignScene-1:1,MC=MM,697,329,0,0,"None",-8586097908024203878
+S=783,WC=DesignScene-1:1,MC=MM,694,328,0,0,"None",-8586097908024054147
+S=784,WC=DesignScene-1:1,MC=MM,688,325,0,0,"None",-8586097908023904117
+S=785,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=786,WC=DesignScene-1:1,MC=MM,608,302,0,0,"None",-8586097908022364933
+S=787,WC=DesignScene-1:1,MC=MM,602,300,0,0,"None",-8586097908022114864
+S=788,WC=DesignScene-1:1,MC=MM,602,299,0,0,"None",-8586097908021775103
+S=789,UI_CMD=ToolGuideAnchor
+S=790,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=791,WC=DesignScene-1:1,MC=MM,696,295,0,0,"None",-8586097908001389624
+S=792,WC=DesignScene-1:1,MC=MM,717,297,0,0,"None",-8586097908001259606
+S=793,WC=DesignScene-1:1,MC=MM,837,352,0,0,"None",-8586097907989045284
+S=794,WC=DesignScene-1:1,MC=MM,838,353,0,0,"None",-8586097907987188717
+S=795,WC=DesignScene-1:1,MC=MD,838,353,0,0,"Left",-8586097907984014018
+S=796,WC=DesignScene-1:1,MC=MU,838,353,0,0,"Left",-8586097907983480199
+S=797,TransformToolHandles,0.5,0,0.2,6.1230317691118863E-17,0,-1,0,1,0,1,0,6.1230317691118863E-17,0.05,0
+S=798,WC=DesignScene-1:1,MC=MM,838,354,0,0,"None",-8586097907980109832
+S=799,WC=DesignScene-1:1,MC=MM,840,354,0,0,"None",-8586097907971034642
+S=800,WC=DesignScene-1:1,MC=MM,875,352,0,0,"None",-8586097907964349221
+S=801,WC=DesignScene-1:1,MC=MM,874,352,0,0,"None",-8586097907963399647
+S=802,WC=DesignScene-1:1,MC=MM,874,351,0,0,"None",-8586097907954127366
+S=803,WC=DesignScene-1:1,MC=MM,874,349,0,0,"None",-8586097907953977466
+S=804,WC=DesignScene-1:1,MC=MD,874,349,0,0,"Left",-8586097907946334140
+S=805,WC=DesignScene-1:1,MC=MU,874,349,0,0,"Left",-8586097907945702015
+//Within drag threshold: 63ms
+//Within drag threshold: 63ms
+S=806,WC=DesignScene-1:1,MC=MM,872,349,0,0,"None",-8586097907924856724
+S=807,WC=DesignScene-1:1,MC=MM,881,347,0,0,"None",-8586097907919916241
+S=808,WC=DesignScene-1:1,MC=MM,908,343,0,0,"None",-8586097907919326495
+S=809,WC=DesignScene-1:1,MC=MM,925,340,0,0,"None",-8586097907919176562
+S=810,UI_CMD=CreateRulerDimension
+S=811,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=812,WC=DesignScene-1:1,MC=MM,823,256,0,0,"None",-8586097907902910997
+S=813,WC=DesignScene-1:1,MC=MM,614,245,0,0,"None",-8586097907902720917
+S=814,WC=DesignScene-1:1,MC=MM,597,245,0,0,"None",-8586097907902541157
+S=815,WC=DesignScene-1:1,MC=MM,583,244,0,0,"None",-8586097907902371167
+S=816,WC=DesignScene-1:1,MC=MM,573,244,0,0,"None",-8586097907902111151
+S=817,WC=DesignScene-1:1,MC=MM,565,244,0,0,"None",-8586097907901861329
+S=818,WC=DesignScene-1:1,MC=MM,561,242,0,0,"None",-8586097907901691486
+S=819,WC=DesignScene-1:1,MC=MM,554,240,0,0,"None",-8586097907901531356
+S=820,WC=DesignScene-1:1,MC=MM,547,239,0,0,"None",-8586097907901371562
+S=821,WC=DesignScene-1:1,MC=MM,512,229,0,0,"None",-8586097907900911821
+S=822,WC=DesignScene-1:1,MC=MM,510,229,0,0,"None",-8586097907900731798
+S=823,WC=DesignScene-1:1,MC=MM,508,228,0,0,"None",-8586097907900572009
+S=824,WC=DesignScene-1:1,MC=MM,504,226,0,0,"None",-8586097907900112221
+S=825,WC=DesignScene-1:1,MC=MM,503,226,0,0,"None",-8586097907899922306
+S=826,WC=DesignScene-1:1,MC=MD,503,226,0,0,"Left",-8586097907894471014
+S=827,WC=DesignScene-1:1,MC=MM,503,225,0,0,"Left",-8586097907894431016
+S=828,WC=DesignScene-1:1,MC=MU,503,225,0,0,"Left",-8586097907893931282
+//Within drag threshold: 53ms
+//Within drag threshold: 53ms
+S=829,WC=DesignScene-1:1,MC=MM,502,226,0,0,"None",-8586097907891115491
+S=830,WC=DesignScene-1:1,MC=MM,498,242,0,0,"None",-8586097907890895508
+S=831,WC=DesignScene-1:1,MC=MM,496,252,0,0,"None",-8586097907890535745
+S=832,WC=DesignScene-1:1,MC=MM,851,577,0,0,"None",-8586097907862032080
+S=833,WC=DesignScene-1:1,MC=MM,854,579,0,0,"None",-8586097907861912190
+S=834,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,1,0,Driving Dimensions
+S=835,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,0
+S=836,UI_CMD=CreateNamedSelection
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=1 // InvokeDelay Start
+**InvokeDelay=1 // InvokeDelay Start
+S=837,TransformToolHandles,0.5,0,0.2,6.1230317691118863E-17,0,-1,0,1,0,1,0,6.1230317691118863E-17,0.05,0
+**InvokeDelay=0 // InvokeDelay End
+S=838,TransformToolHandles,0.5,0,0.2,6.1230317691118863E-17,0,-1,0,1,0,1,0,6.1230317691118863E-17,0.05,0
+**InvokeDelay=0 // InvokeDelay End
+S=839,TransformToolHandles,0.5,0,0.2,6.1230317691118863E-17,0,-1,0,1,0,1,0,6.1230317691118863E-17,0.05,0
+**InvokeDelay=0 // InvokeDelay End
+S=840,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,1,0,Driving Dimensions
+S=841,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,0
+S=842,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,1,0/0,Driving Dimensions/Group1
+S=843,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,0
+S=844,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=845,WC=DesignScene-1:1,MC=MM,849,574,0,0,"None",-8586097907846435906
+S=846,WC=DesignScene-1:1,MC=MM,840,571,0,0,"None",-8586097907846286012
+S=847,WC=DesignScene-1:1,MC=MM,799,544,0,0,"None",-8586097907843677226
+S=848,WC=DesignScene-1:1,MC=MM,798,542,0,0,"None",-8586097907843487307
+S=849,WC=DesignScene-1:1,MC=MM,797,542,0,0,"None",-8586097907843357370
+S=850,WC=DesignScene-1:1,MC=MM,797,541,0,0,"None",-8586097907843237425
+S=851,WC=DesignScene-1:1,MC=MD,797,541,0,0,"Left",-8586097907840014703
+S=852,WC=DesignScene-1:1,MC=MU,797,541,0,0,"Left",-8586097907839164351
+//Within drag threshold: 85ms
+//Within drag threshold: 85ms
+// Validation Summary: No items selected
+S=853;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items /><Truncated>false</Truncated><TotalCount>0</TotalCount></ValidationInfo>"
+S=854,WC=DesignScene-1:1,MC=MM,797,543,0,0,"None",-8586097907816970421
+S=855,WC=DesignScene-1:1,MC=MM,808,566,0,0,"None",-8586097907816880469
+S=856,WC=DesignScene-1:1,MC=MM,813,572,0,0,"None",-8586097907816738804
+S=857,WC=DesignScene-1:1,MC=MM,826,585,0,0,"None",-8586097907816289013
+S=858,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,1,0/1,Driving Dimensions/Group2
+S=859,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,0
+S=860,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,1,0/2,Driving Dimensions/Group3
+S=861,UI_CMD=Disco.SelectionGroupTree,Action=Select,Preview,0
+S=862,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=863,WC=DesignScene-1:1,MC=MM,1018,655,0,0,"None",-8586097907795725875
+S=864,WC=DesignScene-1:1,MC=MM,955,600,0,0,"None",-8586097907795625893
+S=865,WC=DesignScene-1:1,MC=MM,951,596,0,0,"None",-8586097907795465995
+S=866,WC=DesignScene-1:1,MC=MM,652,20,0,0,"None",-8586097907772078207
+S=867,WC=DesignScene-1:1,MC=MM,650,1,0,0,"None",-8586097907771878301
+S=868,UI_CMD=Disco.SetupStructuralCondition,1
+S=869,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=870,WC=DesignScene-1:1,MC=MM,167,4,0,0,"None",-8586097907713190143
+S=871,WC=DesignScene-1:1,MC=MM,263,93,0,0,"None",-8586097907712990472
+S=872,WC=DesignScene-1:1,MC=MM,438,275,0,0,"None",-8586097907701228803
+S=873,WC=DesignScene-1:1,MC=MM,440,275,0,0,"None",-8586097907700938892
+S=874,WC=DesignScene-1:1,MC=MM,444,276,0,0,"None",-8586097907696122283
+S=875,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=876,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=877,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=878,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=879,WC=DesignScene-1:1,MC=MouseWheel,444,276,120,0,None
+S=880,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=881,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=882,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=883,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=884,WC=DesignScene-1:1,KC=KDN,17// ControlKey
+S=885,WC=DesignScene-1:1,KC=KUP,17// ControlKey
+S=886,WC=DesignScene-1:1,MC=MD,444,276,0,0,"Left",-8586097907673182750
+S=887,WC=DesignScene-1:1,MC=MU,444,276,0,0,"Left",-8586097907672653483
+//Within drag threshold: 52ms
+//Within drag threshold: 52ms
+// Validation Summary: Total of 1 object (1 Face)
+S=888;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>1</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid1</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=889,WC=DesignScene-1:1,MC=MM,355,253,0,0,"None",-8586097907640274714
+S=890,WC=DesignScene-1:1,MC=MM,352,251,0,0,"None",-8586097907639804927
+S=891,WC=DesignScene-1:1,MC=MM,352,250,0,0,"None",-8586097907639684985
+S=892,WC=DesignScene-1:1,MC=MM,350,250,0,0,"None",-8586097907639565043
+S=893,WC=DesignScene-1:1,MC=MM,348,249,0,0,"None",-8586097907639285170
+S=894,WC=DesignScene-1:1,MC=MM,345,248,0,0,"None",-8586097907639075298
+S=895,WC=DesignScene-1:1,MC=MM,340,244,0,0,"None",-8586097907638915343
+S=896,WC=DesignScene-1:1,MC=MM,338,243,0,0,"None",-8586097907638785402
+S=897,WC=DesignScene-1:1,MC=MM,334,241,0,0,"None",-8586097907638665459
+S=898,WC=DesignScene-1:1,MC=MM,329,240,0,0,"None",-8586097907638465550
+S=899,WC=DesignScene-1:1,MC=MM,328,239,0,0,"None",-8586097907638335614
+S=900,UI_CMD=Disco.AcceptConditionsSubTool,"Accept"
+// Pull Action: None
+// Pull Action: None
+// Validation Summary: Total of 2 objects (1 SupportCondition, 1 Face)
+S=901;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><SupportEntity><LoadDirectionTriad>1.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 1.00000000E+000, 0.00000000E+000, -1.00000000E+000, 0.00000000E+000</LoadDirectionTriad><Dof>X, Fixed, 0 m, Y, Free, 0 m, Z, Free, 0 m, RX, Free, 0 rad, RY, Free, 0 rad, RZ, Free, 0 rad</Dof><SupportType>Fixed</SupportType><Scope>0:102</Scope><CreatedBy>User</CreatedBy></SupportEntity><Face><Area>1</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid1</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>2</TotalCount></ValidationInfo>"
+S=902,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=903,WC=DesignScene-1:1,MC=MM,299,229,0,0,"None",-8586097907597751868
+S=904,WC=DesignScene-1:1,MC=MM,299,227,0,0,"None",-8586097907597591949
+S=905,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=906,WC=DesignScene-1:1,MC=MM,348,212,0,0,"None",-8586097907569584402
+S=907,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=908,WC=DesignScene-1:1,MC=MM,294,78,0,0,"None",-8586097907568824736
+S=909,WC=DesignScene-1:1,MC=MM,245,0,0,0,"None",-8586097907568454906
+S=910,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=911,WC=DesignScene-1:1,MC=MM,168,3,0,0,"None",-8586097907564078977
+S=912,WC=DesignScene-1:1,MC=MM,167,6,0,0,"None",-8586097907563909072
+S=913,WC=DesignScene-1:1,MC=MM,307,190,0,0,"None",-8586097907547090834
+S=914,WC=DesignScene-1:1,MC=MM,307,182,0,0,"None",-8586097907546890926
+S=915,UI_CMD=Disco.SetConditionType,"Force"
+// Validation Summary: No items selected
+S=916;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items /><Truncated>false</Truncated><TotalCount>0</TotalCount></ValidationInfo>"
+S=917,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=918,WC=DesignScene-1:1,MC=MM,332,172,0,0,"None",-8586097907537069062
+S=919,WC=DesignScene-1:1,MC=MM,331,174,0,0,"None",-8586097907536939119
+S=920,WC=DesignScene-1:1,MC=MM,797,294,0,0,"None",-8586097907527896946
+S=921,WC=DesignScene-1:1,MC=MM,799,294,0,0,"None",-8586097907527757046
+S=922,WC=DesignScene-1:1,MC=MM,801,294,0,0,"None",-8586097907527517127
+S=923,WC=DesignScene-1:1,MC=MM,802,294,0,0,"None",-8586097907527307348
+S=924,WC=DesignScene-1:1,MC=MD,802,294,0,0,"Left",-8586097907520673782
+S=925,WC=DesignScene-1:1,MC=MU,802,294,0,0,"Left",-8586097907520559255
+//Within drag threshold: 11ms
+//Within drag threshold: 11ms
+// Validation Summary: Total of 1 object (1 Face)
+S=926;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>0.015000000000000003</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid1</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=927,WC=DesignScene-1:1,MC=MM,820,303,0,0,"None",-8586097907516061411
+S=928,WC=DesignScene-1:1,MC=MM,934,350,0,0,"None",-8586097907515911445
+S=929,WC=DesignScene-1:1,MC=MM,941,353,0,0,"None",-8586097907515731567
+S=930,WC=DesignScene-1:1,MC=MM,942,354,0,0,"None",-8586097907515671580
+S=931,WC=DesignScene-1:1,MC=MM,949,357,0,0,"None",-8586097907515351707
+S=932,WC=DesignScene-1:1,MC=MM,954,360,0,0,"None",-8586097907515121854
+S=933,WC=DesignScene-1:1,MC=MM,966,365,0,0,"None",-8586097907514961911
+S=934,WC=DesignScene-1:1,MC=MM,970,368,0,0,"None",-8586097907514881967
+S=935,WC=DesignScene-1:1,MC=MM,974,369,0,0,"None",-8586097907514682018
+S=936,WC=DesignScene-1:1,MC=MM,978,372,0,0,"None",-8586097907514552080
+S=937,WC=DesignScene-1:1,MC=MM,979,372,0,0,"None",-8586097907513452591
+S=938,UI_CMD=Disco.ForceOptionsPresenter.TotalMagnitude,{"UnitIndex":2,"UnitAbbreviation":"N","Value":1000.0,"Id":"ForceOptionsPresenter.TotalMagnitude"}
+// Validation Summary: Total of 2 objects (1 ForceCondition, 1 Face)
+S=939;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><ForceEntity><Magnitude>1000</Magnitude><Direction>-0 -0 -1</Direction><ForceType>DistributedTotalForce</ForceType><Scope>0:828</Scope><CreatedBy>User</CreatedBy></ForceEntity><Face><Area>0.015000000000000003</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid1</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>2</TotalCount></ValidationInfo>"
+S=940,WC=DesignScene-1:1,MC=MM,934,393,0,0,"None",-8586097907464001139
+S=941,WC=DesignScene-1:1,MC=MM,904,400,0,0,"None",-8586097907463951203
+S=942,WC=DesignScene-1:1,MC=MM,762,427,0,0,"None",-8586097907463741242
+S=943,WC=DesignScene-1:1,MC=MM,594,370,0,0,"None",-8586097907463661284
+S=944,WC=DesignScene-1:1,MC=MM,535,343,0,0,"None",-8586097907463391527
+S=945,WC=DesignScene-1:1,MC=MM,515,333,0,0,"None",-8586097907463201598
+S=946,WC=DesignScene-1:1,MC=MM,496,323,0,0,"None",-8586097907463061621
+S=947,WC=DesignScene-1:1,MC=MM,457,303,0,0,"None",-8586097907462901827
+S=948,WC=DesignScene-1:1,MC=MM,444,296,0,0,"None",-8586097907462761840
+S=949,WC=DesignScene-1:1,MC=MM,428,286,0,0,"None",-8586097907462611909
+S=950,WC=DesignScene-1:1,MC=MM,396,264,0,0,"None",-8586097907462451834
+S=951,WC=DesignScene-1:1,MC=MM,377,246,0,0,"None",-8586097907462301950
+S=952,WC=DesignScene-1:1,MC=MM,334,208,0,0,"None",-8586097907462132223
+S=953,WC=DesignScene-1:1,MC=MM,314,191,0,0,"None",-8586097907461942121
+S=954,WC=DesignScene-1:1,MC=MM,297,176,0,0,"None",-8586097907461882223
+S=955,WC=DesignScene-1:1,MC=MM,258,148,0,0,"None",-8586097907461672344
+S=956,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/0,Physics/Structural%20steel%2C%20S275N
+S=957,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=958,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=959,UI_CMD=Disco.Gravity.EnableSelfWeight
+S=960,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=961,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=962,WC=DesignScene-1:1,MC=MM,275,212,0,0,"None",-8586097907368829784
+S=963,WC=DesignScene-1:1,MC=MM,310,234,0,0,"None",-8586097907368629875
+S=964,WC=DesignScene-1:1,MC=MM,380,274,0,0,"None",-8586097907368549914
+S=965,WC=DesignScene-1:1,MC=MM,895,524,0,0,"None",-8586097907098656930
+S=966,WC=DesignScene-1:1,MC=MM,894,524,0,0,"None",-8586097907097987241
+S=967,WC=DesignScene-1:1,MC=MM,892,524,0,0,"None",-8586097907014529068
+S=968,WC=DesignScene-1:1,MC=MD,892,524,0,0,"Left",-8586097907008447737
+S=969,WC=DesignScene-1:1,MC=MU,892,524,0,0,"Left",-8586097907007969271
+//Within drag threshold: 47ms
+//Within drag threshold: 47ms
+// Validation Summary: No items selected
+S=970;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items /><Truncated>false</Truncated><TotalCount>0</TotalCount></ValidationInfo>"
+S=971,WC=DesignScene-1:1,MC=MM,881,524,0,0,"None",-8586097906999217109
+S=972,WC=DesignScene-1:1,MC=MM,880,524,0,0,"None",-8586097906998670481
+S=973,WC=DesignScene-1:1,MC=MM,587,559,0,0,"None",-8586097906967708346
+S=974,WC=DesignScene-1:1,MC=MM,562,550,0,0,"None",-8586097906967468443
+S=975,UI_CMD=Disco.CreateDefinedVariationUICommand
+// Pull Action: None
+// Pull Action: None
+S=976,UI_CMD=Disco.CreateDefinedVariationUICommand
+// Pull Action: None
+// Pull Action: None
+S=977,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=978,WC=DesignScene-1:1,MC=MM,443,518,0,0,"None",-8586097906863792043
+S=979,WC=DesignScene-1:1,MC=MM,443,521,0,0,"None",-8586097906863672103
+S=980,WC=DesignScene-1:1,MC=MM,457,589,0,0,"None",-8586097906860943498
+S=981,WC=DesignScene-1:1,MC=MM,458,589,0,0,"None",-8586097906859164187
+S=982,WC=DesignScene-1:1,MC=MM,458,573,0,0,"None",-8586097906784488566
+S=983,WC=DesignScene-1:1,MC=MM,458,561,0,0,"None",-8586097906784408493
+S=984,WC=DesignScene-1:1,MC=MM,456,511,0,0,"None",-8586097906784248684
+S=985,UI_CMD=Disco.DefinedVariation.Simulation1.Row2.Column1,{"UnitIndex":3,"UnitAbbreviation":"m","Value":0.1,"Id":"DefinedVariation.Simulation1.Row2.Column1"}
+S=986,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=987,WC=DesignScene-1:1,MC=MM,510,513,0,0,"None",-8586097906757695655
+S=988,WC=DesignScene-1:1,MC=MM,505,536,0,0,"None",-8586097906757525756
+S=989,WC=DesignScene-1:1,MC=MM,533,525,0,0,"None",-8586097906725614174
+S=990,WC=DesignScene-1:1,MC=MM,538,513,0,0,"None",-8586097906725364286
+S=991,WC=DesignScene-1:1,MC=MM,540,509,0,0,"None",-8586097906725044444
+S=992,UI_CMD=Disco.DefinedVariation.Simulation1.Row2.Column2,{"UnitIndex":3,"UnitAbbreviation":"m","Value":1.5,"Id":"DefinedVariation.Simulation1.Row2.Column2"}
+S=993,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=994,WC=DesignScene-1:1,MC=MM,572,512,0,0,"None",-8586097906714231169
+S=995,WC=DesignScene-1:1,MC=MM,568,519,0,0,"None",-8586097906714101241
+S=996,WC=DesignScene-1:1,MC=MM,564,526,0,0,"None",-8586097906714041199
+S=997,WC=DesignScene-1:1,MC=MM,447,511,0,0,"None",-8586097906680493004
+S=998,WC=DesignScene-1:1,MC=MM,445,510,0,0,"None",-8586097906680292991
+S=999,UI_CMD=Disco.DefinedVariation.Simulation1.Row2.Column3,{"UnitIndex":3,"UnitAbbreviation":"m","Value":1.25,"Id":"DefinedVariation.Simulation1.Row2.Column3"}
+S=1000,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1001,WC=DesignScene-1:1,MC=MM,442,521,0,0,"None",-8586097906670342195
+S=1002,WC=DesignScene-1:1,MC=MM,455,533,0,0,"None",-8586097906670132274
+S=1003,WC=DesignScene-1:1,MC=MM,539,525,0,0,"None",-8586097906637972041
+S=1004,WC=DesignScene-1:1,MC=MM,532,518,0,0,"None",-8586097906637752101
+S=1005,WC=DesignScene-1:1,MC=MM,528,512,0,0,"None",-8586097906637601781
+S=1006,UI_CMD=Disco.DefinedVariation.Simulation1.Row3.Column1,{"UnitIndex":3,"UnitAbbreviation":"m","Value":0.025,"Id":"DefinedVariation.Simulation1.Row3.Column1"}
+S=1007,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1008,WC=DesignScene-1:1,MC=MM,499,509,0,0,"None",-8586097906624676434
+S=1009,WC=DesignScene-1:1,MC=MM,499,510,0,0,"None",-8586097906624236541
+S=1010,WC=DesignScene-1:1,MC=MM,499,512,0,0,"None",-8586097906623926674
+S=1011,WC=DesignScene-1:1,MC=MM,549,517,0,0,"None",-8586097906406050946
+S=1012,WC=DesignScene-1:1,MC=MM,555,515,0,0,"None",-8586097906405990975
+S=1013,WC=DesignScene-1:1,MC=MM,569,509,0,0,"None",-8586097906405801046
+S=1014,UI_CMD=Disco.DefinedVariation.Simulation1.Row3.Column2,{"UnitIndex":3,"UnitAbbreviation":"m","Value":1.75,"Id":"DefinedVariation.Simulation1.Row3.Column2"}
+S=1015,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1016,WC=DesignScene-1:1,MC=MM,561,523,0,0,"None",-8586097906390141432
+S=1017,WC=DesignScene-1:1,MC=MM,555,532,0,0,"None",-8586097906390041505
+S=1018,WC=DesignScene-1:1,MC=MM,550,538,0,0,"None",-8586097906389819629
+S=1019,WC=DesignScene-1:1,MC=MM,537,554,0,0,"None",-8586097906389679691
+S=1020,WC=DesignScene-1:1,MC=MM,533,559,0,0,"None",-8586097906389569744
+S=1021,WC=DesignScene-1:1,MC=MM,524,570,0,0,"None",-8586097906389299872
+S=1022,WC=DesignScene-1:1,MC=MM,521,574,0,0,"None",-8586097906389229905
+S=1023,WC=DesignScene-1:1,MC=MM,514,583,0,0,"None",-8586097906389020003
+S=1024,WC=DesignScene-1:1,MC=MM,511,587,0,0,"None",-8586097906388900060
+S=1025,WC=DesignScene-1:1,MC=MM,508,590,0,0,"None",-8586097906388750130
+S=1026,WC=DesignScene-1:1,MC=MM,507,591,0,0,"None",-8586097906388630187
+S=1027,WC=DesignScene-1:1,MC=MM,504,594,0,0,"None",-8586097906388440276
+S=1028,WC=DesignScene-1:1,MC=MM,504,596,0,0,"None",-8586097906388240305
+S=1029,UI_CMD=Disco.DefinedVariation.Simulation1.Row3.Column3,{"UnitIndex":3,"UnitAbbreviation":"m","Value":1.75,"Id":"DefinedVariation.Simulation1.Row3.Column3"}
+S=1030,WC=DesignScene-1:1,MC=MM,507,596,0,0,"None",-8586097906340569590
+S=1031,WC=DesignScene-1:1,MC=MM,507,598,0,0,"None",-8586097906339640953
+S=1032,WC=DesignScene-1:1,MC=MM,507,599,0,0,"None",-8586097906339490959
+S=1033,WC=DesignScene-1:1,MC=MM,551,2,0,0,"None",-8586097906330315340
+S=1034,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1035,WC=DesignScene-1:1,MC=MM,540,27,0,0,"None",-8586097906302982669
+S=1036,UI_CMD=Disco.DefineMonitorEntityUICommand,{"Item1":"VonMisesStress","Item2":"Maximum"}
+S=1037,UI_CMD=Disco.SetupMonitors,1
+S=1038,WC=DesignScene-1:1,MC=MM,627,121,0,0,"None",-8586097906275788799
+S=1039,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1040,WC=DesignScene-1:1,MC=MM,920,510,0,0,"None",-8586097906273313538
+S=1041,WC=DesignScene-1:1,MC=MM,981,595,0,0,"None",-8586097906270714446
+S=1042,WC=DesignScene-1:1,MC=MM,983,597,0,0,"None",-8586097906270644479
+S=1043,WC=DesignScene-1:1,MC=MM,983,598,0,0,"None",-8586097906263134315
+S=1044,WC=DesignScene-1:1,MC=MD,983,598,0,0,"Left",-8586097906262231552
+S=1045,WC=DesignScene-1:1,MC=MU,983,598,0,0,"Left",-8586097906262171567
+//Within drag threshold: 5ms
+//Within drag threshold: 5ms
+// Validation Summary: No items selected
+S=1046;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items /><Truncated>false</Truncated><TotalCount>0</TotalCount></ValidationInfo>"
+S=1047,WC=DesignScene-1:1,MC=MM,987,601,0,0,"None",-8586097906253844291
+S=1048,WC=DesignScene-1:1,MC=MM,998,604,0,0,"None",-8586097906253701945
+S=1049,WC=DesignScene-1:1,MC=MM,1004,606,0,0,"None",-8586097906253232275
+S=1050,WC=DesignScene-1:1,MC=MM,1172,612,0,0,"None",-8586097906248054614
+S=1051,WC=DesignScene-1:1,MC=MM,1174,612,0,0,"None",-8586097906247854668
+S=1052,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1053,WC=DesignScene-1:1,MC=MM,1250,608,0,0,"None",-8586097906245806477
+S=1054,UI_CMD=Disco.SetExploreTestingFidelity,1000000.0
+S=1055,UI_CMD=Disco.PlaySolveUICommand
+**WaitForAsyncOperation
+S=1056,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1057,WC=DesignScene-1:1,MC=MM,1140,598,0,0,"None",-8586097906231120191
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+S=1058,WC=DesignScene-1:1,MC=MM,1157,556,0,0,"None",-8586097905987895043
+S=1059,WC=DesignScene-1:1,MC=MM,1159,554,0,0,"None",-8586097905987832815
+S=1060,WC=DesignScene-1:1,MC=MM,1159,553,0,0,"None",-8586097905987502841
+S=1061,WC=DesignScene-1:1,MC=MM,345,190,0,0,"None",-8586097905982685159
+S=1062,WC=DesignScene-1:1,MC=MM,281,166,0,0,"None",-8586097905982395293
+S=1063,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=1064,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1065,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/0,Physics/Structural%20steel%2C%20S275N
+S=1066,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/0,Physics/Structural%20steel%2C%20S275N
+// Validation Summary: Total of 1 object (1 MaterialAssignment)
+S=1067;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MaterialAssignmentEntity><ManufacturingTemperatureMagnitude>22</ManufacturingTemperatureMagnitude><Material>Structural steel, S275N</Material><Scope>0:94, 0:1138, 0:1484</Scope><State>Solid</State><AppearanceProperties>Green 169, Red 169, Blue 169, Alpha 255, MetallicFinish 255, LightTransmittance 0</AppearanceProperties><PhysicalProperties>Density 7,850 kg/m³, CompressiveUltimateYieldStrength 0 Pa, CompressiveYieldStrength 0 Pa, TensileUltimateYieldStrength 4.23e+08 Pa, TensileYieldStrength 2.37e+08 Pa</PhysicalProperties><MechanicalProperties>BulkModulus 1.79e+11 Pa, PoissonsRatio 0.3, ShearModulus 8.05e+10 Pa, YoungsModulus 2.1e+11 Pa</MechanicalProperties><ThermalProperties>CoefficientOfThermalExpansion 1.2e-05 1/°C, IsotropicThermalConductivity 50.44 W/m·K, SpecificHeat 479.4 J/kg.K</ThermalProperties><ElectromagneticProperties>Conductivity 5.73e+06 S/m, RelativePermittivity 1, ElectricLossTangent 0, RelativePermeability 1, MagneticLossTangent 0</ElectromagneticProperties><InformationProperties>Class Metals - ferrous, Subclass Microalloy and high strength steels</InformationProperties><CreatedBy>System</CreatedBy></MaterialAssignmentEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1068,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1069,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=1070,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/1,Physics/Gravity
+// Validation Summary: Total of 1 object (1 GravityCondition)
+S=1071;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><GravityEntity><Magnitude>9.81</Magnitude><Direction>-0 -0 -1</Direction><IncludeSelfWeight>true</IncludeSelfWeight><IncludeBuoyancy>false</IncludeBuoyancy><CreatedBy>System</CreatedBy></GravityEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1072,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1073,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/2/0,Physics/Structural/Fixed Support 1
+S=1074,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/2/0,Physics/Structural/Fixed Support 1
+// Validation Summary: Total of 1 object (1 SupportCondition)
+S=1075;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><SupportEntity><LoadDirectionTriad>1.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 1.00000000E+000, 0.00000000E+000, -1.00000000E+000, 0.00000000E+000</LoadDirectionTriad><Dof>X, Fixed, 0 m, Y, Free, 0 m, Z, Free, 0 m, RX, Free, 0 rad, RY, Free, 0 rad, RZ, Free, 0 rad</Dof><SupportType>Fixed</SupportType><Scope>0:102</Scope><CreatedBy>User</CreatedBy></SupportEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1076,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1077,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/2/1,Physics/Structural/Distributed Force 1
+S=1078,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/2/1,Physics/Structural/Distributed Force 1
+// Validation Summary: Total of 1 object (1 ForceCondition)
+S=1079;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><ForceEntity><Magnitude>1000</Magnitude><Direction>-0 -0 -1</Direction><ForceType>DistributedTotalForce</ForceType><Scope>0:828</Scope><CreatedBy>User</CreatedBy></ForceEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1080,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1081,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1082,WC=DesignScene-1:1,MC=MM,178,180,0,0,"None",-8586097905931421168
+S=1083,WC=DesignScene-1:1,MC=MM,208,181,0,0,"None",-8586097905931261287
+S=1084,WC=DesignScene-1:1,MC=MM,217,181,0,0,"None",-8586097905931201320
+S=1085,WC=DesignScene-1:1,MC=MM,1093,148,0,0,"None",-8586097905926933267
+S=1086,WC=DesignScene-1:1,MC=MM,1101,145,0,0,"None",-8586097905926703379
+S=1087,WC=DesignScene-1:1,MC=MM,1107,139,0,0,"None",-8586097905926573582
+S=1088,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,3,Max. Von Mises Stress 1
+S=1089,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,3,Max. Von Mises Stress 1
+//*****Validation Error may occur from the fix of Bug 346797 as the target and contact surface pair have switched and results may differ 
+// Validation Summary: Total of 1 object (1 Monitor: Max. Von Mises Stress 1)
+S=1090;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Max. Von Mises Stress 1</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>8893863</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1091,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1092,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1093,WC=DesignScene-1:1,MC=MM,1087,150,0,0,"None",-8586097905902089027
+S=1094,WC=DesignScene-1:1,MC=MM,1079,155,0,0,"None",-8586097905901969085
+S=1095,WC=DesignScene-1:1,MC=MM,263,454,0,0,"None",-8586097905894252712
+S=1096,WC=DesignScene-1:1,MC=MM,264,454,0,0,"None",-8586097905893902876
+S=1097,WC=DesignScene-1:1,MC=MM,267,453,0,0,"None",-8586097905893762942
+S=1098,UI_CMD=Disco.SetCurrentRow,{"SelectedIndex":1}
+// Pull Action: None
+// Pull Action: None
+S=1099,UI_CMD=Disco.SetExploreTestingFidelity,1000000.0
+S=1100,UI_CMD=Disco.SolveSelectedDefinedVariations
+**WaitForAsyncOperation
+// Pull Action: None
+// Pull Action: None
+S=1101,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1102,WC=DesignScene-1:1,MC=MM,262,375,0,0,"None",-8586097905760847128
+S=1103,WC=DesignScene-1:1,MC=MM,251,372,0,0,"None",-8586097905760657222
+S=1104,WC=DesignScene-1:1,MC=MM,215,368,0,0,"None",-8586097905760447322
+S=1105,WC=DesignScene-1:1,MC=MM,193,371,0,0,"None",-8586097905760247415
+S=1106,WC=DesignScene-1:1,MC=MM,178,373,0,0,"None",-8586097905759637698
+S=1107,WC=DesignScene-1:1,MC=MM,168,374,0,0,"None",-8586097905759567725
+S=1108,WC=DesignScene-1:1,MC=MM,167,374,0,0,"None",-8586097905759347832
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Validation Summary: No items selected
+S=1109;VC=ValidateObjectsCommand;ValidationInfo=<ValidationInfo><Items><Face><Area>0.010000000000000002</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>
+S=1110,WC=DesignScene-1:1,MC=MM,169,374,0,0,"None",-8586097905251132813
+S=1111,WC=DesignScene-1:1,MC=MM,167,374,0,0,"None",-8586097905250970454
+S=1112,WC=DesignScene-1:1,MC=MM,125,195,0,0,"None",-8586097905206417701
+S=1113,WC=DesignScene-1:1,MC=MM,127,183,0,0,"None",-8586097905206207836
+S=1114,WC=DesignScene-1:1,MC=MM,127,178,0,0,"None",-8586097905206067889
+S=1115,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=1116,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1117,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/0,Physics/Structural%20steel%2C%20S275N
+S=1118,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/0,Physics/Structural%20steel%2C%20S275N
+// Validation Summary: Total of 1 object (1 MaterialAssignment)
+S=1119;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MaterialAssignmentEntity><ManufacturingTemperatureMagnitude>22</ManufacturingTemperatureMagnitude><Material>Structural steel, S275N</Material><Scope>0:94, 0:1138, 0:1484</Scope><State>Solid</State><AppearanceProperties>Green 169, Red 169, Blue 169, Alpha 255, MetallicFinish 255, LightTransmittance 0</AppearanceProperties><PhysicalProperties>Density 7,850 kg/m³, CompressiveUltimateYieldStrength 0 Pa, CompressiveYieldStrength 0 Pa, TensileUltimateYieldStrength 4.23e+08 Pa, TensileYieldStrength 2.37e+08 Pa</PhysicalProperties><MechanicalProperties>BulkModulus 1.79e+11 Pa, PoissonsRatio 0.3, ShearModulus 8.05e+10 Pa, YoungsModulus 2.1e+11 Pa</MechanicalProperties><ThermalProperties>CoefficientOfThermalExpansion 1.2e-05 1/°C, IsotropicThermalConductivity 50.44 W/m·K, SpecificHeat 479.4 J/kg.K</ThermalProperties><ElectromagneticProperties>Conductivity 5.73e+06 S/m, RelativePermittivity 1, ElectricLossTangent 0, RelativePermeability 1, MagneticLossTangent 0</ElectromagneticProperties><InformationProperties>Class Metals - ferrous, Subclass Microalloy and high strength steels</InformationProperties><CreatedBy>System</CreatedBy></MaterialAssignmentEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1120,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1121,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=1122,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/1,Physics/Gravity
+// Validation Summary: Total of 1 object (1 GravityCondition)
+S=1123;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><GravityEntity><Magnitude>9.81</Magnitude><Direction>-0 -0 -1</Direction><IncludeSelfWeight>true</IncludeSelfWeight><IncludeBuoyancy>false</IncludeBuoyancy><CreatedBy>System</CreatedBy></GravityEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1124,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1125,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/2/0,Physics/Structural/Fixed Support 1
+S=1126,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/2/0,Physics/Structural/Fixed Support 1
+// Validation Summary: Total of 1 object (1 SupportCondition)
+S=1127;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><SupportEntity><LoadDirectionTriad>1.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 1.00000000E+000, 0.00000000E+000, -1.00000000E+000, 0.00000000E+000</LoadDirectionTriad><Dof>X, Fixed, 0 m, Y, Free, 0 m, Z, Free, 0 m, RX, Free, 0 rad, RY, Free, 0 rad, RZ, Free, 0 rad</Dof><SupportType>Fixed</SupportType><Scope>0:102</Scope><CreatedBy>User</CreatedBy></SupportEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1128,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1129,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/2/1,Physics/Structural/Distributed Force 1
+S=1130,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/2/1,Physics/Structural/Distributed Force 1
+// Validation Summary: Total of 1 object (1 ForceCondition)
+S=1131;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><ForceEntity><Magnitude>1000</Magnitude><Direction>-0 -0 -1</Direction><ForceType>DistributedTotalForce</ForceType><Scope>0:828</Scope><CreatedBy>User</CreatedBy></ForceEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1132,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1133,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1134,WC=DesignScene-1:1,MC=MM,368,157,0,0,"None",-8586097905122313192
+S=1135,WC=DesignScene-1:1,MC=MM,625,149,0,0,"None",-8586097905122173200
+S=1136,WC=DesignScene-1:1,MC=MM,667,148,0,0,"None",-8586097905122043358
+S=1137,WC=DesignScene-1:1,MC=MM,692,148,0,0,"None",-8586097905121793380
+S=1138,WC=DesignScene-1:1,MC=MM,754,148,0,0,"None",-8586097905121723465
+S=1139,WC=DesignScene-1:1,MC=MM,784,148,0,0,"None",-8586097905121543589
+S=1140,WC=DesignScene-1:1,MC=MM,847,148,0,0,"None",-8586097905121323516
+S=1141,WC=DesignScene-1:1,MC=MM,874,148,0,0,"None",-8586097905121253687
+S=1142,WC=DesignScene-1:1,MC=MM,935,146,0,0,"None",-8586097905121023747
+S=1143,WC=DesignScene-1:1,MC=MM,960,144,0,0,"None",-8586097905120873907
+S=1144,WC=DesignScene-1:1,MC=MM,980,143,0,0,"None",-8586097905120773731
+S=1145,WC=DesignScene-1:1,MC=MM,1012,138,0,0,"None",-8586097905120573941
+S=1146,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,3,Max. Von Mises Stress 1
+S=1147,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1148,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,2,Max. Von Mises Stress
+S=1149,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1150,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,3,Max. Von Mises Stress 1
+S=1151,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,3,Max. Von Mises Stress 1
+// Validation Summary: Total of 1 object (1 Monitor: Max. Von Mises Stress 1)
+S=1152;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Max. Von Mises Stress 1</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>1.403305E+07</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1153,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1154,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1155,WC=DesignScene-1:1,MC=MM,969,146,0,0,"None",-8586097905104603935
+S=1156,WC=DesignScene-1:1,MC=MM,919,157,0,0,"None",-8586097905104434014
+S=1157,WC=DesignScene-1:1,MC=MM,155,318,0,0,"None",-8586097905096976610
+S=1158,WC=DesignScene-1:1,MC=MM,154,318,0,0,"None",-8586097905096806791
+S=1159,WC=DesignScene-1:1,MC=MD,154,318,0,0,"Left",-8586097905094258490
+S=1160,WC=DesignScene-1:1,MC=MU,154,318,0,0,"Left",-8586097905093477568
+//Within drag threshold: 78ms
+//Within drag threshold: 78ms
+// Validation Summary: No items selected
+S=1161;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items /><Truncated>false</Truncated><TotalCount>0</TotalCount></ValidationInfo>"
+S=1162,WC=DesignScene-1:1,MC=MM,154,319,0,0,"None",-8586097905091082995
+S=1163,WC=DesignScene-1:1,MC=MM,152,321,0,0,"None",-8586097905090433422
+S=1164,WC=DesignScene-1:1,MC=MM,266,482,0,0,"None",-8586097905082016869
+S=1165,WC=DesignScene-1:1,MC=MM,267,482,0,0,"None",-8586097905081886810
+S=1166,UI_CMD=Disco.SetCurrentRow,{"SelectedIndex":2}
+// Pull Action: None
+// Pull Action: None
+S=1167,UI_CMD=Disco.SetExploreTestingFidelity,1000000.0
+S=1168,UI_CMD=Disco.SolveSelectedDefinedVariations
+**WaitForAsyncOperation
+// Pull Action: None
+// Pull Action: None
+S=1169,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1170,WC=DesignScene-1:1,MC=MM,240,371,0,0,"None",-8586097904982211033
+S=1171,WC=DesignScene-1:1,MC=MM,227,371,0,0,"None",-8586097904982011157
+S=1172,WC=DesignScene-1:1,MC=MM,223,371,0,0,"None",-8586097904981881216
+S=1173,WC=DesignScene-1:1,MC=MM,221,371,0,0,"None",-8586097904981671315
+S=1174,WC=DesignScene-1:1,MC=MM,218,371,0,0,"None",-8586097904981581359
+S=1175,WC=DesignScene-1:1,MC=MM,204,369,0,0,"None",-8586097904981191543
+S=1176,WC=DesignScene-1:1,MC=MM,200,369,0,0,"None",-8586097904981091589
+S=1177,WC=DesignScene-1:1,MC=MM,196,368,0,0,"None",-8586097904980961649
+S=1178,WC=DesignScene-1:1,MC=MM,190,367,0,0,"None",-8586097904980491872
+S=1179,WC=DesignScene-1:1,MC=MM,186,366,0,0,"None",-8586097904980401912
+S=1180,WC=DesignScene-1:1,MC=MM,184,366,0,0,"None",-8586097904980331946
+S=1181,WC=DesignScene-1:1,MC=MM,182,366,0,0,"None",-8586097904980271975
+S=1182,WC=DesignScene-1:1,MC=MM,180,365,0,0,"None",-8586097904980182018
+S=1183,WC=DesignScene-1:1,MC=MM,178,364,0,0,"None",-8586097904979912125
+S=1184,WC=DesignScene-1:1,MC=MM,177,364,0,0,"None",-8586097904979792181
+S=1185,WC=DesignScene-1:1,MC=MM,176,364,0,0,"None",-8586097904976515366
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Validation Summary: No items selected
+S=1186;VC=ValidateObjectsCommand;ValidationInfo=<ValidationInfo><Items><Face><Area>0.010000000000000002</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>
+S=1187,WC=DesignScene-1:1,MC=MM,156,349,0,0,"None",-8586097904757129979
+S=1188,WC=DesignScene-1:1,MC=MM,153,349,0,0,"None",-8586097904754540073
+S=1189,WC=DesignScene-1:1,MC=MM,152,346,0,0,"None",-8586097904754049511
+S=1190,WC=DesignScene-1:1,MC=MM,152,327,0,0,"None",-8586097904753899573
+S=1191,WC=DesignScene-1:1,MC=MM,146,283,0,0,"None",-8586097904753699645
+S=1192,WC=DesignScene-1:1,MC=MM,141,261,0,0,"None",-8586097904753569735
+S=1193,WC=DesignScene-1:1,MC=MM,138,243,0,0,"None",-8586097904753409810
+S=1194,WC=DesignScene-1:1,MC=MM,134,218,0,0,"None",-8586097904753289868
+S=1195,WC=DesignScene-1:1,MC=MM,131,207,0,0,"None",-8586097904753179920
+S=1196,WC=DesignScene-1:1,MC=MM,127,187,0,0,"None",-8586097904752940025
+S=1197,WC=DesignScene-1:1,MC=MM,124,177,0,0,"None",-8586097904752800100
+S=1198,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=1199,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1200,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/0,Physics/Structural%20steel%2C%20S275N
+S=1201,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/0,Physics/Structural%20steel%2C%20S275N
+// Validation Summary: Total of 1 object (1 MaterialAssignment)
+S=1202;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MaterialAssignmentEntity><ManufacturingTemperatureMagnitude>22</ManufacturingTemperatureMagnitude><Material>Structural steel, S275N</Material><Scope>0:94, 0:1138, 0:1484</Scope><State>Solid</State><AppearanceProperties>Green 169, Red 169, Blue 169, Alpha 255, MetallicFinish 255, LightTransmittance 0</AppearanceProperties><PhysicalProperties>Density 7,850 kg/m³, CompressiveUltimateYieldStrength 0 Pa, CompressiveYieldStrength 0 Pa, TensileUltimateYieldStrength 4.23e+08 Pa, TensileYieldStrength 2.37e+08 Pa</PhysicalProperties><MechanicalProperties>BulkModulus 1.79e+11 Pa, PoissonsRatio 0.3, ShearModulus 8.05e+10 Pa, YoungsModulus 2.1e+11 Pa</MechanicalProperties><ThermalProperties>CoefficientOfThermalExpansion 1.2e-05 1/°C, IsotropicThermalConductivity 50.44 W/m·K, SpecificHeat 479.4 J/kg.K</ThermalProperties><ElectromagneticProperties>Conductivity 5.73e+06 S/m, RelativePermittivity 1, ElectricLossTangent 0, RelativePermeability 1, MagneticLossTangent 0</ElectromagneticProperties><InformationProperties>Class Metals - ferrous, Subclass Microalloy and high strength steels</InformationProperties><CreatedBy>System</CreatedBy></MaterialAssignmentEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1203,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1204,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=1205,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/1,Physics/Gravity
+// Validation Summary: Total of 1 object (1 GravityCondition)
+S=1206;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><GravityEntity><Magnitude>9.81</Magnitude><Direction>-0 -0 -1</Direction><IncludeSelfWeight>true</IncludeSelfWeight><IncludeBuoyancy>false</IncludeBuoyancy><CreatedBy>System</CreatedBy></GravityEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1207,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1208,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/2/0,Physics/Structural/Fixed Support 1
+S=1209,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/2/0,Physics/Structural/Fixed Support 1
+// Validation Summary: Total of 1 object (1 SupportCondition)
+S=1210;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><SupportEntity><LoadDirectionTriad>1.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 1.00000000E+000, 0.00000000E+000, -1.00000000E+000, 0.00000000E+000</LoadDirectionTriad><Dof>X, Fixed, 0 m, Y, Free, 0 m, Z, Free, 0 m, RX, Free, 0 rad, RY, Free, 0 rad, RZ, Free, 0 rad</Dof><SupportType>Fixed</SupportType><Scope>0:102</Scope><CreatedBy>User</CreatedBy></SupportEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1211,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1212,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/2/1,Physics/Structural/Distributed Force 1
+S=1213,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/2/1,Physics/Structural/Distributed Force 1
+// Validation Summary: Total of 1 object (1 ForceCondition)
+S=1214;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><ForceEntity><Magnitude>1000</Magnitude><Direction>-0 -0 -1</Direction><ForceType>DistributedTotalForce</ForceType><Scope>0:828</Scope><CreatedBy>User</CreatedBy></ForceEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1215,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1216,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1217,WC=DesignScene-1:1,MC=MM,128,177,0,0,"None",-8586097904696094370
+S=1218,WC=DesignScene-1:1,MC=MM,136,177,0,0,"None",-8586097904695694862
+S=1219,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1220,WC=DesignScene-1:1,MC=MM,293,170,0,0,"None",-8586097904694975310
+S=1221,WC=DesignScene-1:1,MC=MM,407,170,0,0,"None",-8586097904694785239
+S=1222,WC=DesignScene-1:1,MC=MM,461,170,0,0,"None",-8586097904694685288
+S=1223,WC=DesignScene-1:1,MC=MM,1150,141,0,0,"None",-8586097904687478700
+S=1224,WC=DesignScene-1:1,MC=MM,1150,138,0,0,"None",-8586097904687328843
+S=1225,WC=DesignScene-1:1,MC=MM,1149,137,0,0,"None",-8586097904687098950
+S=1226,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,3,Max. Von Mises Stress 1
+S=1227,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,3,Max. Von Mises Stress 1
+// Validation Summary: Total of 1 object (1 Monitor: Max. Von Mises Stress 1)
+S=1228;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Max. Von Mises Stress 1</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>2.008962E+07</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1229,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1230,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1231,WC=DesignScene-1:1,MC=MM,969,513,0,0,"None",-8586097904668392645
+S=1232,WC=DesignScene-1:1,MC=MM,965,524,0,0,"None",-8586097904668322732
+S=1233,WC=DesignScene-1:1,MC=MM,958,543,0,0,"None",-8586097904668222774
+S=1234,WC=DesignScene-1:1,MC=MM,919,607,0,0,"None",-8586097904665773902
+S=1235,WC=DesignScene-1:1,MC=MM,918,609,0,0,"None",-8586097904665583992
+S=1236,WC=DesignScene-1:1,MC=MM,917,609,0,0,"None",-8586097904665424076
+S=1237,WC=DesignScene-1:1,MC=MD,917,609,0,0,"Left",-8586097904659159249
+S=1238,WC=DesignScene-1:1,MC=MU,917,609,0,0,"Left",-8586097904659099270
+//Within drag threshold: 5ms
+//Within drag threshold: 5ms
+// Validation Summary: No items selected
+S=1239;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items /><Truncated>false</Truncated><TotalCount>0</TotalCount></ValidationInfo>"
+S=1240,WC=DesignScene-1:1,MC=MM,856,630,0,0,"None",-8586097904656850315
+S=1241,WC=DesignScene-1:1,MC=MM,849,633,0,0,"None",-8586097904656710382
+S=1242,WC=DesignScene-1:1,MC=MM,782,647,0,0,"None",-8586097904654181569
+S=1243,WC=DesignScene-1:1,MC=MM,780,645,0,0,"None",-8586097904654061627
+S=1244,WC=DesignScene-1:1,MC=MM,777,645,0,0,"None",-8586097904653901705
+S=1245,WC=DesignScene-1:1,MC=MM,773,645,0,0,"None",-8586097904653701795
+S=1246,UI_CMD=Disco.ChangeUserActivity,"RefineStage"
+S=1247,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1248,WC=DesignScene-1:1,MC=MM,752,642,0,0,"None",-8586097904641567544
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+S=1249,WC=DesignScene-1:1,MC=MM,775,643,0,0,"None",-8586097904626894445
+S=1250,WC=DesignScene-1:1,MC=MM,807,615,0,0,"None",-8586097904617778731
+S=1251,WC=DesignScene-1:1,MC=MM,810,615,0,0,"None",-8586097904611371743
+S=1252,WC=DesignScene-1:1,MC=MM,721,634,0,0,"None",-8586097904604984747
+S=1253,WC=DesignScene-1:1,MC=MM,719,635,0,0,"None",-8586097904604844821
+S=1254,UI_CMD=Disco.SetFidelityValueUiCommand,0.0
+S=1255,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1256,WC=DesignScene-1:1,MC=MM,736,645,0,0,"None",-8586097904550334443
+S=1257,WC=DesignScene-1:1,MC=MM,757,642,0,0,"None",-8586097904549444805
+S=1258,WC=DesignScene-1:1,MC=MM,758,642,0,0,"None",-8586097904548725198
+S=1259,WC=DesignScene-1:1,MC=MM,1130,592,0,0,"None",-8586097904530937713
+S=1260,WC=DesignScene-1:1,MC=MM,1154,594,0,0,"None",-8586097904530757815
+S=1261,WC=DesignScene-1:1,MC=MM,1166,596,0,0,"None",-8586097904530617881
+S=1262,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1263,WC=DesignScene-1:1,MC=MM,1253,614,0,0,"None",-8586097904529488396
+S=1264,UI_CMD=Disco.SolveCommand
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+S=1265,TransformToolHandles,1.25,0,0.20000000000000007,6.1230317691118863E-17,0,-1,0,1,0,1,0,6.1230317691118863E-17,0.05,0
+S=1266,TransformToolHandles,1.25,0,0.20000000000000007,6.1230317691118863E-17,0,-1,0,1,0,1,0,6.1230317691118863E-17,0.05,0
+S=1267,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1268,WC=DesignScene-1:1,MC=MM,935,575,0,0,"None",-8586097904479120852
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Mesh Statistics Validation
+S=1269;VC=Disco.GetMeshStatisticsCommand;"ValidationInfo=<SolveValidation><NumNodes>1266</NumNodes><ValidationTolerance>0.05</ValidationTolerance></SolveValidation>"
+S=1270,WC=DesignScene-1:1,MC=MM,935,557,0,0,"None",-8586097904084461595
+S=1271,WC=DesignScene-1:1,MC=MM,884,465,0,0,"None",-8586097904084411364
+S=1272,WC=DesignScene-1:1,MC=MM,884,462,0,0,"None",-8586097904084341573
+S=1273,WC=DesignScene-1:1,MC=MM,192,221,0,0,"None",-8586097904070742495
+S=1274,WC=DesignScene-1:1,MC=MM,191,220,0,0,"None",-8586097904070542469
+S=1275,WC=DesignScene-1:1,MC=MM,190,217,0,0,"None",-8586097904070342634
+S=1276,WC=DesignScene-1:1,MC=MM,184,207,0,0,"None",-8586097904070182697
+S=1277,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=1278,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1279,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/0,Physics/Structural%20steel%2C%20S275N
+S=1280,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/0,Physics/Structural%20steel%2C%20S275N
+// Validation Summary: Total of 1 object (1 MaterialAssignment)
+S=1281;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MaterialAssignmentEntity><ManufacturingTemperatureMagnitude>22</ManufacturingTemperatureMagnitude><Material>Structural steel, S275N</Material><Scope>0:94, 0:1138, 0:1484</Scope><State>Solid</State><AppearanceProperties>Green 169, Red 169, Blue 169, Alpha 255, MetallicFinish 255, LightTransmittance 0</AppearanceProperties><PhysicalProperties>Density 7,850 kg/m³, CompressiveUltimateYieldStrength 0 Pa, CompressiveYieldStrength 0 Pa, TensileUltimateYieldStrength 4.23e+08 Pa, TensileYieldStrength 2.37e+08 Pa</PhysicalProperties><MechanicalProperties>BulkModulus 1.79e+11 Pa, PoissonsRatio 0.3, ShearModulus 8.05e+10 Pa, YoungsModulus 2.1e+11 Pa</MechanicalProperties><ThermalProperties>CoefficientOfThermalExpansion 1.2e-05 1/°C, IsotropicThermalConductivity 50.44 W/m·K, SpecificHeat 479.4 J/kg.K</ThermalProperties><ElectromagneticProperties>Conductivity 5.73e+06 S/m, RelativePermittivity 1, ElectricLossTangent 0, RelativePermeability 1, MagneticLossTangent 0</ElectromagneticProperties><InformationProperties>Class Metals - ferrous, Subclass Microalloy and high strength steels</InformationProperties><CreatedBy>System</CreatedBy></MaterialAssignmentEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1282,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1283,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=1284,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/1,Physics/Gravity
+// Validation Summary: Total of 1 object (1 GravityCondition)
+S=1285;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><GravityEntity><Magnitude>9.81</Magnitude><Direction>-0 -0 -1</Direction><IncludeSelfWeight>true</IncludeSelfWeight><IncludeBuoyancy>false</IncludeBuoyancy><CreatedBy>System</CreatedBy></GravityEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1286,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1287,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0,Physics/Connections/Bonded Contacts (default)
+S=1288,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0,Physics/Connections/Bonded Contacts (default)
+// Validation Summary: Total of 1 object (1 ContactGroupCondition)
+S=1289;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><ContactGroupEntity><Side1Count>0</Side1Count><Side2Count>0</Side2Count><SelectedPairsCount>0</SelectedPairsCount><ContactPairsCount>2</ContactPairsCount><FilteredContactPairsCount>2</FilteredContactPairsCount><ContactPairsCounts>(1,1), (1,1)</ContactPairsCounts><FilteredContactPairsCounts>(1,1), (1,1)</FilteredContactPairsCounts><CreatedBy>System</CreatedBy><DetectionGrouping>ByBody</DetectionGrouping><DetectionDistanceHigh>0.00440348</DetectionDistanceHigh><DetectionDistanceLow>0</DetectionDistanceLow></ContactGroupEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1290,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1291,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/2/0,Physics/Structural/Fixed Support 1
+S=1292,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/2/0,Physics/Structural/Fixed Support 1
+// Validation Summary: Total of 1 object (1 SupportCondition)
+S=1293;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><SupportEntity><LoadDirectionTriad>1.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 1.00000000E+000, 0.00000000E+000, -1.00000000E+000, 0.00000000E+000</LoadDirectionTriad><Dof>X, Fixed, 0 m, Y, Free, 0 m, Z, Free, 0 m, RX, Free, 0 rad, RY, Free, 0 rad, RZ, Free, 0 rad</Dof><SupportType>Fixed</SupportType><Scope>0:102</Scope><CreatedBy>User</CreatedBy></SupportEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1294,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1295,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/2/1,Physics/Structural/Distributed Force 1
+S=1296,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/2/1,Physics/Structural/Distributed Force 1
+// Validation Summary: Total of 1 object (1 ForceCondition)
+S=1297;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><ForceEntity><Magnitude>1000</Magnitude><Direction>-0 -0 -1</Direction><ForceType>DistributedTotalForce</ForceType><Scope>0:828</Scope><CreatedBy>User</CreatedBy></ForceEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1298,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1299,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1300,WC=DesignScene-1:1,MC=MM,475,150,0,0,"None",-8586097904004785656
+S=1301,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,3,Max. Von Mises Stress 1
+S=1302,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,3,Max. Von Mises Stress 1
+// Validation Summary: Total of 1 object (1 Monitor: Max. Von Mises Stress 1)
+S=1303;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Max. Von Mises Stress 1</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>2.008962E+07</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation><ResultQuantityValidation><Solver>Artemis</Solver><Value><Type>Pressure</Type><Value>1.82023E+07</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1304,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1305,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1306,WC=DesignScene-1:1,MC=MM,1118,141,0,0,"None",-8586097903982948376
+S=1307,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1308,WC=DesignScene-1:1,MC=MM,1001,444,0,0,"None",-8586097903982208511
+S=1309,WC=DesignScene-1:1,MC=MM,990,468,0,0,"None",-8586097903981948827
+S=1310,WC=DesignScene-1:1,MC=MM,899,558,0,0,"None",-8586097903918178761
+S=1311,WC=DesignScene-1:1,MC=MM,897,558,0,0,"None",-8586097903910592986
+S=1312,WC=DesignScene-1:1,MC=MD,897,558,0,0,"Left",-8586097903903944209
+S=1313,WC=DesignScene-1:1,MC=MU,897,558,0,0,"Left",-8586097903903468785
+//Within drag threshold: 47ms
+//Within drag threshold: 47ms
+// Validation Summary: No items selected
+S=1314;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items /><Truncated>false</Truncated><TotalCount>0</TotalCount></ValidationInfo>"
+S=1315,WC=DesignScene-1:1,MC=MM,895,557,0,0,"None",-8586097903897963273
+S=1316,WC=DesignScene-1:1,MC=MM,896,555,0,0,"None",-8586097903895583939
+S=1317,WC=DesignScene-1:1,MC=MM,897,555,0,0,"None",-8586097903895144002
+S=1318,WC=DesignScene-1:1,MC=MM,745,636,0,0,"None",-8586097903863154445
+S=1319,WC=DesignScene-1:1,MC=MM,723,636,0,0,"None",-8586097903862954524
+S=1320,UI_CMD=Disco.ChangeUserActivity,"ExploreStage"
+S=1321,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1322,WC=DesignScene-1:1,MC=MM,577,630,0,0,"None",-8586097903807624429
+S=1323,WC=DesignScene-1:1,MC=MM,577,629,0,0,"None",-8586097903807064677
+S=1324,WC=DesignScene-1:1,MC=MM,575,629,0,0,"None",-8586097903803746599
+S=1325,WC=DesignScene-1:1,MC=MM,434,574,0,0,"None",-8586097903595621110
+S=1326,WC=DesignScene-1:1,MC=MM,463,526,0,0,"None",-8586097903595490984
+S=1327,UI_CMD=Disco.DefinedVariation.Simulation1.Row2.Column1,{"UnitIndex":3,"UnitAbbreviation":"m","Value":0.15,"Id":"DefinedVariation.Simulation1.Row2.Column1"}
+S=1328,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1329,WC=DesignScene-1:1,MC=MM,487,509,0,0,"None",-8586097903576299951
+S=1330,WC=DesignScene-1:1,MC=MM,486,510,0,0,"None",-8586097903575838434
+S=1331,WC=DesignScene-1:1,MC=MM,485,511,0,0,"None",-8586097903575778544
+S=1332,WC=DesignScene-1:1,MC=MM,553,521,0,0,"None",-8586097903535508226
+S=1333,WC=DesignScene-1:1,MC=MM,562,509,0,0,"None",-8586097903535228362
+S=1334,UI_CMD=Disco.DefinedVariation.Simulation1.Row2.Column2,{"UnitIndex":3,"UnitAbbreviation":"m","Value":0.75,"Id":"DefinedVariation.Simulation1.Row2.Column2"}
+S=1335,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1336,WC=DesignScene-1:1,MC=MM,560,515,0,0,"None",-8586097903482487483
+S=1337,WC=DesignScene-1:1,MC=MM,556,520,0,0,"None",-8586097903482307569
+S=1338,WC=DesignScene-1:1,MC=MM,555,522,0,0,"None",-8586097903482137647
+S=1339,WC=DesignScene-1:1,MC=MM,509,565,0,0,"None",-8586097903473181878
+S=1340,WC=DesignScene-1:1,MC=MM,509,566,0,0,"None",-8586097903463165732
+S=1341,UI_CMD=Disco.DefinedVariation.Simulation1.Row2.Column3,{"UnitIndex":3,"UnitAbbreviation":"m","Value":0.75,"Id":"DefinedVariation.Simulation1.Row2.Column3"}
+S=1342,WC=DesignScene-1:1,MC=MM,504,558,0,0,"None",-8586097903445857044
+S=1343,WC=DesignScene-1:1,MC=MM,504,552,0,0,"None",-8586097903445807028
+S=1344,WC=DesignScene-1:1,MC=MM,504,546,0,0,"None",-8586097903445597128
+S=1345,WC=DesignScene-1:1,MC=MM,425,518,0,0,"None",-8586097903408755759
+S=1346,WC=DesignScene-1:1,MC=MM,417,512,0,0,"None",-8586097903408535862
+S=1347,WC=DesignScene-1:1,MC=MM,414,509,0,0,"None",-8586097903408365939
+S=1348,UI_CMD=Disco.SetCurrentRow,{"SelectedIndex":1}
+// Pull Action: None
+// Pull Action: None
+// Validation Summary: Total of 1 object (1 Face)
+S=1349;VC=ValidateObjectsCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>0.010000000000000002</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Pull Action: None
+**InvokeDelay=1 // InvokeDelay Start
+// Validation Summary: Total of 1 object (1 Face)
+S=1350;VC=ValidateObjectsCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>0.010000000000000002</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Pull Action: None
+// Validation Summary: Total of 1 object (1 Body)
+S=1351;VC=ValidateObjectsCommand;"ValidationInfo=<ValidationInfo><Items><Face><Area>0.010000000000000002</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1352,TransformToolHandles,0.25000000000000006,0,0.2,6.1230317691118863E-17,0,-1,0,1,0,1,0,6.1230317691118863E-17,0.05,0
+S=1353,TransformToolHandles,0.25,0,0.2,6.1230317691118863E-17,0,-1,0,1,0,1,0,6.1230317691118863E-17,0.05,0
+S=1354,UI_CMD=Disco.SetExploreTestingFidelity,1000000.0
+S=1355,UI_CMD=Disco.SolveSelectedDefinedVariations
+**WaitForAsyncOperation
+// Pull Action: None
+// Pull Action: None
+S=1356,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1357,WC=DesignScene-1:1,MC=MM,207,383,0,0,"None",-8586097903241733619
+S=1358,WC=DesignScene-1:1,MC=MM,149,381,0,0,"None",-8586097903241093920
+S=1359,WC=DesignScene-1:1,MC=MM,146,381,0,0,"None",-8586097903240973945
+S=1360,WC=DesignScene-1:1,MC=MM,144,381,0,0,"None",-8586097903232387990
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Pull Action: None
+// Validation Summary: No items selected
+S=1361;VC=ValidateObjectsCommand;ValidationInfo=<ValidationInfo><Items><Face><Area>0.010000000000000002</Area><SurfaceType>Plane</SurfaceType><EdgeCount>4</EdgeCount><Name>Solid</Name><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Face></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>
+S=1362,WC=DesignScene-1:1,MC=MM,142,370,0,0,"None",-8586097903008656511
+S=1363,WC=DesignScene-1:1,MC=MM,139,370,0,0,"None",-8586097903008594795
+S=1364,WC=DesignScene-1:1,MC=MM,121,209,0,0,"None",-8586097903005046480
+S=1365,WC=DesignScene-1:1,MC=MM,121,197,0,0,"None",-8586097903004786604
+S=1366,WC=DesignScene-1:1,MC=MM,120,186,0,0,"None",-8586097903004546625
+S=1367,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=1368,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1369,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/0,Physics/Structural%20steel%2C%20S275N
+S=1370,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1371,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0,Physics
+S=1372,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1373,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/0,Physics/Structural%20steel%2C%20S275N
+S=1374,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/0,Physics/Structural%20steel%2C%20S275N
+// Validation Summary: Total of 1 object (1 MaterialAssignment)
+S=1375;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MaterialAssignmentEntity><ManufacturingTemperatureMagnitude>22</ManufacturingTemperatureMagnitude><Material>Structural steel, S275N</Material><Scope>0:94, 0:1138, 0:1484</Scope><State>Solid</State><AppearanceProperties>Green 169, Red 169, Blue 169, Alpha 255, MetallicFinish 255, LightTransmittance 0</AppearanceProperties><PhysicalProperties>Density 7,850 kg/m³, CompressiveUltimateYieldStrength 0 Pa, CompressiveYieldStrength 0 Pa, TensileUltimateYieldStrength 4.23e+08 Pa, TensileYieldStrength 2.37e+08 Pa</PhysicalProperties><MechanicalProperties>BulkModulus 1.79e+11 Pa, PoissonsRatio 0.3, ShearModulus 8.05e+10 Pa, YoungsModulus 2.1e+11 Pa</MechanicalProperties><ThermalProperties>CoefficientOfThermalExpansion 1.2e-05 1/°C, IsotropicThermalConductivity 50.44 W/m·K, SpecificHeat 479.4 J/kg.K</ThermalProperties><ElectromagneticProperties>Conductivity 5.73e+06 S/m, RelativePermittivity 1, ElectricLossTangent 0, RelativePermeability 1, MagneticLossTangent 0</ElectromagneticProperties><InformationProperties>Class Metals - ferrous, Subclass Microalloy and high strength steels</InformationProperties><CreatedBy>System</CreatedBy></MaterialAssignmentEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1376,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1377,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=1378,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/1,Physics/Gravity
+// Validation Summary: Total of 1 object (1 GravityCondition)
+S=1379;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><GravityEntity><Magnitude>9.81</Magnitude><Direction>-0 -0 -1</Direction><IncludeSelfWeight>true</IncludeSelfWeight><IncludeBuoyancy>false</IncludeBuoyancy><CreatedBy>System</CreatedBy></GravityEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1380,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1381,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/2/0,Physics/Structural/Fixed Support 1
+S=1382,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/2/0,Physics/Structural/Fixed Support 1
+// Validation Summary: Total of 1 object (1 SupportCondition)
+S=1383;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><SupportEntity><LoadDirectionTriad>1.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 0.00000000E+000, 1.00000000E+000, 0.00000000E+000, -1.00000000E+000, 0.00000000E+000</LoadDirectionTriad><Dof>X, Fixed, 0 m, Y, Free, 0 m, Z, Free, 0 m, RX, Free, 0 rad, RY, Free, 0 rad, RZ, Free, 0 rad</Dof><SupportType>Fixed</SupportType><Scope>0:102</Scope><CreatedBy>User</CreatedBy></SupportEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1384,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1385,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/2/1,Physics/Structural/Distributed Force 1
+S=1386,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/2/1,Physics/Structural/Distributed Force 1
+// Validation Summary: Total of 1 object (1 ForceCondition)
+S=1387;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><ForceEntity><Magnitude>1000</Magnitude><Direction>-0 -0 -1</Direction><ForceType>DistributedTotalForce</ForceType><Scope>0:828</Scope><CreatedBy>User</CreatedBy></ForceEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1388,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1389,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1390,WC=DesignScene-1:1,MC=MM,670,79,0,0,"None",-8586097902920411421
+S=1391,WC=DesignScene-1:1,MC=MM,787,75,0,0,"None",-8586097902920261514
+S=1392,WC=DesignScene-1:1,MC=MM,975,73,0,0,"None",-8586097902918082560
+S=1393,WC=DesignScene-1:1,MC=MM,985,76,0,0,"None",-8586097902917912633
+S=1394,WC=DesignScene-1:1,MC=MM,992,79,0,0,"None",-8586097902917802692
+S=1395,WC=DesignScene-1:1,MC=MM,1010,83,0,0,"None",-8586097902917612779
+S=1396,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,2,Max. Von Mises Stress
+S=1397,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1398,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,3,Max. Von Mises Stress 1
+S=1399,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,3,Max. Von Mises Stress 1
+// Validation Summary: Total of 1 object (1 Monitor: Max. Von Mises Stress 1)
+S=1400;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Max. Von Mises Stress 1</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>7030039</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation><ResultQuantityValidation><Solver>Artemis</Solver><Value><Type>Pressure</Type><Value>1.82023E+07</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"

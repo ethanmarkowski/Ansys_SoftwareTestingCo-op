@@ -1,0 +1,712 @@
+// Test Name:    ScriptParameters_FluidSolve
+// Author:       Ethan Markowski
+//
+// Objective:    Validate use of script parameters to manage a complete fluid simulation work-flow
+//
+// Steps:        Open script editor and load ScriptParameter_Logger.py and ScriptParameters_FluidSolve.py
+//               Click Embed Script button in script editor to embed ScriptParameters_FluidSolve.py
+//               Open the parameters table in Explore Stage
+//               Disable auto script execution
+//               Run ScriptParameter_Logger script to log all existing script parameters (there should be none at this point)
+//               Create 6 script parameters and log parameters 
+//               Rename existing parameters to MainPipe_Diameter, MainPipe_Length, Inlet_Diameter, Inlet_Quantity, Inlet_Velocity, and Outlet_Pressure, log parameters
+//               Set script parameter values: MainPipe_Diameter=100, MainPipe_Length=50, Inlet_Diameter=4.5, Inlet_Quantity=5, Inlet_Velocity=50, and Outlet_Pressure=0, log parameters
+//
+//               Enable auto script execution, triggering the embedded script. A pipe geometry will be created with one outlet and the specified number of inlets. Boundary conditions will be applied with the specified inlet velocity and outlet pressure, Avg. Pressure monitors will be created at each inlet, and an Avg. Velocity monitor will be created at the outlet. Simulation Testing Fidelity will be set to 4,000,000 and a solve will be completed in the Explore Stage. Particle and Vector results are displayed
+//               Validate geometry, boundary conditions, and monitors, log parameters
+//               
+//               Set MainPipe_Length parameter value to 125, validate, log parameters
+//               Pause auto script execution
+//               Modify the following script parameters: MainPipe_diameter=75, MainPipe_Length=250, Inlet_Diameter = 50, Inlet_Quantity=2, Inlet_Velocity=10, Outlet_Pressure=15, validate, log parameters
+//               Enable auto script execution, validate, log parameters
+//
+//
+//SpaceClaim Journal File
+//Started(UniversalTime): 24-Nov-2021 16:02:52
+//
+//User: emarkows
+//Computer: CHQCOOP8508
+//CLR version: 4.0.30319.42000
+//OS Culture: en-US
+//SpaceClaim Culture: en-US
+//
+// Microsoft Windows NT 6.2.9200.0
+// Virtual memory 134217727Mb
+// Physical memory 65182Mb
+// 64-bit
+//
+//Processor: Intel(R) Xeon(R) Gold 6136 CPU @ 3.00GHz
+//Description: Intel64 Family 6 Model 85 Stepping 4
+//Manufacturer: GenuineIntel
+//Processor count: 24
+//
+//
+//GPU 1: NVIDIA Quadro P4000
+// Device id: PCI\VEN_10DE&DEV_1BB1&SUBSYS_11A31028&REV_A1\4&26AA4B4B&0&0000
+// Driver version: 27.21.14.6155
+// Driver date: February 2021
+//GPU 2: Microsoft Remote Display Adapter
+// Device id: SWD\REMOTEDISPLAYENUM\RDPIDD_INDIRECTDISPLAY&SESSIONID_0001
+// Driver version: 10.0.19041.662
+// Driver date: June 2006
+//Renderer: OpenGL (GPU 1)
+//Antialiasing: 3
+//
+//Program Version: 2022.2.43008.36226
+//
+//License: ANSYS-4
+//
+//BuildNumber: SpaceClaim-Release+Debug-AMD64_20211117.2
+//
+//KeyShot installed: No
+//KeyShot License: KeyShot not licensed
+//KeyShot Animation: No
+//KeyShot VR: No
+//
+// Build Info: 20221117.2
+//
+//Debug: No
+S=1,WC=MF,DC=JV,1.01
+S=2,WC=MF,DC=OV,1.353
+S=3,WC=MF,DC=OP,Pixel
+**SetIncubatorOption,Small Units Modeling=true
+S=4,ReplayOverrideSuperSketchOptionsVersion,1.5
+S=5,UI_CMD=Disco.SetParticlesEmitterMode,false
+S=6,UI_CMD=Disco.SetParticlesSymbolSize,5
+S=7,UI_CMD=Disco.SetParticlesMaxValue,1.0
+S=8,UI_CMD=Disco.SetParticlesMinValue,0.0
+S=9,UI_CMD=Disco.SetParticlesAnimationSpeed,0.05
+S=10,UI_CMD=Disco.ChangeCalculationType,{"Item1":"ProgramControlled","Item2":"Static"}
+S=11,UI_CMD=Disco.ChangeStructuralModelCriteria,{"Item1":"ProgramControlled","Item2":"ForcedNonlinear"}
+S=12,UI_CMD=Disco.SimulationOptionsPanelViewModel.MaximumNumberOfSubsteps,{"Value":10,"Id":"SimulationOptionsPanelViewModel.MaximumNumberOfSubsteps"}
+S=13,UI_CMD=Disco.ChangeFlowModelCriteria,{"Item1":"ProgramControlled","Item2":"Turbulent_KO_SST"}
+S=14,UI_CMD=Disco.SimulationOptionsPanelViewModel.MaximumNumberOfIterations,{"Value":300,"Id":"SimulationOptionsPanelViewModel.MaximumNumberOfIterations"}
+S=15,UI_CMD=Disco.SimulationOptionsPanelViewModel.NumericalConvergenceTarget,{"Value":0.001,"Id":"SimulationOptionsPanelViewModel.NumericalConvergenceTarget"}
+S=16,UI_CMD=Disco.SimulationOptionsPanelViewModel.NumericalConvergenceTargetEnergy,{"Value":1E-06,"Id":"SimulationOptionsPanelViewModel.NumericalConvergenceTargetEnergy"}
+S=17,UI_CMD=Disco.SimulationOptionsPanelViewModel.NumericalConvergenceTargetMonitors,{"Value":0.001,"Id":"SimulationOptionsPanelViewModel.NumericalConvergenceTargetMonitors"}
+S=18,UI_CMD=Disco.SimulationOptionsPanelViewModel.TargetEngineeringConvergence,{"Value":0.001,"Id":"SimulationOptionsPanelViewModel.TargetEngineeringConvergence"}
+S=19,UI_CMD=Disco.SimulationOptionsNumberOfNearfieldFrequencyPoints,{"Value":1,"Id":"SimulationOptionsNumberOfNearfieldFrequencyPoints"}
+S=20,UI_CMD=Disco.SetActiveWindowTab,0
+S=21,UI_CMD=Disco.ChangeUserActivity,"ExploreStage"
+S=22,UI_CMD=Disco.SetAppUserSettings,"<UserSettings><Setting Key=\"ApipOptIn\" Value=\"false\" /><Setting Key=\"ShowApipWindow\" Value=\"false\" /><Setting Key=\"ShowWelcomePage\" Value=\"false\" /><Setting Key=\"ShowStartPage\" Value=\"true\" /><Setting Key=\"IsFirstInstanceOfApplication\" Value=\"false\" /><Setting Key=\"AutoCalculatePowerSelection\" Value=\"true\" /><Setting Key=\"CurrentUserMode\" Value=\"Developer\" /><Setting Key=\"RecentMaterials\"></Setting><Setting Key=\"RecentOpenProjectFiles\"></Setting><Setting Key=\"WindowPlacement\" Value=\"﻿&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;NativeWindowPlacement xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Length&gt;44&lt;/Length&gt;&lt;Flags /&gt;&lt;ShowCmd&gt;ShowNormal&lt;/ShowCmd&gt;&lt;MinPosition&gt;&lt;X&gt;-1&lt;/X&gt;&lt;Y&gt;-1&lt;/Y&gt;&lt;/MinPosition&gt;&lt;MaxPosition&gt;&lt;X&gt;-1&lt;/X&gt;&lt;Y&gt;-1&lt;/Y&gt;&lt;/MaxPosition&gt;&lt;NormalPosition&gt;&lt;Left&gt;0&lt;/Left&gt;&lt;Top&gt;0&lt;/Top&gt;&lt;Right&gt;1280&lt;/Right&gt;&lt;Bottom&gt;1040&lt;/Bottom&gt;&lt;/NormalPosition&gt;&lt;/NativeWindowPlacement&gt;\" /></UserSettings>"
+S=23,WC=MF,DC=SetUserSettingsCommand,<UserSettings><IsMultiTouchPresent>false</IsMultiTouchPresent><RibbonStyle>Office2016</RibbonStyle><ColorScheme>2</ColorScheme><RibbonBackgroundStyle>Image</RibbonBackgroundStyle><RibbonCanvasColor /><RibbonBaseColor /><RibbonColorGenerator>SpaceClaimBlue</RibbonColorGenerator><DesignBackGroundColor>97, 97, 97</DesignBackGroundColor><DesignBgGradientColor1>30, 30, 30</DesignBgGradientColor1><DesignBgGradientColor2>97, 97, 97</DesignBgGradientColor2><DrawingBackGroundColor>Gray</DrawingBackGroundColor><DesignGridLineColor>Black</DesignGridLineColor><DesignGridXAxisColor>LightCoral</DesignGridXAxisColor><DesignGridYAxisColor>LightGreen</DesignGridYAxisColor><DesignRulerDimensionColor>Black</DesignRulerDimensionColor><ClipFaceColor>0, 0, 0, 0</ClipFaceColor><FirstLayerColor>128, 128, 255</FirstLayerColor><ClipViewPreviewColor>Orange</ClipViewPreviewColor><MeshBackFaceColorEnabled>true</MeshBackFaceColorEnabled><MeshBackFaceColor>51, 255, 0, 0</MeshBackFaceColor><HighlightColorScheme>Custom</HighlightColorScheme><ObjectColorScheme>Default</ObjectColorScheme><ShareTopoColorScheme>Default</ShareTopoColorScheme><FacePrimaryHighlightColor>255, 216, 0</FacePrimaryHighlightColor><FacePrimarySelectColor>255, 106, 0</FacePrimarySelectColor><FacePrimaryHighlightSelectColor>196, 80, 0</FacePrimaryHighlightSelectColor><FaceSecondaryHighlightColor>0, 148, 255</FaceSecondaryHighlightColor><FaceSecondarySelectColor>0, 38, 255</FaceSecondarySelectColor><FaceSecondaryHighlightSelectColor>0, 19, 127</FaceSecondaryHighlightSelectColor><MeshHighlightColorScheme>Custom</MeshHighlightColorScheme><MeshPrimaryHighlightColor>255, 216, 0</MeshPrimaryHighlightColor><MeshPrimarySelectColor>255, 106, 0</MeshPrimarySelectColor><MeshPrimaryHighlightSelectColor>196, 80, 0</MeshPrimaryHighlightSelectColor><MeshSecondaryHighlightColor>0, 148, 255</MeshSecondaryHighlightColor><MeshSecondarySelectColor>0, 38, 255</MeshSecondarySelectColor><MeshSecondaryHighlightSelectColor>0, 19, 127</MeshSecondaryHighlightSelectColor><AnalysisModifiedMeshFaceColor>255, 255, 100</AnalysisModifiedMeshFaceColor><AnalysisFailedMeshFaceColor>192, 0, 0</AnalysisFailedMeshFaceColor><AnalysisFailedMeshEdgeColor>0, 0, 0, 0</AnalysisFailedMeshEdgeColor><AnalysisGoodMeshFaceColor>0, 0, 0, 0</AnalysisGoodMeshFaceColor><AnalysisGoodMeshEdgeColor>0, 0, 0, 0</AnalysisGoodMeshEdgeColor><AnalysisDefeaturedMeshFaceColor>192, 192, 192</AnalysisDefeaturedMeshFaceColor><AnalysisSectionedMeshFaceColor>0, 0, 0, 0</AnalysisSectionedMeshFaceColor><SharedFaceColor>Chartreuse</SharedFaceColor><FailedSharedFaceColor>Red</FailedSharedFaceColor><FreeBeamCurveColor>Red</FreeBeamCurveColor><OnePointBeamCurveColor>Orange</OnePointBeamCurveColor><TwoPointBeamCurveColor>Lime</TwoPointBeamCurveColor><TripleSharedEdgeColor>215, 0, 215</TripleSharedEdgeColor><SharedTripleEdgeThickness>Thin</SharedTripleEdgeThickness><LaminarEdgeColor>Red</LaminarEdgeColor><NotSharedSingleEdgeThickness>Thin</NotSharedSingleEdgeThickness><DoubleSharedEdgeColor>Blue</DoubleSharedEdgeColor><SharedDoubleEdgeThickness>Thin</SharedDoubleEdgeThickness><MultiSharedEdgeColor>Yellow</MultiSharedEdgeColor><SharedMultipleEdgeThickness>Thin</SharedMultipleEdgeThickness><NotSharedEdgeColor>LightGray</NotSharedEdgeColor><NotSharedDoubleEdgeThickness>Thin</NotSharedDoubleEdgeThickness><SettingsReset>false</SettingsReset><WindowState>Normal</WindowState><WindowSize><Width>1240</Width><Height>800</Height></WindowSize><WindowLocation><X>0</X><Y>0</Y></WindowLocation><ShowScrollBars>false</ShowScrollBars><ForceOfflineActivation>false</ForceOfflineActivation><PowerSelection>true</PowerSelection><PowerSelectionResultsLimit>500</PowerSelectionResultsLimit><TessellationQuality>5</TessellationQuality><CustomTessSurfaceTol>0</CustomTessSurfaceTol><CustomTessNormalTol>0</CustomTessNormalTol><CustomTessMaxEdgeLength>0</CustomTessMaxEdgeLength><Renderer>Direct3D11</Renderer><PreviousJournalLocation>C:\Users\emarkows\AppData\Local\Temp\Discovery\ScriptParameters_FluidSolve_20211124.105804\Journals\24-Nov-2021 10.58.06_33932.scjournal</PreviousJournalLocation><CurrentJournalLocation>C:\Users\emarkows\AppData\Local\Temp/Discovery\20211124.1102.8848\Journals\24-Nov-2021 11.02.52_8848.scjournal</CurrentJournalLocation><JournalPixelOrPercentage>Pixel</JournalPixelOrPercentage><MruFileList /><MruScriptFileList /><AntiAliasing>3</AntiAliasing><MaxMruEntries>8</MaxMruEntries><UpdaterTimeout>30000</UpdaterTimeout><FileOpenDialogInitialDirectory /><FileSaveDialogInitialDirectory /><JournalFileDialogInitialDirectory /><MiniToolbarMaxOpacity>0.99</MiniToolbarMaxOpacity><QATLayout /><SnapSettings><SnapPixels>10</SnapPixels><SnapSolidsEnabled>true</SnapSolidsEnabled><Snap3DCurvesEnabled>true</Snap3DCurvesEnabled><SnapAxisParallel>true</SnapAxisParallel><SnapCylinderRadius>true</SnapCylinderRadius><SnapFilletRadius>true</SnapFilletRadius><SnapFaceParallel>true</SnapFaceParallel><SnapFaceRotateParallel>true</SnapFaceRotateParallel><SnapFaceRotatePerpendicular>true</SnapFaceRotatePerpendicular><SnapEdge>true</SnapEdge><SnapFaceGeometry>false</SnapFaceGeometry><RotationSnapTolerance>0.0349</RotationSnapTolerance><SnapSolidsAngularEnabled>true</SnapSolidsAngularEnabled><SnapSolidsAngleIncrement>1</SnapSolidsAngleIncrement><SnapSolidsLinearEnabled>true</SnapSolidsLinearEnabled><SnapSolidsLinearIncrement>0.000254</SnapSolidsLinearIncrement><SnapSolidsLinearIncrementMetric>1E-05</SnapSolidsLinearIncrementMetric><SnapSketchEnabled>true</SnapSketchEnabled><SnapEndpoint>true</SnapEndpoint><SnapCurve>true</SnapCurve><SnapMidpoint>true</SnapMidpoint><SnapCenter>true</SnapCenter><SnapEndpointPerpendicular>true</SnapEndpointPerpendicular><SnapEndpointTangent>true</SnapEndpointTangent><SnapEndpointAngle>true</SnapEndpointAngle><SnapCurveParallel>true</SnapCurveParallel><SnapCurveAngle>true</SnapCurveAngle><SnapGrid>true</SnapGrid><SnapGridParallel>true</SnapGridParallel><SnapIntersection>true</SnapIntersection><SnapSketchAngularEnabled>true</SnapSketchAngularEnabled><SnapSketchAngleIncrement>15</SnapSketchAngleIncrement></SnapSettings><JournalSettings><WriteValidation>true</WriteValidation><MeshStatisticsAccuracy>0.05</MeshStatisticsAccuracy></JournalSettings><NudgeSettings><Distance><Imperial>0.00508</Imperial><Metric>0.0002</Metric></Distance><DistanceSmall><Imperial>0.00127</Imperial><Metric>5E-05</Metric></DistanceSmall><DistanceBig><Imperial>0.050800000000000005</Imperial><Metric>0.002</Metric></DistanceBig><Angle>0.2</Angle><AngleSmall>0.05</AngleSmall><AngleBig>2</AngleBig></NudgeSettings><ShowStatusInView>false</ShowStatusInView><ShowStatusBarBalloonPopup>true</ShowStatusBarBalloonPopup><StatusMessageLimit>0</StatusMessageLimit><FindFixResultsLimit>250</FindFixResultsLimit><FindFixImprintsLimit>1000</FindFixImprintsLimit><ResetSelectionFilterOnToolChange>true</ResetSelectionFilterOnToolChange><UnitsType>Metric</UnitsType><UnitsSymbolDisplay>true</UnitsSymbolDisplay><UnitsSymbolDisplayInAnnotation>true</UnitsSymbolDisplayInAnnotation><UnitsLengthType>INCHES</UnitsLengthType><UnitsMetricLengthType>MM</UnitsMetricLengthType><UnitsTrailingZeros>true</UnitsTrailingZeros><UnitsSymbol>in</UnitsSymbol><UnitsSecondSymbol>in</UnitsSecondSymbol><UnitsFractionSeparator>45</UnitsFractionSeparator><UnitsExtendedDisplay>None</UnitsExtendedDisplay><UnitsMetricExtendedDisplay>None</UnitsMetricExtendedDisplay><UnitsShowNearestFromBothSides>false</UnitsShowNearestFromBothSides><UnitsMetricShowNearestFromBothSides>false</UnitsMetricShowNearestFromBothSides><UnitsNearestFractionLargestDenominator>16</UnitsNearestFractionLargestDenominator><UnitsMetricNearestFractionLargestDenominator>16</UnitsMetricNearestFractionLargestDenominator><UnitsSecondaryDecimalPlaces>3</UnitsSecondaryDecimalPlaces><UnitsMetricSecondaryDecimalPlaces>2</UnitsMetricSecondaryDecimalPlaces><UnitsSecondaryTrailingZeros>true</UnitsSecondaryTrailingZeros><UnitsMetricSecondaryTrailingZeros>false</UnitsMetricSecondaryTrailingZeros><UnitsSecondaryLengthType>INCHES</UnitsSecondaryLengthType><UnitsMetricSecondaryLengthType>MM</UnitsMetricSecondaryLengthType><UnitsDecimalPlaces>3</UnitsDecimalPlaces><UnitsAngularPrecision>1</UnitsAngularPrecision><UnitsLargestDenominator>0</UnitsLargestDenominator><UnitsMinorsInMajor>8</UnitsMinorsInMajor><UnitsMinorTickInterval>0.003175</UnitsMinorTickInterval><UnitsMetricSymbolDisplay>true</UnitsMetricSymbolDisplay><UnitsMetricSymbolDisplayInAnnotation>true</UnitsMetricSymbolDisplayInAnnotation><UnitsMetricTrailingZeros>false</UnitsMetricTrailingZeros><UnitsMetricSymbol>mm</UnitsMetricSymbol><UnitsMetricSecondSymbol>""</UnitsMetricSecondSymbol><UnitsMetricFractionSeparator>32</UnitsMetricFractionSeparator><UnitsMetricDecimalPlaces>2</UnitsMetricDecimalPlaces><UnitsMetricAngularPrecision>1</UnitsMetricAngularPrecision><UnitsMetricAngularShowTrailingZero>false</UnitsMetricAngularShowTrailingZero><UnitsAngularShowTrailingZero>false</UnitsAngularShowTrailingZero><UnitsMetricLargestDenominator>0</UnitsMetricLargestDenominator><UnitsMetricMinorsInMajor>10</UnitsMetricMinorsInMajor><UnitsMetricMinorTickInterval>0.001</UnitsMetricMinorTickInterval><UnitsMetricMassType>GRAMS</UnitsMetricMassType><UnitsMassType>POUNDS</UnitsMassType><UnitsDensityMassType>OUNCES</UnitsDensityMassType><UnitsDensityLengthType>INCHES</UnitsDensityLengthType><UnitsMetricDensityMassType>GRAMS</UnitsMetricDensityMassType><UnitsMetricDensityLengthType>CM</UnitsMetricDensityLengthType><UnitsDensityDerived>true</UnitsDensityDerived><UnitsMetricDensityDerived>true</UnitsMetricDensityDerived><DefaultViewStateShortcut>-1</DefaultViewStateShortcut><DefaultViewStateStoreOrientation>true</DefaultViewStateStoreOrientation><DefaultViewStateStoreEntityGraphics>true</DefaultViewStateStoreEntityGraphics><DefaultViewStateStoreEntityVisibility>true</DefaultViewStateStoreEntityVisibility><DefaultViewStateStoreLayerVisibility>false</DefaultViewStateStoreLayerVisibility><DefaultViewStateStoreLayerGraphics>false</DefaultViewStateStoreLayerGraphics><DefaultViewStateRestoreVisibilityBehavior>Default</DefaultViewStateRestoreVisibilityBehavior><MeasureLengthPrecision>4</MeasureLengthPrecision><MeasureAngularPrecision>2</MeasureAngularPrecision><AngularUnits>Degrees</AngularUnits><MetricAngularUnits>Degrees</MetricAngularUnits><ZoomFactor>0.5</ZoomFactor><HitRadius>5</HitRadius><QuerySelectLoopEdges>true</QuerySelectLoopEdges><SelectEdgeLoopsMultiTouch>true</SelectEdgeLoopsMultiTouch><IncrementalTessellation>true</IncrementalTessellation><ShowPreviewBar>false</ShowPreviewBar><ShowDebugTooltips>false</ShowDebugTooltips><IncludeMeshMassPropsValidation>false</IncludeMeshMassPropsValidation><UICulture>Default</UICulture><DsmLocale>Default</DsmLocale><OptionsFormSize><Width>0</Width><Height>0</Height></OptionsFormSize><OptionsFormLocation><X>0</X><Y>0</Y></OptionsFormLocation><Convergence>false</Convergence><ShowSplash>true</ShowSplash><FileSettings><SupportFileSearchPath /><DocumentSaveAsCopy>false</DocumentSaveAsCopy><RememberMissingFileDirectories>true</RememberMissingFileDirectories><Autocad><ExportSolidsOption>HiddenLineCurves</ExportSolidsOption><ImportReplacementFont /><OverrideExportUnits>false</OverrideExportUnits><CenterImportedModel>true</CenterImportedModel><IncludeDrawingFormat>true</IncludeDrawingFormat><ScaleDWGOutput>false</ScaleDWGOutput><InsertAssumeModelSpaceUnitsAreSameAsDocumentUnits>false</InsertAssumeModelSpaceUnitsAreSameAsDocumentUnits><InsertSetDocumentPropertiesToAutoCADProperties>true</InsertSetDocumentPropertiesToAutoCADProperties><AllowCPConversion>true</AllowCPConversion><DwgExport>OpenDesignAlliance</DwgExport><DwgImport>OpenDesignAlliance</DwgImport><ExportVersion>AutoCAD_2007</ExportVersion><BlackAndWhite>false</BlackAndWhite><AssociateDimsOnExport>true</AssociateDimsOnExport><AssociateDimsOnImport>true</AssociateDimsOnImport><TryInferUnits>true</TryInferUnits><AutoCADFileUnits>INCHES</AutoCADFileUnits><DrawingImportOption>ImportInto3DModel</DrawingImportOption><Polyface3DOptions>Wireframe</Polyface3DOptions><HatchOptions>Nothing</HatchOptions><Polyface2DOptions>SketchCurves</Polyface2DOptions><ExportViewProjection>Current</ExportViewProjection></Autocad><Stl><MergeFaces>false</MergeFaces><UseSystemGraphics>false</UseSystemGraphics><ImportType>ConnectedMesh</ImportType><IsBinary>true</IsBinary><Deviation>0.00075</Deviation><AspectRatio>-3</AspectRatio><MaxEdgeLength>0</MaxEdgeLength><Angle>8</Angle><ResolutionType>Medium</ResolutionType><OutputOption>FilePerDesign</OutputOption><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits></Stl><Tgf><Deviation>0.00075</Deviation><AspectRatio>-3</AspectRatio><MaxEdgeLength>0</MaxEdgeLength><ExtractFeatureEdges>true</ExtractFeatureEdges><Angle>8</Angle><FeatureAngle>40</FeatureAngle><ResolutionType>Medium</ResolutionType><ObjectGranularityLevel>ObjectPerBody</ObjectGranularityLevel><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits></Tgf><Fmd><Deviation>0.00075</Deviation><AspectRatio>-3</AspectRatio><MaxEdgeLength>0</MaxEdgeLength><Angle>8</Angle><ResolutionType>Medium</ResolutionType><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits></Fmd><Amf><MergeFaces>false</MergeFaces><CompressFile>true</CompressFile><ImportType>ConnectedMesh</ImportType><UseSystemGraphics>false</UseSystemGraphics><Deviation>0.00075</Deviation><AspectRatio>-3</AspectRatio><MaxEdgeLength>0</MaxEdgeLength><Angle>8</Angle><ResolutionType>Medium</ResolutionType><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits></Amf><Catia><ImportPmiData>false</ImportPmiData><ImportTrimControlPointsOutsideFaceBoundaries>true</ImportTrimControlPointsOutsideFaceBoundaries><ExportTrimControlPointsOutsideFaceBoundaries>true</ExportTrimControlPointsOutsideFaceBoundaries><MapCATIAGeometricSetsToSpaceClaimGroups>false</MapCATIAGeometricSetsToSpaceClaimGroups><MapPublicationsOnlyToSpaceClaimGroups>false</MapPublicationsOnlyToSpaceClaimGroups><ExportVersion>V25</ExportVersion><CGRInputOption>ConnectedMesh</CGRInputOption><MergeFaces>false</MergeFaces><EnableHybridDesign>false</EnableHybridDesign><ImportInWorkObject>false</ImportInWorkObject></Catia><SolidWorks><SearchForExternalFilesInLastKnownSubfolder>false</SearchForExternalFilesInLastKnownSubfolder></SolidWorks><LightWeight><ImportLightWeightAssemblies>false</ImportLightWeightAssemblies><ImportSaveHeavyLoadLight>true</ImportSaveHeavyLoadLight><ImportLightWeightAssembliesAndGeometry>false</ImportLightWeightAssembliesAndGeometry></LightWeight><FeatherWeight><ImportFeatherWeight>false</ImportFeatherWeight></FeatherWeight><ImportProcessing><ImproveImportedBodies>true</ImproveImportedBodies><ImportFreeCurves>true</ImportFreeCurves><ImportFreeSurfaces>true</ImportFreeSurfaces><CleanAndSimplifyGeometry>true</CleanAndSimplifyGeometry><BodyHealingLevel>0</BodyHealingLevel><StitchNearbySurfacesTogether>true</StitchNearbySurfacesTogether><FindCoincidentSurfaces>false</FindCoincidentSurfaces><StitchTolerance>1E-07</StitchTolerance><ImportObjectNames>true</ImportObjectNames><ImportPoints>true</ImportPoints><ImportPlanes>false</ImportPlanes><ImportAxes>false</ImportAxes><ImportCoordinateSystems>false</ImportCoordinateSystems><UseMultiThreading>true</UseMultiThreading></ImportProcessing><ExportProcessing><ImproveDataOnExport>true</ImproveDataOnExport><ExportObjectNames>true</ExportObjectNames><SplitPeriodicFaces>true</SplitPeriodicFaces></ExportProcessing><Acis><ImportConvertBodiesToComponents>true</ImportConvertBodiesToComponents><ImportSplitBodyName>true</ImportSplitBodyName><ImportSplitBodyNameDelimiters>.</ImportSplitBodyNameDelimiters><ExportVersion>V27</ExportVersion><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits><ImportPmiData>false</ImportPmiData><ExportPmiData>false</ExportPmiData><ExportMaterialInformation>false</ExportMaterialInformation></Acis><Parasolid><ExportVersion>V27</ExportVersion><ShallowAssemblyExport>false</ShallowAssemblyExport><ExportMaterialInformation>false</ExportMaterialInformation></Parasolid><Step><ExportVersion>V214</ExportVersion><ImportStepMethod>UseFacewiseConnections</ImportStepMethod><OverrideUnits>false</OverrideUnits><NewUnits>MM</NewUnits><ExportFaceAndEdgeObjectIds>true</ExportFaceAndEdgeObjectIds><ImportPmiData>false</ImportPmiData></Step><ComponentSettings><AllowHiddenImport>false</AllowHiddenImport><AllowHiddenExport>true</AllowHiddenExport></ComponentSettings><Pdf><OverrideUnits>false</OverrideUnits><NewUnits>MM</NewUnits><ImportPmiData>false</ImportPmiData><ExportPmiData>false</ExportPmiData><U3DInputOption>ConnectedMesh</U3DInputOption><MergeFaces>false</MergeFaces></Pdf><PlmXml><ImportPmiData>true</ImportPmiData><ExportPmiData>false</ExportPmiData></PlmXml><Rhino><ImportConvertLayersToComponents>false</ImportConvertLayersToComponents><ExportConvertComponentsToLayers>false</ExportConvertComponentsToLayers><ExportVersion>V50</ExportVersion><OverrideUnits>false</OverrideUnits><NewUnits>MM</NewUnits><MeshInputOption>ConnectedMesh</MeshInputOption><MergeFaces>false</MergeFaces></Rhino><ProEngineer><ImportQuilts>true</ImportQuilts><ImportPmiData>false</ImportPmiData></ProEngineer><NX><ImportPmiData>false</ImportPmiData></NX><JT><Deviation>-1</Deviation><Angle>-1</Angle><JtkConfigFileUnits>Unknown</JtkConfigFileUnits><ResolutionType>Default</ResolutionType><ImportPmiData>false</ImportPmiData><ImportPolylines>false</ImportPolylines><ExportPmiData>false</ExportPmiData><ExportVersion>V81</ExportVersion><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits><FacetsInputOption>ConnectedMesh</FacetsInputOption><MergeFaces>false</MergeFaces><DataInputOption>Brep</DataInputOption></JT><IGES><ExportBodyType>MSBO</ExportBodyType><ExportUsingJAMAIgesSubset>false</ExportUsingJAMAIgesSubset><ImportIgesMethod>UseFacewiseConnections</ImportIgesMethod><OverrideUnits>false</OverrideUnits><NewUnits>MM</NewUnits></IGES><Vrml><Deviation>0.00075</Deviation><Angle>8</Angle><AspectRatio>-3</AspectRatio><ResolutionType>Medium</ResolutionType><OverrideQuality>false</OverrideQuality><OverrideUnits>true</OverrideUnits><NewUnits>M</NewUnits></Vrml><WorkbenchSettings><AlwaysUseSpatialReader>false</AlwaysUseSpatialReader><SolidBodies>true</SolidBodies><SurfaceBodies>true</SurfaceBodies><LineBodies>false</LineBodies><Parameters>1</Parameters><ParameterKey>ANS;DS</ParameterKey><NamedSelections>false</NamedSelections><NamedSelectionsKey>NS</NamedSelectionsKey><Attributes>false</Attributes><AttributeKey>SDFEA;DDM</AttributeKey><MaterialProperties>false</MaterialProperties><AnalysisType>1</AnalysisType><UseAssociativity>true</UseAssociativity><CoordinateSystems>false</CoordinateSystems><CoordinateSystemKey /><WorkPoints>false</WorkPoints><MergeBeams>true</MergeBeams><ReaderModeSavesUpdatedFile>false</ReaderModeSavesUpdatedFile><ImportUsingInstances>true</ImportUsingInstances><SmartCADUpdate>true</SmartCADUpdate><DecomposeDisjoingGeometry>true</DecomposeDisjoingGeometry><MixedImportResolution>0</MixedImportResolution><PMDBLengthUnitType>M</PMDBLengthUnitType></WorkbenchSettings><Obj><Deviation>0.00075</Deviation><Angle>8</Angle><AspectRatio>-3</AspectRatio><MaxEdgeLength>0</MaxEdgeLength><ResolutionType>Medium</ResolutionType><OverrideQuality>false</OverrideQuality><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits></Obj><Xaml><OverrideUnits>true</OverrideUnits><NewUnits>M</NewUnits></Xaml><Bip><Camera>Perspective</Camera></Bip><SketchUp><ImportAsMesh>false</ImportAsMesh><SimplifyToSurfaces>false</SimplifyToSurfaces><FixFaceNormals>false</FixFaceNormals><ExportVersion>MostRecent</ExportVersion></SketchUp><QIF><OverrideUnits>false</OverrideUnits><NewUnits>M</NewUnits></QIF><TeamcenterFile><InstallLocation /><Discriminator>ANSYSWBPlugInTC</Discriminator></TeamcenterFile><TeamcenterUser><UserName /><Password /><Group /><Role /><SaveUserInfo>true</SaveUserInfo></TeamcenterUser><Icemcfd><ImportAsIndividualSurfaceBodies>true</ImportAsIndividualSurfaceBodies><OutputOption>FilePerDesign</OutputOption></Icemcfd><Fluent><OutputOption>FilePerDesign</OutputOption><MeshType>BlockingMesh</MeshType><MeshFormat>FaceBased</MeshFormat></Fluent><Gltf><TextureAsExternal>false</TextureAsExternal></Gltf></FileSettings><BetaOptions>false</BetaOptions><AdvSketching>true</AdvSketching><CreateDynamicConstraints>true</CreateDynamicConstraints><ViewProjectionAnimation>true</ViewProjectionAnimation><ConfigurationAnimation>false</ConfigurationAnimation><SkipReadOnlyFiles>false</SkipReadOnlyFiles><Animation>true</Animation><AnimateFullPull>true</AnimateFullPull><ShowKeyTips>false</ShowKeyTips><ShowTooltips>true</ShowTooltips><ShowViewOrientation>true</ShowViewOrientation><ShowMiniToolbarOnSelection>false</ShowMiniToolbarOnSelection><LogFilesToKeep>7</LogFilesToKeep><ToolGuidePosition>NotShown</ToolGuidePosition><GridGuidePosition>Corner</GridGuidePosition><GridGuideSize>Small</GridGuideSize><QATMru /><SymbolFileSearchPath /><UpgradeSettings>true</UpgradeSettings><AdjustAnsysSettings>true</AdjustAnsysSettings><AdjustOEMSettings>true</AdjustOEMSettings><AdjustSTLLicense>true</AdjustSTLLicense><CustomizedPanelTabs /><CustomizedRibbonTabs><item><key>JournalRibbonTab</key><value>False</value></item><item><key>RSRibbonTab</key><value>False</value></item><item><key>Ami.ControlsRibbonTab</key><value>False</value></item><item><key>KeyShotRibbonTab</key><value>False</value></item><item><key>GetKeyShotRibbonTab</key><value>True</value></item><item><key>HyperShotRibbonTab</key><value>False</value></item></CustomizedRibbonTabs><ShowAmiControlsRibbonTab>false</ShowAmiControlsRibbonTab><ShowJournalRibbonTab>false</ShowJournalRibbonTab><ShowRsAlliedRibbonTab>false</ShowRsAlliedRibbonTab><ShowRsAlliedRibbonTabModifiedOnce>false</ShowRsAlliedRibbonTabModifiedOnce><IsReducedTTM>true</IsReducedTTM><ColorSchemeBaseColor /><ShowStoredSelection>false</ShowStoredSelection><PreviewMode>Auto</PreviewMode><PreviewAutoThreshold>15000</PreviewAutoThreshold><DetailSettings><ProjectionArrowLength>0.014</ProjectionArrowLength><ShowAuxiliaryViewArrows>false</ShowAuxiliaryViewArrows><ShowProjectedViewArrows>false</ShowProjectedViewArrows><AuxiliaryViewLabelPrefix>VIEW</AuxiliaryViewLabelPrefix><ProjectedViewLabelPrefix>VIEW</ProjectedViewLabelPrefix><ShowNotesForAuxiliaryViews>false</ShowNotesForAuxiliaryViews><ShowNotesForProjectedViews>false</ShowNotesForProjectedViews><ChamferDimensionTextStyle>X45</ChamferDimensionTextStyle><ChamferDimensionStyle>Linear</ChamferDimensionStyle><ProjectionArrowsStyle>Double</ProjectionArrowsStyle><OrdinateDimsDimensionLineAndTextOrientation>HideCommonDimensionLineTextVertical</OrdinateDimsDimensionLineAndTextOrientation><OrdinateDimsShowZeroBaseline>true</OrdinateDimsShowZeroBaseline><DefaultDimensionArrowShape>Arrow</DefaultDimensionArrowShape><VirtualSharpRendering>None</VirtualSharpRendering><DetailViewBoundaryLineWeight>THIN</DetailViewBoundaryLineWeight><CrossSectionArrowLineWeight>THICK</CrossSectionArrowLineWeight><CenterLinesExtend>0.003</CenterLinesExtend><CentermarkCrossRadius>0</CentermarkCrossRadius><DatumSymbolAttachment /><DatumSymbolFrame /><ShowConstructionCurvesOffPlane>true</ShowConstructionCurvesOffPlane><AssignmentArray><Key>Annotation</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>AreaCrossHatchingBorderLines</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>BrokenOutSectionClippingEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>BrokenViewClippingEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CenterLines</Key><Value><LineStyleId>LongDashDash</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CrossHatching</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CrossHatchingBorderLines</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CrossSectionCutLineTips</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DatumTargetAreaBorder</Key><Value><LineStyleId>LongDashDoubleDotted</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DatumTargetLine</Key><Value><LineStyleId>LongDashDoubleDotted</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DetailViewClippingEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DrawingHiddenEdges</Key><Value><LineStyleId>Dash</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DrawingVisibleEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>ProjectionArrowTipsType</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>ProjectionArrowType</Key><Value><LineStyleId>LongDashDotted</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><UseThickLineWeightForAreaCrossSectionBorderLines>true</UseThickLineWeightForAreaCrossSectionBorderLines><DefaultThickLineWeight>0.0007</DefaultThickLineWeight><DefaultMediumLineWeight>0.000525</DefaultMediumLineWeight><DefaultDetailViewClippedEdgeExtent>0</DefaultDetailViewClippedEdgeExtent><DefaultBrokenViewClippedEdgeExtent>0</DefaultBrokenViewClippedEdgeExtent><DefaultForeshortenedCenterSize>0.004</DefaultForeshortenedCenterSize><DefaultThinLineWeight>0.00035</DefaultThinLineWeight><DefaultSectionNameNotePrefix>SECTION</DefaultSectionNameNotePrefix><CrossSectionArrowOutwardDistance>0</CrossSectionArrowOutwardDistance><CrossSectionArrowPenetrationDistance>0.0075</CrossSectionArrowPenetrationDistance><IsTrimBackProportional>false</IsTrimBackProportional><DetailViewNoteDetailText>DETAIL</DetailViewNoteDetailText><DetailViewNoteScaleText>SCALE</DetailViewNoteScaleText><DefaultTextHeight>0.0035</DefaultTextHeight><DetailViewNameTextHeightRatio>1.4</DetailViewNameTextHeightRatio><SectionLineArrowSize>0.0028</SectionLineArrowSize><SectionLineLength>0.014</SectionLineLength><LeaderCircleSize>0.0009</LeaderCircleSize><LeaderArrowLength>0.0025</LeaderArrowLength><LeaderArrowWidth>0.0006</LeaderArrowWidth><DefaultLeaderShoulderLength>0.00564444444</DefaultLeaderShoulderLength><LeaderTextBoxGap>0.00141111111</LeaderTextBoxGap><EnforceDimensionLine>false</EnforceDimensionLine><DimensionTextIsHorizontal>true</DimensionTextIsHorizontal><TightDimensionTextDistance>false</TightDimensionTextDistance><DimensionTextOffset>0</DimensionTextOffset><DefaultGtolFontName>SpaceClaim ASME CB</DefaultGtolFontName><DefaultGtolFontGdtStandard>ASME</DefaultGtolFontGdtStandard><ExtensionLineGap>0.001</ExtensionLineGap><ExtensionLineExtend>0.002</ExtensionLineExtend><DimensionLineExtend>0.006</DimensionLineExtend><MinimumDefaultHatchSpacing>0.0007</MinimumDefaultHatchSpacing><MaximumDefaultHatchSpacing>0.02</MaximumDefaultHatchSpacing><AnnotationCreationColor>Black</AnnotationCreationColor><DetailViewClippedEdgesColor>Black</DetailViewClippedEdgesColor><BrokenViewClippedEdgesColor>Black</BrokenViewClippedEdgesColor><DetailViewBoundaryRendering>PhantomThin</DetailViewBoundaryRendering><CrossSectionArrowsRendering>PhantomThick</CrossSectionArrowsRendering><DetailViewNoteLayout>TwoLines</DetailViewNoteLayout><DetailViewNotePlacementOnBoundary>Centered</DetailViewNotePlacementOnBoundary><DefaultViewProjection>ThirdAngle</DefaultViewProjection><DefaultViewLayout>BottomLeft</DefaultViewLayout><DefaultFillStyle>Filled</DefaultFillStyle><DefaultDimensionTextLocation>MiddleOfTopLine</DefaultDimensionTextLocation><DefaultToleranceVerticalPosition>Middle</DefaultToleranceVerticalPosition><CrossSectionArrowDirectionDisplayStyle>From</CrossSectionArrowDirectionDisplayStyle><FractionalScaleDivider>:</FractionalScaleDivider><ThreadDisplayStandard>AsmeSimplified</ThreadDisplayStandard><ThreadDiameterDimensionDesignationTextOption>Never</ThreadDiameterDimensionDesignationTextOption><DatumCalloutTextHeightRatio>3.5</DatumCalloutTextHeightRatio><DatumTargetPointSize>0.00494975</DatumTargetPointSize><DatumTargetHatchSpacing>0.001</DatumTargetHatchSpacing><DatumTargetHatchAngle>0.78539816339744828</DatumTargetHatchAngle><DatumCalloutDefaultLeaderArrowShape>None</DatumCalloutDefaultLeaderArrowShape><DatumTargetShowLineEndPoints>true</DatumTargetShowLineEndPoints><HideAnnotationsBehindModel>false</HideAnnotationsBehindModel><WeldingSymbolStandard>AWS</WeldingSymbolStandard><GDTStandard>ASME</GDTStandard><SystemOfFits>HoleBasis</SystemOfFits><HoleFundamentalDeviation>H_H</HoleFundamentalDeviation><ShaftFundamentalDeviation>S_h</ShaftFundamentalDeviation><HoleInternationalToleranceGrade>IT7</HoleInternationalToleranceGrade><ShaftInternationalToleranceGrade>IT6</ShaftInternationalToleranceGrade><MethodOfDesignatingTolerances>ToleranceClass</MethodOfDesignatingTolerances><DefaultNoteSpace>ViewSpace</DefaultNoteSpace></DetailSettings><ShowOrigin>true</ShowOrigin><ShowSpinCenter>true</ShowSpinCenter><RotationType>AroundPoint</RotationType><MouseWheelZoom>ZoomDefault</MouseWheelZoom><ShowCrossSections>true</ShowCrossSections><ShowCrossSectionsFaces>true</ShowCrossSectionsFaces><ShowCursorHints>true</ShowCursorHints><ShowFaceHighlight>true</ShowFaceHighlight><ShowFaceSpotlight>false</ShowFaceSpotlight><PreferShadedEnhanced>true</PreferShadedEnhanced><CursorHintsTransparency>25</CursorHintsTransparency><MoveGizmoSize>110</MoveGizmoSize><UseBackgroundLoading>true</UseBackgroundLoading><AllowXMLErrors>false</AllowXMLErrors><DefaultFormatSetting><UseFormat>true</UseFormat><IsCustom>false</IsCustom><Width>0.4318</Width><Height>0.2794</Height><RelativeFormatName>B Landscape.scdoc</RelativeFormatName></DefaultFormatSetting><DefaultFontForNewWindows>SpaceClaim ASME CB</DefaultFontForNewWindows><DefaultGraphicsStyle>Shaded</DefaultGraphicsStyle><DefaultHatchFillStyle>Hatch</DefaultHatchFillStyle><AutoscaleDrawingOption>true</AutoscaleDrawingOption><CreateAreaCrossSections>false</CreateAreaCrossSections><DefaultDrawingScaleOption>1</DefaultDrawingScaleOption><CarGridSettings><DrawBaloon>false</DrawBaloon><AutomaticallyShowCarGridDescription>false</AutomaticallyShowCarGridDescription><CarGridDescriptionLabel> Modular grid : </CarGridDescriptionLabel><FormatSettings><XNegativeSuffix>X</XNegativeSuffix><XZeroSuffix>X</XZeroSuffix><XPositiveSuffix>X</XPositiveSuffix><YNegativeSuffix>Y</YNegativeSuffix><YZeroSuffix>Y</YZeroSuffix><YPositiveSuffix>Y</YPositiveSuffix><ZNegativeSuffix>Z</ZNegativeSuffix><ZZeroSuffix>Z</ZZeroSuffix><ZPositiveSuffix>Z</ZPositiveSuffix><XNegativeAxisPrefix>-</XNegativeAxisPrefix><XPositiveAxisPrefix /><YNegativeAxisPrefix>-</YNegativeAxisPrefix><YPositiveAxisPrefix /><ZNegativeAxisPrefix>-</ZNegativeAxisPrefix><ZPositiveAxisPrefix /><XAxisName>X</XAxisName><YAxisName>Y</YAxisName><ZAxisName>Z</ZAxisName></FormatSettings><FontName>SpaceClaim ASME CB</FontName><FontSize>0.0035</FontSize><AutoCreateMode>DoNotCreate</AutoCreateMode><AutomaticallyShowOrigin>true</AutomaticallyShowOrigin><CarGridColor>Black</CarGridColor><LineStyle>Solid</LineStyle><LineWeight>Thin</LineWeight><Interval>0.01</Interval><IntervalsPerGridLine>1</IntervalsPerGridLine><HorizontalAxisDescriptionLocation>Both</HorizontalAxisDescriptionLocation><VerticalAxisDescriptionLocation>Both</VerticalAxisDescriptionLocation></CarGridSettings><CheckForUpdatesOnStartup>true</CheckForUpdatesOnStartup><ShowCurvesCenters>true</ShowCurvesCenters><OffsetEdgesByGeodesicCalculation>false</OffsetEdgesByGeodesicCalculation><CreateDefaultComponent>false</CreateDefaultComponent><SpaceClaimColorScheme>true</SpaceClaimColorScheme><LightweightAssemblies>false</LightweightAssemblies><AddIns><item><key>C:\ANSYSDev\Disco_Install\v222\Discovery\AddIns\DiscoveryConnectorService\Ans.Discovery.Connector.dll, Ansys.Discovery.Connector.DiscoveryAddIn</key><value>True</value></item><item><key>C:\ANSYSDev\Disco_Install\v222\Discovery\AddIns\DiscoveryConnectorService\AnsysDiscoPlugin.dll, AnsysDiscoPlugin.PluginAddin</key><value>True</value></item></AddIns><StickyDatumAxisCount>3</StickyDatumAxisCount><ShowOffsetBaselineFaces>true</ShowOffsetBaselineFaces><ShowCoaxialFaces>true</ShowCoaxialFaces><ImportCreatesExternalAssembly>false</ImportCreatesExternalAssembly><LicenseExpirationDays>45</LicenseExpirationDays><LicenseExclusions /><AnsysLicenseInclusions /><BorrowLicenseExclusions /><RotateAboutPreselected>false</RotateAboutPreselected><FastImport>false</FastImport><ClipSceneWithGrid>true</ClipSceneWithGrid><DimSceneUnderGrid>true</DimSceneUnderGrid><MaxNumberJournalFiles>50</MaxNumberJournalFiles><MaxUndoSteps>50</MaxUndoSteps><ApplicationInvocationCount>0</ApplicationInvocationCount><EmbeddedInvocationCount>0</EmbeddedInvocationCount><ShowAimPopup>true</ShowAimPopup><ShowSuppressPopup>true</ShowSuppressPopup><CockpitTreePinned>false</CockpitTreePinned><CockpitTreeCollapsed>false</CockpitTreeCollapsed><CockpitOptionsPinned>false</CockpitOptionsPinned><CockpitOptionsCollapsed>false</CockpitOptionsCollapsed><CockpitHintsShown>true</CockpitHintsShown><SaveAfterImport>false</SaveAfterImport><SplashAssemblyCount>0</SplashAssemblyCount><DragThresholdMiliseconds>150</DragThresholdMiliseconds><SheetMetalSettings><DefaultThickness>0.001</DefaultThickness><DefaultInnerBendRadius>0.0005</DefaultInnerBendRadius><DefaultInnerBendRadiusRatio>1</DefaultInnerBendRadiusRatio><DefaultInnerBendRadiusValueType>Ratio</DefaultInnerBendRadiusValueType><DefaultKFactorType>Variable</DefaultKFactorType><DefaultKFactor>0.27323954473516271</DefaultKFactor><DefaultFaceRipRatioWidth>0.1</DefaultFaceRipRatioWidth><DefaultFaceRipAbsoluteWidth>0.0001</DefaultFaceRipAbsoluteWidth><DefaultFaceRipWidthValueType>AbsoluteValue</DefaultFaceRipWidthValueType><DefaultJunctionOverlap>0.5</DefaultJunctionOverlap><DefaultWallClearanceRatio>0.0001</DefaultWallClearanceRatio><DefaultWallClearanceAbsolute>1E-07</DefaultWallClearanceAbsolute><DefaultWallClearanceValueType>AbsoluteValue</DefaultWallClearanceValueType><DefaultBendReliefType>RoundedNotch</DefaultBendReliefType><DefaultBendReliefWidthValueType>Ratio</DefaultBendReliefWidthValueType><DefaultBendReliefRatioWidth>0.5</DefaultBendReliefRatioWidth><DefaultBendReliefAbsoluteWidth>0.0005</DefaultBendReliefAbsoluteWidth><DefaultBendReliefDepthValueType>Ratio</DefaultBendReliefDepthValueType><DefaultBendReliefRatioDepth>0.5</DefaultBendReliefRatioDepth><DefaultBendReliefAbsoluteDepth>0.0005</DefaultBendReliefAbsoluteDepth><DefaultCornerReliefType>Default</DefaultCornerReliefType><DefaultCornerReliefDepthValueType>Ratio</DefaultCornerReliefDepthValueType><DefaultCornerReliefRatioDepth>0.25</DefaultCornerReliefRatioDepth><DefaultCornerReliefAbsoluteDepth>0.00025</DefaultCornerReliefAbsoluteDepth><Create2DCorners>false</Create2DCorners><AutoRoundDXFRadiusValueType>Ratio</AutoRoundDXFRadiusValueType><AutoRoundDXF>false</AutoRoundDXF><AutoRoundDXFRadiusRatio>0.5</AutoRoundDXFRadiusRatio><AutoRoundDXFRadiusAbsolute>0.0005</AutoRoundDXFRadiusAbsolute><ExportBendExtentLinesDXF>false</ExportBendExtentLinesDXF><HighlightSheets>true</HighlightSheets><HighlightBaselines>false</HighlightBaselines><HighlightJunctions>true</HighlightJunctions><HighlightReliefs>true</HighlightReliefs><HighlightForms>true</HighlightForms><HighlightJoggles>true</HighlightJoggles><HighlightNotches>true</HighlightNotches><HighlightBeads>true</HighlightBeads><HighlightHems>true</HighlightHems><HighlightGussets>true</HighlightGussets><HighlightTabs>true</HighlightTabs><HighlightHinges>true</HighlightHinges><HighlightMiters>true</HighlightMiters><HighlightPanelBends>true</HighlightPanelBends><ShowFlatBendExtents>true</ShowFlatBendExtents><BaseColor>143, 159, 175</BaseColor><JunctionColor>183, 120, 210</JunctionColor><EdgeReliefColor>254, 253, 134</EdgeReliefColor><CornerReliefColor>254, 253, 134</CornerReliefColor><JoggleColor>255, 147, 198</JoggleColor><FormColor>191, 139, 64</FormColor><NotchColor>10, 255, 139</NotchColor><BeadColor>191, 139, 64</BeadColor><HemColor>140, 180, 14</HemColor><GussetColor>191, 139, 64</GussetColor><TabColor>Cyan</TabColor><HingeColor>Cyan</HingeColor><MiterColor>254, 200, 134</MiterColor><PanelBendColor>191, 139, 64</PanelBendColor><LayerBendLinesUp><Color>Green</Color><Visible>false</Visible><LineStyleType>Solid</LineStyleType><LineWeight>Thin</LineWeight></LayerBendLinesUp><LayerBendLinesDown><Color>Green</Color><Visible>false</Visible><LineStyleType>Dash</LineStyleType><LineWeight>Thin</LineWeight></LayerBendLinesDown><LayerForms><Color>Blue</Color><Visible>false</Visible><LineStyleType>Dash</LineStyleType><LineWeight>Thin</LineWeight></LayerForms><LayerBendText><Color>Black</Color><Visible>false</Visible><LineStyleType>Solid</LineStyleType><LineWeight>Thin</LineWeight></LayerBendText><LayerDimensions><Color>Black</Color><Visible>true</Visible><LineStyleType>Solid</LineStyleType><LineWeight>Thin</LineWeight></LayerDimensions><LayerMarkers><Color>Blue</Color><Visible>true</Visible><LineStyleType>Dash</LineStyleType><LineWeight>Thin</LineWeight></LayerMarkers><BendAnnotations>PlusMinusAngle</BendAnnotations><TrimBendLinesUnfolded>false</TrimBendLinesUnfolded><ToolOptionsSetting><SheetSide>None</SheetSide><DimensionReference>None</DimensionReference><HemOption>None</HemOption></ToolOptionsSetting></SheetMetalSettings><HoleSettings><DefaultThreadDepthRatio>2</DefaultThreadDepthRatio><DefaultDrillPointAngle>118</DefaultDrillPointAngle></HoleSettings><MeshSettings><Deviation>0.00075</Deviation><AspectRatio>-3</AspectRatio><MaxEdgeLength>0</MaxEdgeLength><Angle>8</Angle><ResolutionType>Medium</ResolutionType></MeshSettings><InflationSettings><DefaultInflationOption>SmoothTransition</DefaultInflationOption><DefaultTransitionRatio>0.272</DefaultTransitionRatio><DefaultFirstAspectRatio>5</DefaultFirstAspectRatio><DefaultFirstLayerHeight>0.001</DefaultFirstLayerHeight><DefaultMaxLayers>5</DefaultMaxLayers><DefaultNumLayers>5</DefaultNumLayers><DefaultGrowthRate>1.2</DefaultGrowthRate><DefaultMaxThickness>0.001</DefaultMaxThickness><DefaultAspectRatio>3</DefaultAspectRatio><DefaultCollisionAvoidance>StairStepping</DefaultCollisionAvoidance><DefaultFixFirstLayer>No</DefaultFixFirstLayer><DefaultGapFactor>0.5</DefaultGapFactor><DefaultMaxHeightOverBase>0.1</DefaultMaxHeightOverBase><DefaultMaxAngle>2.4434609527920612</DefaultMaxAngle><DefaultFilletRatio>1</DefaultFilletRatio><DefaultGrowthRateType>Geometric</DefaultGrowthRateType><DefaultUsePostSmoothing>Yes</DefaultUsePostSmoothing><DefaultSmoothIteration>5</DefaultSmoothIteration></InflationSettings><BlockingSettings><AutomaticMultiThreading>true</AutomaticMultiThreading><UseParallelPartBlocking>false</UseParallelPartBlocking><NumberOfThreads>24</NumberOfThreads><EnableAdvancedTools>true</EnableAdvancedTools><NormalProjection>false</NormalProjection><AssociateInner>false</AssociateInner><MeshMethod>0</MeshMethod><UseSplitAngle>false</UseSplitAngle><SplitAngle>1.0471975511965976</SplitAngle></BlockingSettings><AmiMeshSettings><ElementOrderOption>Quadratic</ElementOrderOption><FreeMeshTypeOption>HexCore</FreeMeshTypeOption><CurvatureFlag>false</CurvatureFlag><ProximityFlag>false</ProximityFlag><BiasEdgeSizesFlag>true</BiasEdgeSizesFlag></AmiMeshSettings><RadialMenuSettings><Enabled>false</Enabled><ShowOnLeftMouseHold>false</ShowOnLeftMouseHold><ShowOnRocker>true</ShowOnRocker><LeftMouseHoldDelay>500</LeftMouseHoldDelay><Diameter>250</Diameter></RadialMenuSettings><MouseGestures><string>L, Undo</string><string>R, Redo</string><string>RLR, Delete</string><string>9L3, Cut</string><string>93, Copy</string><string>39, Paste</string><string>93L, SelectAll</string><string>UR1, Print</string><string>U, Select</string><string>D, PullTool</string><string>DU, Transform</string><string>UDUD, MeasureTool</string><string>LDR, IntersectTool</string><string>DRU, ShellTool</string><string>DRD, ThinTool</string><string>131, SplitBodyTool</string><string>9393, Mirror</string><string>LU, SetModeSketch</string><string>LR, SetModeSection</string><string>LD, SetMode3D</string><string>DR, Line</string><string>DL, Circle</string><string>DUR, Rect</string><string>URD, Home</string><string>R1R, ZoomExtents</string><string>RU, ViewTrimetric</string><string>RD, ViewOntoSection</string><string>1R, PreviousView</string><string>3L, NextView</string><string>79, ZoomOut</string><string>97, ZoomOut</string><string>31, ZoomIn</string><string>13, ZoomIn</string><string>7R, ViewRotate90Clockwise</string><string>9L, ViewRotate90CounterClockwise</string><string>U3U, New</string><string>U3UR, NewWindow</string><string>LRL, CloseDocument</string><string>UL, NavigateWindowsReverse</string><string>UR, NavigateWindowsForward</string><string>URL, CreateRefDatum</string><string>RDLU, Fill</string><string>DUD, SplitFace</string><string>3R, ProjectToSketch</string><string>DRL, CreateDatumLine</string><string>+,ShowRadialMenu</string><string>-,ShowRadialMenu</string><string>RLD, InsertFromFile</string><string>LDRU, Open</string><string>U3UL, NewDrawingSheet</string><string>91, Rotate</string><string>19, Pan</string><string>37, Zoom</string><string>RUR, SaveAs</string><string>UD, Hide</string><string>UR3, ReplaceComponent</string><string>RLU, TrimCorner</string><string>RL, TrimExtend</string><string>LDL, Spline</string><string>R3D, ThreePointArc</string><string>U9R, TangentArc</string><string>73, CreateRulerDimension</string><string>3U, ToolGuideUpTo</string><string>9D, AnnotationPlaneDimension</string><string>7D, CreateNote</string><string>DR7, Loft</string></MouseGestures><TextHeightUnits>INCHES</TextHeightUnits><MetricTextHeightUnits>MM</MetricTextHeightUnits><EnableAutoExtrude>false</EnableAutoExtrude><ShowWelcomeScreen>false</ShowWelcomeScreen><CheckForWelcomeScreenUpdates>true</CheckForWelcomeScreenUpdates><AutoCalculatePowerSelection>true</AutoCalculatePowerSelection><PowerSelectionAbsoluteTolerance>1E-06</PowerSelectionAbsoluteTolerance><PowerSelectionRelativeTolerance>0.01</PowerSelectionRelativeTolerance><SpinStyle>MMB</SpinStyle><PanStyle>MMBandShift</PanStyle><ZoomStyle>MMBandCtrl</ZoomStyle><RotationStyle>ArcBall</RotationStyle><ZoomInDirection>DownWards</ZoomInDirection><ZoomInWheelDirection>DownWards</ZoomInWheelDirection><ZoomSpeed>1</ZoomSpeed><SpinSpeed>1</SpinSpeed><FillToolShowDeviation>false</FillToolShowDeviation><HyperShotCamera>Perspective</HyperShotCamera><OemFileFilterName /><OemFileExtension>.dsco</OemFileExtension><CheckGeometryOnImport>false</CheckGeometryOnImport><ImageCompareTolerance>1</ImageCompareTolerance><MultiTouch>true</MultiTouch><ShowTouchSpots>true</ShowTouchSpots><MultiTouchStyle>Alternative</MultiTouchStyle><MultiTouchGizmo>Right</MultiTouchGizmo><MultiTouchQueryNextDirection>N</MultiTouchQueryNextDirection><ConsumeAnsysLicensesForSession>false</ConsumeAnsysLicensesForSession><ConsumeTranslatorLicensesForSession>true</ConsumeTranslatorLicensesForSession><TopViewDirection>Z</TopViewDirection><ShowSpaceClaimDefaultFormatsInTheUserInterface>true</ShowSpaceClaimDefaultFormatsInTheUserInterface><PrintShadedQuality>0</PrintShadedQuality><ClipViewClipSelection>false</ClipViewClipSelection><AutosaveInterval>15</AutosaveInterval><AutosaveLocation /><Autosave>true</Autosave><AutosavePurgeInterval>5</AutosavePurgeInterval><CheckLoadTime>false</CheckLoadTime><InitialLoadTimeThreshold>3</InitialLoadTimeThreshold><FullLoadTimeThreshold>15</FullLoadTimeThreshold><JournalUpload>false</JournalUpload><ZipArchive>false</ZipArchive><DefaultPullExtrudeBehavior>Automatic</DefaultPullExtrudeBehavior><AddToolGraphicsToSceneImage>false</AddToolGraphicsToSceneImage><AddDatumsToSceneImage>true</AddDatumsToSceneImage><ShowProgressPopup>true</ShowProgressPopup><FIPSCompliance>false</FIPSCompliance><UseTemplateFile>false</UseTemplateFile><TemplateFileLocation /><UseDefaultOpen>false</UseDefaultOpen><DefaultOpenLocation /><UseDefaultSave>false</UseDefaultSave><DefaultSaveLocation /><ShowStandardHoles>true</ShowStandardHoles><PrintToPdf>false</PrintToPdf><ExpandAssembly>false</ExpandAssembly><DesignBackground>Gradient</DesignBackground><DesignBackgroundGradient>Radial</DesignBackgroundGradient><DesignEnvironment /><ShowDesignEnvironment>false</ShowDesignEnvironment><ShowGestureTrail>true</ShowGestureTrail><ShowMeshSelectionOccluded>true</ShowMeshSelectionOccluded><LightingScheme>Default</LightingScheme><Pdf2DShadedQuality>110</Pdf2DShadedQuality><Pdf2DSaveAllSheets>false</Pdf2DSaveAllSheets><DrawingExportImageQuality>100</DrawingExportImageQuality><DrawingExportImageContent>Sheet</DrawingExportImageContent><SceneAsImageTransparentBackground>false</SceneAsImageTransparentBackground><ShowNQA>true</ShowNQA><StandardHoleColor>0, 195, 218</StandardHoleColor><CatiaTimeout>2</CatiaTimeout><LockSpinInDrawings>false</LockSpinInDrawings><RenderingEnvironmentsFolder>%SPACECLAIMINSTALLDIR%\Library\Rendering\Environments</RenderingEnvironmentsFolder><UseBomTemplateFile>false</UseBomTemplateFile><SearchSpecialFolders>false</SearchSpecialFolders><BomTemplateFileLocation /><ImportStlUnits /><ImportObjUnits /><MeshSelectionGranularity>Fine</MeshSelectionGranularity><MeshSectionFitCurves>true</MeshSectionFitCurves><MeshPaintSelectionRadius>10</MeshPaintSelectionRadius><ShowSectionPoints>false</ShowSectionPoints><ShowMechSparkStepWarning>true</ShowMechSparkStepWarning><ShowXPWarning>true</ShowXPWarning><ShowRsBlankPartNumberWarning>true</ShowRsBlankPartNumberWarning><ConnectServerAddress>beta.sc-cloud.com</ConnectServerAddress><ConnectOverrideDefaultServer>false</ConnectOverrideDefaultServer><OverlayVectorEdges>false</OverlayVectorEdges><ConnectProxyServerAddress /><ConnectProxyPort /><ConnectProxyUserName /><ConnectProxyUserPassword /><ConnectProxyOptionalDomain /><ConnectUserName /><ShowKeyShotTab>false</ShowKeyShotTab><ShowGetKeyShotTab>true</ShowGetKeyShotTab><ShowHyperShotTab>false</ShowHyperShotTab><KeyShotInstalled>false</KeyShotInstalled><MfgCurveTableCreateTableForMfg>false</MfgCurveTableCreateTableForMfg><MfgCurveTableUseDiamAboutAxis>true</MfgCurveTableUseDiamAboutAxis><MfgCurveTableUseIJKForArcCenter>true</MfgCurveTableUseIJKForArcCenter><MfgCurveTableUseAbsIJKForArcCenter>false</MfgCurveTableUseAbsIJKForArcCenter><FacetsExtendSelectionSharpAngle>0.7853981634</FacetsExtendSelectionSharpAngle><ClipViewShape>Sphere</ClipViewShape><ShowDiscoveryLastError>true</ShowDiscoveryLastError><ShowDiscoveryUndoStackClearedMessage>true</ShowDiscoveryUndoStackClearedMessage><IgnoreFindFixLimit>false</IgnoreFindFixLimit><CopyPasteCascadeOffset>2</CopyPasteCascadeOffset><EnableLefthandMirrorTransforms>false</EnableLefthandMirrorTransforms><TryReplaceSrMaterialLibrary>true</TryReplaceSrMaterialLibrary><ShowApolloMinimumFeatureSize>false</ShowApolloMinimumFeatureSize><PrimaryLicenseID>-1</PrimaryLicenseID><MeshingLicenseID>16079</MeshingLicenseID><CheckSpaceClaimLicense>true</CheckSpaceClaimLicense><MultiThreadedFaceting>true</MultiThreadedFaceting><SkipFastMouseThreshold>500</SkipFastMouseThreshold><UnitsUseWorkbenchProjectUnit>false</UnitsUseWorkbenchProjectUnit><UseWorkbenchLanguage>false</UseWorkbenchLanguage><WorkbenchLanguage>en</WorkbenchLanguage></UserSettings>
+S=24,WC=MF,DC=SetApplicationSettingsCommand,<ApplicationSettings><ClickThreshold>5</ClickThreshold><DragThreshold>3</DragThreshold><CoordSysAxisLength>30</CoordSysAxisLength></ApplicationSettings>
+S=25,WC=MF,DC=OS,True
+S=26,WC=MF,DC=OD,RenderingMode (Shaded)
+S=27,WC=MF,DC=OW,1
+S=28,WC=MF,DC=InitializeDetailSettingsCommand,<SetDetailSettingsCommandArguments><ApplyToAllFutureDocuments>false</ApplyToAllFutureDocuments><ApplyToCurrentObject>true</ApplyToCurrentObject><UserSettings><ProjectionArrowLength>0.014</ProjectionArrowLength><ShowAuxiliaryViewArrows>false</ShowAuxiliaryViewArrows><ShowProjectedViewArrows>false</ShowProjectedViewArrows><AuxiliaryViewLabelPrefix>VIEW</AuxiliaryViewLabelPrefix><ProjectedViewLabelPrefix>VIEW</ProjectedViewLabelPrefix><ShowNotesForAuxiliaryViews>false</ShowNotesForAuxiliaryViews><ShowNotesForProjectedViews>false</ShowNotesForProjectedViews><ChamferDimensionTextStyle>X45</ChamferDimensionTextStyle><ChamferDimensionStyle>Linear</ChamferDimensionStyle><ProjectionArrowsStyle>Double</ProjectionArrowsStyle><OrdinateDimsDimensionLineAndTextOrientation>HideCommonDimensionLineTextVertical</OrdinateDimsDimensionLineAndTextOrientation><OrdinateDimsShowZeroBaseline>true</OrdinateDimsShowZeroBaseline><DefaultDimensionArrowShape>Arrow</DefaultDimensionArrowShape><VirtualSharpRendering>None</VirtualSharpRendering><DetailViewBoundaryLineWeight>THIN</DetailViewBoundaryLineWeight><CrossSectionArrowLineWeight>THICK</CrossSectionArrowLineWeight><CenterLinesExtend>0.003</CenterLinesExtend><CentermarkCrossRadius>0</CentermarkCrossRadius><DatumSymbolAttachment /><DatumSymbolFrame /><ShowConstructionCurvesOffPlane>true</ShowConstructionCurvesOffPlane><AssignmentArray><Key>Annotation</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>AreaCrossHatchingBorderLines</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>BrokenOutSectionClippingEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>BrokenViewClippingEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CenterLines</Key><Value><LineStyleId>LongDashDash</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CrossHatching</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CrossHatchingBorderLines</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>CrossSectionCutLineTips</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DatumTargetAreaBorder</Key><Value><LineStyleId>LongDashDoubleDotted</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DatumTargetLine</Key><Value><LineStyleId>LongDashDoubleDotted</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DetailViewClippingEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DrawingHiddenEdges</Key><Value><LineStyleId>Dash</LineStyleId><LineWeight>THIN</LineWeight></Value></AssignmentArray><AssignmentArray><Key>DrawingVisibleEdges</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>ProjectionArrowTipsType</Key><Value><LineStyleId>Solid</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><AssignmentArray><Key>ProjectionArrowType</Key><Value><LineStyleId>LongDashDotted</LineStyleId><LineWeight>THICK</LineWeight></Value></AssignmentArray><UseThickLineWeightForAreaCrossSectionBorderLines>true</UseThickLineWeightForAreaCrossSectionBorderLines><DefaultThickLineWeight>0.0007</DefaultThickLineWeight><DefaultMediumLineWeight>0.000525</DefaultMediumLineWeight><DefaultDetailViewClippedEdgeExtent>0</DefaultDetailViewClippedEdgeExtent><DefaultBrokenViewClippedEdgeExtent>0</DefaultBrokenViewClippedEdgeExtent><DefaultForeshortenedCenterSize>0.004</DefaultForeshortenedCenterSize><DefaultThinLineWeight>0.00035</DefaultThinLineWeight><DefaultSectionNameNotePrefix>SECTION</DefaultSectionNameNotePrefix><CrossSectionArrowOutwardDistance>0</CrossSectionArrowOutwardDistance><CrossSectionArrowPenetrationDistance>0.0075</CrossSectionArrowPenetrationDistance><IsTrimBackProportional>false</IsTrimBackProportional><DetailViewNoteDetailText>DETAIL</DetailViewNoteDetailText><DetailViewNoteScaleText>SCALE</DetailViewNoteScaleText><DefaultTextHeight>0.0035</DefaultTextHeight><DetailViewNameTextHeightRatio>1.4</DetailViewNameTextHeightRatio><SectionLineArrowSize>0.0028</SectionLineArrowSize><SectionLineLength>0.014</SectionLineLength><LeaderCircleSize>0.0009</LeaderCircleSize><LeaderArrowLength>0.0025</LeaderArrowLength><LeaderArrowWidth>0.0006</LeaderArrowWidth><DefaultLeaderShoulderLength>0.00564444444</DefaultLeaderShoulderLength><LeaderTextBoxGap>0.00141111111</LeaderTextBoxGap><EnforceDimensionLine>false</EnforceDimensionLine><DimensionTextIsHorizontal>true</DimensionTextIsHorizontal><TightDimensionTextDistance>false</TightDimensionTextDistance><DimensionTextOffset>0</DimensionTextOffset><DefaultGtolFontName>SpaceClaim ASME CB</DefaultGtolFontName><DefaultGtolFontGdtStandard>ASME</DefaultGtolFontGdtStandard><ExtensionLineGap>0.001</ExtensionLineGap><ExtensionLineExtend>0.002</ExtensionLineExtend><DimensionLineExtend>0.006</DimensionLineExtend><MinimumDefaultHatchSpacing>0.0007</MinimumDefaultHatchSpacing><MaximumDefaultHatchSpacing>0.02</MaximumDefaultHatchSpacing><AnnotationCreationColor>Black</AnnotationCreationColor><DetailViewClippedEdgesColor>Black</DetailViewClippedEdgesColor><BrokenViewClippedEdgesColor>Black</BrokenViewClippedEdgesColor><DetailViewBoundaryRendering>PhantomThin</DetailViewBoundaryRendering><CrossSectionArrowsRendering>PhantomThick</CrossSectionArrowsRendering><DetailViewNoteLayout>TwoLines</DetailViewNoteLayout><DetailViewNotePlacementOnBoundary>Centered</DetailViewNotePlacementOnBoundary><DefaultViewProjection>ThirdAngle</DefaultViewProjection><DefaultViewLayout>BottomLeft</DefaultViewLayout><DefaultFillStyle>Filled</DefaultFillStyle><DefaultDimensionTextLocation>MiddleOfTopLine</DefaultDimensionTextLocation><DefaultToleranceVerticalPosition>Middle</DefaultToleranceVerticalPosition><CrossSectionArrowDirectionDisplayStyle>From</CrossSectionArrowDirectionDisplayStyle><FractionalScaleDivider>:</FractionalScaleDivider><ThreadDisplayStandard>AsmeSimplified</ThreadDisplayStandard><ThreadDiameterDimensionDesignationTextOption>Never</ThreadDiameterDimensionDesignationTextOption><DatumCalloutTextHeightRatio>3.5</DatumCalloutTextHeightRatio><DatumTargetPointSize>0.00494975</DatumTargetPointSize><DatumTargetHatchSpacing>0.001</DatumTargetHatchSpacing><DatumTargetHatchAngle>0.78539816339744828</DatumTargetHatchAngle><DatumCalloutDefaultLeaderArrowShape>None</DatumCalloutDefaultLeaderArrowShape><DatumTargetShowLineEndPoints>true</DatumTargetShowLineEndPoints><HideAnnotationsBehindModel>false</HideAnnotationsBehindModel><WeldingSymbolStandard>AWS</WeldingSymbolStandard><GDTStandard>ASME</GDTStandard><SystemOfFits>HoleBasis</SystemOfFits><HoleFundamentalDeviation>H_H</HoleFundamentalDeviation><ShaftFundamentalDeviation>S_h</ShaftFundamentalDeviation><HoleInternationalToleranceGrade>IT7</HoleInternationalToleranceGrade><ShaftInternationalToleranceGrade>IT6</ShaftInternationalToleranceGrade><MethodOfDesignatingTolerances>ToleranceClass</MethodOfDesignatingTolerances><DefaultNoteSpace>ViewSpace</DefaultNoteSpace></UserSettings></SetDetailSettingsCommandArguments>
+S=28,WINDOW=WINDOWSIZE,1280,847,False
+S=29,UI_CMD=Disco.CloseStartPage
+S=30,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=31,WC=DesignScene-1:1,MC=MM,1155,84,0,0,"None",-8585681374816056903
+S=32,WC=DesignScene-1:1,MC=MM,1141,75,0,0,"None",-8585681374814867459
+S=72,WC=DesignScene-1:1,MC=MM,728,32,0,0,"None",-8585681384297547028
+S=73,WC=DesignScene-1:1,MC=MM,586,4,0,0,"None",-8585681384297387293
+S=74,WC=DesignScene-1:1,JAE=MLV,DesignScene-1:1
+S=75,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=76,WC=DesignScene-1:1,MC=MM,106,179,0,0,"None",-8585681384212582717
+S=77,UI_CMD=Disco.ShowScript
+S=78,UI_CMD=ScriptEditorDebug
+S=79,ScriptApiChangedAction,V22 Beta
+S=80,ScriptSetRecordAction,True
+S=81,UI_CMD=ScriptEditorRecord_0
+S=82,ScriptSetRecordAction,True
+S=83,UI_CMD=ScriptEditorDebug
+S=84,LineSelectAction,0,0
+S=85,WC=DesignScene-1:1,MC=MM,110,172,0,0,"None",-8585681384136613493
+S=86,WC=DesignScene-1:1,MC=MM,109,152,0,0,"None",-8585681384136173730
+S=87,WC=DesignScene-1:1,MC=MM,112,149,0,0,"None",-8585681384128228624
+S=88,WC=DesignScene-1:1,MC=MM,216,67,0,0,"None",-8585681384127807444
+S=89,WC=DesignScene-1:1,MC=MM,299,23,0,0,"None",-8585681384127407125
+S=117,ScriptSetRecordAction,False
+S=118,WC=MF,DC=OpenScriptCommand,"JournalTests\Common\ScriptParameter_Logger.py"
+S=119,LineSelectAction,0,0
+S=120,ScriptActiveDocChangedAction,1
+S=122,ScriptSetRecordAction,False
+S=123,WC=MF,DC=OpenScriptCommand,"JournalTests\AnalyzeTestSuite\Tests\ScriptParameters_FluidSolve\ScriptParameters_FluidSolve.py"
+S=331,ScriptGroupSaveAction,0,ScriptParameters_FluidSolve.py,False
+S=333,UI_CMD=Disco.SelectTab,{"SelectedTab":4}
+S=334,ScriptActiveDocChangedAction,0
+S=335,ScriptActiveDocChangedAction,1
+S=336,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=337,WC=DesignScene-1:1,MC=MM,1267,331,0,0,"None",-8585681382682578116
+S=338,WC=DesignScene-1:1,MC=MM,1137,397,0,0,"None",-8585681382682278015
+S=339,WC=DesignScene-1:1,MC=MM,1019,449,0,0,"None",-8585681382681998358
+S=358,WC=DesignScene-1:1,MC=MM,718,799,0,0,"None",-8585681382676770793
+S=359,WC=DesignScene-1:1,MC=MM,721,804,0,0,"None",-8585681382676500918
+S=362,WC=DesignScene-1:1,MC=MM,736,813,0,0,"None",-8585681382656739549
+S=363,WC=DesignScene-1:1,MC=MM,825,685,0,0,"None",-8585681382656599485
+S=373,WC=DesignScene-1:1,MC=MM,734,728,0,0,"None",-8585681382616485403
+S=374,WC=DesignScene-1:1,MC=MM,728,730,0,0,"None",-8585681382616175547
+S=375,WC=DesignScene-1:1,MC=MM,724,730,0,0,"None",-8585681382615865692
+S=376,WC=DesignScene-1:1,MC=MM,720,732,0,0,"None",-8585681382615585823
+S=377,WC=DesignScene-1:1,JAE=MLV,DesignScene-1:1
+S=378,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=379,WC=DesignScene-1:1,MC=MM,692,711,0,0,"None",-8585681382566282997
+S=380,WC=DesignScene-1:1,MC=MM,680,699,0,0,"None",-8585681382565903198
+S=381,WC=DesignScene-1:1,JAE=MLV,DesignScene-1:1
+S=382,UI_CMD=Disco.SelectTab,{"SelectedTab":4}
+S=383,UI_CMD=Disco.DisableScriptAutoExecutionUICommand
+S=384,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=385,WC=DesignScene-1:1,MC=MM,920,634,0,0,"None",-8585681382503878747
+S=386,WC=DesignScene-1:1,MC=MM,1041,656,0,0,"None",-8585681382503628882
+S=387,WC=DesignScene-1:1,MC=MM,1076,662,0,0,"None",-8585681382503209060
+S=388,WC=DesignScene-1:1,JAE=MLV,DesignScene-1:1
+S=389,ScriptActiveDocChangedAction,0
+S=390,UI_CMD=ScriptEditorContinue_0
+S=391,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=392,WC=DesignScene-1:1,MC=MM,1109,703,0,0,"None",-8585681382458318657
+S=393,WC=DesignScene-1:1,MC=MM,1043,690,0,0,"None",-8585681382458018765
+S=394,WC=DesignScene-1:1,MC=MM,975,679,0,0,"None",-8585681382457618988
+S=395,WC=DesignScene-1:1,MC=MM,915,669,0,0,"None",-8585681382457409049
+S=396,UI_CMD=Disco.CreateScriptParameterUICommand
+S=397,UI_CMD=Disco.CreateScriptParameterUICommand
+S=398,UI_CMD=Disco.CreateScriptParameterUICommand
+S=399,UI_CMD=Disco.CreateScriptParameterUICommand
+S=400,UI_CMD=Disco.CreateScriptParameterUICommand
+S=401,UI_CMD=Disco.CreateScriptParameterUICommand
+S=402,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=403,WC=DesignScene-1:1,MC=MM,942,511,0,0,"None",-8585681382346336692
+S=404,WC=DesignScene-1:1,MC=MM,1003,512,0,0,"None",-8585681382346016838
+S=405,UI_CMD=ScriptEditorContinue_0
+S=406,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=407,WC=DesignScene-1:1,MC=MM,1234,601,0,0,"None",-8585681382322761167
+S=408,UI_CMD=Disco.EditScriptParameterNameUICommand,{"Item1":0,"Item2":"MainPipe_Diameter"}
+S=409,UI_CMD=Disco.EditScriptParameterNameUICommand,{"Item1":1,"Item2":"MainPipe_Length"}
+S=418,UI_CMD=Disco.EditScriptParameterNameUICommand,{"Item1":2,"Item2":"Inlet_Diameter"}
+S=419,UI_CMD=Disco.EditScriptParameterNameUICommand,{"Item1":3,"Item2":"Inlet_Quantity"}
+S=420,UI_CMD=Disco.EditScriptParameterNameUICommand,{"Item1":4,"Item2":"Inlet_Velocity"}
+S=421,UI_CMD=Disco.EditScriptParameterNameUICommand,{"Item1":5,"Item2":"Outlet_Pressure"}
+S=422,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=423,WC=DesignScene-1:1,MC=MM,1049,687,0,0,"None",-8585681381762919324
+S=424,WC=DesignScene-1:1,MC=MM,1082,694,0,0,"None",-8585681381762549546
+S=425,UI_CMD=ScriptEditorContinue_0
+S=426,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=427,WC=DesignScene-1:1,MC=MM,1252,320,0,0,"None",-8585681381694735345
+S=428,WC=DesignScene-1:1,MC=MM,1067,345,0,0,"None",-8585681381694425445
+S=429,WC=DesignScene-1:1,MC=MM,992,359,0,0,"None",-8585681381694115633
+S=430,WC=DesignScene-1:1,MC=MM,962,368,0,0,"None",-8585681381693825698
+S=431,WC=DesignScene-1:1,MC=MM,889,389,0,0,"None",-8585681381693525891
+S=432,WC=DesignScene-1:1,MC=MM,843,402,0,0,"None",-8585681381693216052
+S=433,WC=DesignScene-1:1,MC=MM,835,405,0,0,"None",-8585681381692906195
+S=434,WC=DesignScene-1:1,MC=MM,810,413,0,0,"None",-8585681381692776255
+S=435,WC=DesignScene-1:1,MC=MM,805,416,0,0,"None",-8585681381692606337
+S=436,WC=DesignScene-1:1,MC=MM,786,427,0,0,"None",-8585681381692276429
+S=437,UI_CMD=Disco.ScriptParameter_QuantityComboBox_Id0,{"UnitAbbreviation":"","Value":100.0}
+S=438,UI_CMD=Disco.ScriptParameter_QuantityComboBox_Id1,{"UnitAbbreviation":"","Value":50.0}
+S=439,UI_CMD=Disco.ScriptParameter_QuantityComboBox_Id2,{"UnitAbbreviation":"","Value":4.5}
+S=440,UI_CMD=Disco.ScriptParameter_QuantityComboBox_Id3,{"UnitAbbreviation":"","Value":5.0}
+S=441,UI_CMD=Disco.ScriptParameter_QuantityComboBox_Id4,{"UnitAbbreviation":"","Value":50.0}
+S=442,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=443,WC=DesignScene-1:1,MC=MM,1017,643,0,0,"None",-8585681381168313555
+S=444,WC=DesignScene-1:1,MC=MM,1161,653,0,0,"None",-8585681381168163661
+S=445,WC=DesignScene-1:1,MC=MM,1194,656,0,0,"None",-8585681381167883772
+S=446,UI_CMD=ScriptEditorContinue_0
+S=447,UI_CMD=Disco.EnableScriptAutoExecutionUICommand
+S=448,ScriptActiveDocChangedAction,1
+// Selection validation disabled
+// Selection validation disabled
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+S=484,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=485,WC=DesignScene-1:1,MC=MM,1248,192,0,0,"None",-8585681378965125996
+S=486,WC=DesignScene-1:1,MC=MM,1140,215,0,0,"None",-8585681378964346332
+S=487,WC=DesignScene-1:1,MC=MM,1120,223,0,0,"None",-8585681378962617141
+S=488,WC=DesignScene-1:1,MC=MM,1049,251,0,0,"None",-8585681378962197375
+S=489,WC=DesignScene-1:1,MC=MM,1011,266,0,0,"None",-8585681378962087410
+S=504,WC=DesignScene-1:1,MC=MM,152,684,0,0,"None",-8585681378955410521
+S=505,WC=DesignScene-1:1,MC=MM,142,695,0,0,"None",-8585681378954920728
+S=506,WC=DesignScene-1:1,MC=MM,134,708,0,0,"None",-8585681378954610870
+S=509,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=510,WC=DesignScene-1:1,MC=MM,205,410,0,0,"None",-8585681378883989456
+S=520,UI_CMD=Disco.DesignTree,Action=Select,Preview,1,0/1,Design1/Solid
+S=521,UI_CMD=Disco.DesignTree,Action=Select,Primary,1,0/1,Design1/Solid
+// Validation Summary: Total of 1 object (1 Body)
+S=522;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><Body><Name>Solid</Name><FaceCount>18</FaceCount><EdgeCount>17</EdgeCount><IsClosedBody>true</IsClosedBody><LayerName>Layer0</LayerName><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Body></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 Body)
+S=523,UI_CMD=Disco.DesignTree,Action=Select,Preview,0
+S=526,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/0,Physics/Water (Liquid)
+S=527,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/0,Physics/Water (Liquid)
+// Validation Summary: Total of 1 object (1 MaterialAssignment)
+S=528;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MaterialAssignmentEntity><ManufacturingTemperatureMagnitude>22</ManufacturingTemperatureMagnitude><Material>Water</Material><Scope>0:347</Scope><State>Liquid</State><AppearanceProperties>Green 128, Red 0, Blue 255, Alpha 76, MetallicFinish 0, LightTransmittance 200</AppearanceProperties><PhysicalProperties>Density 997 kg/m³, Viscosity 8.9e-04 Pa·s</PhysicalProperties><MechanicalProperties /><ThermalProperties>CoefficientOfThermalExpansion 2.57e-04 1/°C, IsotropicThermalConductivity 0.6 W/m·K, SpecificHeat 4,181 J/kg.K</ThermalProperties><ElectromagneticProperties>Conductivity 0.01 S/m, RelativePermittivity 81, ElectricLossTangent 0, RelativePermeability 1, MagneticLossTangent 0</ElectromagneticProperties><InformationProperties>Class Fluids, Subclass Liquids</InformationProperties><CreatedBy>System</CreatedBy></MaterialAssignmentEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 MaterialAssignment)
+S=529,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=530,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=531,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/1,Physics/Gravity
+// Validation Summary: Total of 1 object (1 GravityCondition)
+S=532;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><GravityEntity><Magnitude>0</Magnitude><Direction>-0 -0 -1</Direction><IncludeSelfWeight>false</IncludeSelfWeight><IncludeBuoyancy>false</IncludeBuoyancy><CreatedBy>System</CreatedBy></GravityEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 GravityCondition)
+S=533,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=534,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/2,Physics/Non-Slip Wall (default)
+S=535,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/2,Physics/Non-Slip Wall (default)
+// Validation Summary: Total of 1 object (1 WallCondition)
+S=536;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><WallEntity><MotionSpecification>Stationary</MotionSpecification><RotationalVelocityX>-0.70710678118654735</RotationalVelocityX><RotationalVelocityY>-0</RotationalVelocityY><RotationalVelocityZ>-0.70710678118654768</RotationalVelocityZ><SurfaceFriction>NoSlip</SurfaceFriction><ThermalSpecification>Insulated</ThermalSpecification><ConvectionCoefficient>10</ConvectionCoefficient><ExternalTemperature>22</ExternalTemperature><Temperature>22</Temperature><HeatFlux>1</HeatFlux><HeatFlow>1</HeatFlow><Emissivity>1</Emissivity><RadiationTemperature>22</RadiationTemperature><Scope>0:355, 0:358, 0:149, 0:155, 0:648, 0:651, 0:966, 0:969, 0:1310, 0:1313, 0:1680, 0:1683</Scope><HasRadiation>false</HasRadiation><CreatedBy>System</CreatedBy></WallEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 WallCondition)
+S=537,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=542,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/0,Physics/Flows/Flow Inlets/Flow Inlet 1
+S=543,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/0,Physics/Flows/Flow Inlets/Flow Inlet 1
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=544;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:349</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=545,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=546,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/1,Physics/Flows/Flow Inlets/Flow Inlet 2
+S=547,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/1,Physics/Flows/Flow Inlets/Flow Inlet 2
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=548;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:642</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=549,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=550,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/2,Physics/Flows/Flow Inlets/Flow Inlet 3
+S=551,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/2,Physics/Flows/Flow Inlets/Flow Inlet 3
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=552;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:960</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=553,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=554,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/3,Physics/Flows/Flow Inlets/Flow Inlet 4
+S=555,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/3,Physics/Flows/Flow Inlets/Flow Inlet 4
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=556;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:1304</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=557,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=558,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/4,Physics/Flows/Flow Inlets/Flow Inlet 5
+S=559,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/4,Physics/Flows/Flow Inlets/Flow Inlet 5
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=560;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:1674</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=561,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=562,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/1,Physics/Flows/Flow Outlet
+S=563,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/1,Physics/Flows/Flow Outlet
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=564;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>Out</FlowDirection><FlowSpecification>Pressure</FlowSpecification><Scope>0:152</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>0</Speed><Temperature>22</Temperature><RotationalSpeed>0</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=571,WC=DesignScene-1:1,MC=MM,402,290,0,0,"None",-8585681378536370451
+S=572,WC=DesignScene-1:1,MC=MM,637,199,0,0,"None",-8585681378535630801
+S=573,WC=DesignScene-1:1,MC=MM,666,187,0,0,"None",-8585681378535280954
+S=605,WC=DesignScene-1:1,MC=MM,1267,35,0,0,"None",-8585681378521422252
+S=606,WC=DesignScene-1:1,MC=MM,1266,34,0,0,"None",-8585681378521022428
+S=613,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,0,Pressure Drop
+S=614,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,0,Pressure Drop
+// Validation Summary: Total of 1 object (1 Monitor: Pressure Drop)
+S=615;VC=ValidateObjectsCommand;"ValidationInfo=<ValidationInfo><Items><PressureDropResultsInsightEntity><Name>Pressure Drop</Name><Tables><InsightTableQuantityValidation><Name>Average PressureDrop Mag</Name><Solver>Apollo</Solver><XValues><double>1</double></XValues><YValues><QuantityValidation><Type>Pressure</Type><Value>1374512</Value><Unit>Pascal</Unit></QuantityValidation></YValues></InsightTableQuantityValidation></Tables><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>System</CreatedBy></PressureDropResultsInsightEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 Monitor: Pressure Drop)
+S=616,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=617,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,1,Max. Velocity
+S=618,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,1,Max. Velocity
+// Validation Summary: Total of 1 object (1 Monitor: Max. Velocity)
+S=619;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Max. Velocity</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Speed</Type><Value>56.91658</Value><Unit>MeterPerSecond</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>System</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 Monitor: Max. Velocity)
+S=620,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=621,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,2,Inlet 1 - Avg. Static Pressure
+S=622,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,2,Inlet 1 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 1 - Avg. Static Pressure)
+S=623;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 1 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>98669.3</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 1 - Avg. Static Pressure)
+S=624,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=625,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,3,Inlet 2 - Avg. Static Pressure
+S=626,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,3,Inlet 2 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 2 - Avg. Static Pressure)
+S=627;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 2 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>188919</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 2 - Avg. Static Pressure)
+S=628,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=629,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,4,Inlet 3 - Avg. Static Pressure
+S=630,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,4,Inlet 3 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 3 - Avg. Static Pressure)
+S=631;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 3 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>175734</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 3 - Avg. Static Pressure)
+S=632,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=636,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,5,Inlet 4 - Avg. Static Pressure
+S=637,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,5,Inlet 4 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 4 - Avg. Static Pressure)
+S=638;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 4 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>237621.1</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 4 - Avg. Static Pressure)
+S=639,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=640,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,6,Inlet 5 - Avg. Static Pressure
+S=641,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,6,Inlet 5 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 5 - Avg. Static Pressure)
+S=642;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 5 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>220843.8</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 5 - Avg. Static Pressure)
+S=643,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=644,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,7,Outlet - Avg. Velocity
+S=645,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,7,Outlet - Avg. Velocity
+// Validation Summary: Total of 1 object (1 Monitor: Outlet - Avg. Velocity)
+S=646;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Outlet - Avg. Velocity</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Speed</Type><Value>5.499824</Value><Unit>MeterPerSecond</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+// Validation Summary: Total of 1 object (1 Monitor: Outlet - Avg. Velocity)
+S=647,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=648,ScriptActiveDocChangedAction,0
+S=649,UI_CMD=ScriptEditorContinue_0
+S=650,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=651,WC=DesignScene-1:1,MC=MM,836,426,0,0,"None",-8585681378059876975
+S=652,WC=DesignScene-1:1,MC=MM,721,424,0,0,"None",-8585681378059267133
+S=653,WC=DesignScene-1:1,MC=MM,710,427,0,0,"None",-8585681378058677536
+S=654,WC=DesignScene-1:1,MC=MM,697,432,0,0,"None",-8585681378058437636
+S=656,UI_CMD=Disco.ScriptParameter_QuantityComboBox_Id1,{"UnitAbbreviation":"","Value":125.0}
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+S=803,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=804,WC=DesignScene-1:1,MC=MM,1062,227,0,0,"None",-8585681368763452806
+S=805,WC=DesignScene-1:1,MC=MM,830,202,0,0,"None",-8585681368763252895
+S=806,WC=DesignScene-1:1,MC=MM,626,174,0,0,"None",-8585681368762983026
+S=807,WC=DesignScene-1:1,MC=MM,360,129,0,0,"None",-8585681368762243370
+S=808,WC=DesignScene-1:1,MC=MM,344,127,0,0,"None",-8585681368762003483
+S=809,WC=DesignScene-1:1,MC=MM,312,121,0,0,"None",-8585681368761713617
+S=810,WC=DesignScene-1:1,MC=MM,289,118,0,0,"None",-8585681368761623658
+S=811,WC=DesignScene-1:1,MC=MM,273,117,0,0,"None",-8585681368761423763
+S=812,WC=DesignScene-1:1,MC=MM,254,112,0,0,"None",-8585681368760903987
+S=813,WC=DesignScene-1:1,MC=MM,247,110,0,0,"None",-8585681368760814047
+S=814,UI_CMD=Disco.DesignTree,Action=Select,Preview,1,0/0,Design1/Surface
+S=815,UI_CMD=Disco.DesignTree,Action=Select,Preview,0
+S=816,UI_CMD=Disco.DesignTree,Action=Select,Preview,1,0/1,Design1/Solid
+S=817,UI_CMD=Disco.DesignTree,Action=Select,Primary,1,0/1,Design1/Solid
+// Validation Summary: Total of 1 object (1 Body)
+S=818;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><Body><Name>Solid</Name><FaceCount>18</FaceCount><EdgeCount>17</EdgeCount><IsClosedBody>true</IsClosedBody><LayerName>Layer0</LayerName><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Body></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=819,UI_CMD=Disco.DesignTree,Action=Select,Preview,0
+S=820,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/0,Physics/Water (Liquid)
+S=821,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/0,Physics/Water (Liquid)
+// Validation Summary: Total of 1 object (1 MaterialAssignment)
+S=822;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MaterialAssignmentEntity><ManufacturingTemperatureMagnitude>22</ManufacturingTemperatureMagnitude><Material>Water</Material><Scope>0:4364</Scope><State>Liquid</State><AppearanceProperties>Green 128, Red 0, Blue 255, Alpha 76, MetallicFinish 0, LightTransmittance 200</AppearanceProperties><PhysicalProperties>Density 997 kg/m³, Viscosity 8.9e-04 Pa·s</PhysicalProperties><MechanicalProperties /><ThermalProperties>CoefficientOfThermalExpansion 2.57e-04 1/°C, IsotropicThermalConductivity 0.6 W/m·K, SpecificHeat 4,181 J/kg.K</ThermalProperties><ElectromagneticProperties>Conductivity 0.01 S/m, RelativePermittivity 81, ElectricLossTangent 0, RelativePermeability 1, MagneticLossTangent 0</ElectromagneticProperties><InformationProperties>Class Fluids, Subclass Liquids</InformationProperties><CreatedBy>System</CreatedBy></MaterialAssignmentEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=823,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=824,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=825,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/1,Physics/Gravity
+// Validation Summary: Total of 1 object (1 GravityCondition)
+S=826;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><GravityEntity><Magnitude>0</Magnitude><Direction>-0 -0 -1</Direction><IncludeSelfWeight>false</IncludeSelfWeight><IncludeBuoyancy>false</IncludeBuoyancy><CreatedBy>System</CreatedBy></GravityEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=827,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=828,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/2,Physics/Non-Slip Wall (default)
+S=829,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/2,Physics/Non-Slip Wall (default)
+// Validation Summary: Total of 1 object (1 WallCondition)
+S=830;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><WallEntity><MotionSpecification>Stationary</MotionSpecification><RotationalVelocityX>-0.70710678118654735</RotationalVelocityX><RotationalVelocityY>-0</RotationalVelocityY><RotationalVelocityZ>-0.70710678118654768</RotationalVelocityZ><SurfaceFriction>NoSlip</SurfaceFriction><ThermalSpecification>Insulated</ThermalSpecification><ConvectionCoefficient>10</ConvectionCoefficient><ExternalTemperature>22</ExternalTemperature><Temperature>22</Temperature><HeatFlux>1</HeatFlux><HeatFlow>1</HeatFlow><Emissivity>1</Emissivity><RadiationTemperature>22</RadiationTemperature><Scope>0:4372, 0:4375, 0:4166, 0:4172, 0:4665, 0:4668, 0:4983, 0:4986, 0:5327, 0:5330, 0:5697, 0:5700</Scope><HasRadiation>false</HasRadiation><CreatedBy>System</CreatedBy></WallEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=831,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=836,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/0,Physics/Flows/Flow Inlets/Flow Inlet 1
+S=837,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/0,Physics/Flows/Flow Inlets/Flow Inlet 1
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=838;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:4366</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=839,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=840,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/1,Physics/Flows/Flow Inlets/Flow Inlet 2
+S=841,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/1,Physics/Flows/Flow Inlets/Flow Inlet 2
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=842;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:4659</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=843,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=848,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/2,Physics/Flows/Flow Inlets/Flow Inlet 3
+S=849,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/2,Physics/Flows/Flow Inlets/Flow Inlet 3
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=850;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:4977</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=851,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=852,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/3,Physics/Flows/Flow Inlets/Flow Inlet 4
+S=853,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/3,Physics/Flows/Flow Inlets/Flow Inlet 4
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=854;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:5321</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=855,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=856,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/4,Physics/Flows/Flow Inlets/Flow Inlet 5
+S=857,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/4,Physics/Flows/Flow Inlets/Flow Inlet 5
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=858;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:5691</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=859,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=860,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/1,Physics/Flows/Flow Outlet
+S=861,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/1,Physics/Flows/Flow Outlet
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=862;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>Out</FlowDirection><FlowSpecification>Pressure</FlowSpecification><Scope>0:4169</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>0</Speed><Temperature>22</Temperature><RotationalSpeed>0</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=863,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=864,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=865,WC=DesignScene-1:1,MC=MM,517,404,0,0,"None",-8585681368404919674
+S=866,WC=DesignScene-1:1,MC=MM,526,392,0,0,"None",-8585681368404429892
+S=867,WC=DesignScene-1:1,MC=MM,536,392,0,0,"None",-8585681368402900606
+S=890,WC=DesignScene-1:1,MC=MM,1262,43,0,0,"None",-8585681368384029394
+S=891,WC=DesignScene-1:1,MC=MM,1262,42,0,0,"None",-8585681368383409691
+S=892,WC=DesignScene-1:1,JAE=MLV,DesignScene-1:1
+S=893,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,0,Pressure Drop
+S=894,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,0,Pressure Drop
+// Validation Summary: Total of 1 object (1 Monitor: Pressure Drop)
+S=895;VC=ValidateObjectsCommand;"ValidationInfo=<ValidationInfo><Items><PressureDropResultsInsightEntity><Name>Pressure Drop</Name><Tables><InsightTableQuantityValidation><Name>Average PressureDrop Mag</Name><Solver>Apollo</Solver><XValues><double>2</double></XValues><YValues><QuantityValidation><Type>Pressure</Type><Value>1290912</Value><Unit>Pascal</Unit></QuantityValidation></YValues></InsightTableQuantityValidation></Tables><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>System</CreatedBy></PressureDropResultsInsightEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=896,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=897,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,1,Max. Velocity
+S=898,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,1,Max. Velocity
+// Validation Summary: Total of 1 object (1 Monitor: Max. Velocity)
+S=899;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Max. Velocity</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Speed</Type><Value>82.4694</Value><Unit>MeterPerSecond</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>System</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=900,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=901,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,2,Inlet 1 - Avg. Static Pressure
+S=902,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,2,Inlet 1 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 1 - Avg. Static Pressure)
+S=903;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 1 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>-886785.5</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=904,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=905,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,3,Inlet 2 - Avg. Static Pressure
+S=906,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,3,Inlet 2 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 2 - Avg. Static Pressure)
+S=907;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 2 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>-1397060</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=908,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=909,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,4,Inlet 3 - Avg. Static Pressure
+S=910,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,4,Inlet 3 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 3 - Avg. Static Pressure)
+S=911;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 3 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>-1499871</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=912,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=919,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,5,Inlet 4 - Avg. Static Pressure
+S=920,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,5,Inlet 4 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 4 - Avg. Static Pressure)
+S=921;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 4 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>-1401930</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=922,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=923,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,6,Inlet 5 - Avg. Static Pressure
+S=924,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,6,Inlet 5 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 5 - Avg. Static Pressure)
+S=925;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 5 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>-1032716</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=926,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=927,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,7,Outlet - Avg. Velocity
+S=928,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,7,Outlet - Avg. Velocity
+// Validation Summary: Total of 1 object (1 Monitor: Outlet - Avg. Velocity)
+S=929;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Outlet - Avg. Velocity</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Speed</Type><Value>3.173894</Value><Unit>MeterPerSecond</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=930,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=931,ScriptActiveDocChangedAction,0
+S=932,ScriptSelectAction,0,0,0
+S=933,UI_CMD=ScriptEditorContinue_0
+S=934,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=935,WC=DesignScene-1:1,MC=MM,855,811,0,0,"None",-8585681367783109515
+S=936,WC=DesignScene-1:1,MC=MM,847,814,0,0,"None",-8585681367782889612
+S=937,WC=DesignScene-1:1,MC=MM,820,825,0,0,"None",-8585681367782679723
+S=938,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=939,WC=DesignScene-1:1,MC=MM,721,817,0,0,"None",-8585681367781130433
+S=940,WC=DesignScene-1:1,MC=MM,720,815,0,0,"None",-8585681367780820618
+S=941,WC=DesignScene-1:1,MC=MM,723,789,0,0,"None",-8585681367780170890
+S=942,WC=DesignScene-1:1,MC=MM,717,743,0,0,"None",-8585681367776862422
+S=943,WC=DesignScene-1:1,MC=MM,716,742,0,0,"None",-8585681367776512584
+S=944,UI_CMD=Disco.SelectTab,{"SelectedTab":4}
+S=945,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=946,WC=DesignScene-1:1,MC=MM,339,574,0,0,"None",-8585681367705808115
+S=947,WC=DesignScene-1:1,MC=MM,338,574,0,0,"None",-8585681367699745729
+S=948,WC=DesignScene-1:1,JAE=MLV,DesignScene-1:1
+S=949,UI_CMD=Disco.DisableScriptAutoExecutionUICommand
+S=950,UI_CMD=Disco.ScriptParameter_QuantityComboBox_Id0,{"UnitAbbreviation":"","Value":75.0}
+S=951,UI_CMD=Disco.ScriptParameter_QuantityComboBox_Id1,{"UnitAbbreviation":"","Value":250.0}
+S=952,UI_CMD=Disco.ScriptParameter_QuantityComboBox_Id2,{"UnitAbbreviation":"","Value":50.0}
+S=953,UI_CMD=Disco.ScriptParameter_QuantityComboBox_Id3,{"UnitAbbreviation":"","Value":2.0}
+S=954,UI_CMD=Disco.ScriptParameter_QuantityComboBox_Id4,{"UnitAbbreviation":"","Value":10.0}
+S=955,UI_CMD=Disco.ScriptParameter_QuantityComboBox_Id5,{"UnitAbbreviation":"","Value":15.0}
+S=955,UI_CMD=Disco.DesignTree,Action=Select,Preview,1,0/2,Design1/Curves
+S=956,UI_CMD=Disco.DesignTree,Action=Select,Preview,0
+S=957,UI_CMD=Disco.DesignTree,Action=Select,Preview,1,0/1,Design1/Solid
+S=958,UI_CMD=Disco.DesignTree,Action=Select,Primary,1,0/1,Design1/Solid
+S=959,UI_CMD=Disco.DesignTree,Action=Select,Preview,0
+S=960,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/0,Physics/Water (Liquid)
+S=961,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=962,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/0,Physics/Water (Liquid)
+S=963,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/0,Physics/Water (Liquid)
+// Validation Summary: Total of 1 object (1 MaterialAssignment)
+S=964;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MaterialAssignmentEntity><ManufacturingTemperatureMagnitude>22</ManufacturingTemperatureMagnitude><Material>Water</Material><Scope>0:4364</Scope><State>Liquid</State><AppearanceProperties>Green 128, Red 0, Blue 255, Alpha 76, MetallicFinish 0, LightTransmittance 200</AppearanceProperties><PhysicalProperties>Density 997 kg/m³, Viscosity 8.9e-04 Pa·s</PhysicalProperties><MechanicalProperties /><ThermalProperties>CoefficientOfThermalExpansion 2.57e-04 1/°C, IsotropicThermalConductivity 0.6 W/m·K, SpecificHeat 4,181 J/kg.K</ThermalProperties><ElectromagneticProperties>Conductivity 0.01 S/m, RelativePermittivity 81, ElectricLossTangent 0, RelativePermeability 1, MagneticLossTangent 0</ElectromagneticProperties><InformationProperties>Class Fluids, Subclass Liquids</InformationProperties><CreatedBy>System</CreatedBy></MaterialAssignmentEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=965,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=966,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=967,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/1,Physics/Gravity
+// Validation Summary: Total of 1 object (1 GravityCondition)
+S=968;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><GravityEntity><Magnitude>0</Magnitude><Direction>-0 -0 -1</Direction><IncludeSelfWeight>false</IncludeSelfWeight><IncludeBuoyancy>false</IncludeBuoyancy><CreatedBy>System</CreatedBy></GravityEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=969,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=970,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/2,Physics/Non-Slip Wall (default)
+S=971,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/2,Physics/Non-Slip Wall (default)
+// Validation Summary: Total of 1 object (1 WallCondition)
+S=972;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><WallEntity><MotionSpecification>Stationary</MotionSpecification><RotationalVelocityX>-0.70710678118654735</RotationalVelocityX><RotationalVelocityY>-0</RotationalVelocityY><RotationalVelocityZ>-0.70710678118654768</RotationalVelocityZ><SurfaceFriction>NoSlip</SurfaceFriction><ThermalSpecification>Insulated</ThermalSpecification><ConvectionCoefficient>10</ConvectionCoefficient><ExternalTemperature>22</ExternalTemperature><Temperature>22</Temperature><HeatFlux>1</HeatFlux><HeatFlow>1</HeatFlow><Emissivity>1</Emissivity><RadiationTemperature>22</RadiationTemperature><Scope>0:4372, 0:4375, 0:4166, 0:4172, 0:4665, 0:4668, 0:4983, 0:4986, 0:5327, 0:5330, 0:5697, 0:5700</Scope><HasRadiation>false</HasRadiation><CreatedBy>System</CreatedBy></WallEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=973,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=974,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/0,Physics/Flows/Flow Inlets/Flow Inlet 1
+S=975,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/0,Physics/Flows/Flow Inlets/Flow Inlet 1
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=976;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:4366</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=977,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=978,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/1,Physics/Flows/Flow Inlets/Flow Inlet 2
+S=979,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/1,Physics/Flows/Flow Inlets/Flow Inlet 2
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=980;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:4659</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=981,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=982,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/2,Physics/Flows/Flow Inlets/Flow Inlet 3
+S=983,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/2,Physics/Flows/Flow Inlets/Flow Inlet 3
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=984;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:4977</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=985,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=986,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/3,Physics/Flows/Flow Inlets/Flow Inlet 4
+S=987,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/3,Physics/Flows/Flow Inlets/Flow Inlet 4
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=988;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:5321</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=989,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=990,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0/4,Physics/Flows/Flow Inlets/Flow Inlet 5
+S=991,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0/4,Physics/Flows/Flow Inlets/Flow Inlet 5
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=992;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:5691</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>50</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=993,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=994,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/1,Physics/Flows/Flow Outlet
+S=995,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/1,Physics/Flows/Flow Outlet
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=996;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>Out</FlowDirection><FlowSpecification>Pressure</FlowSpecification><Scope>0:4169</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>0</Speed><Temperature>22</Temperature><RotationalSpeed>0</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=997,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=998,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=999,WC=DesignScene-1:1,MC=MM,384,323,0,0,"None",-8585681366838310823
+S=1000,WC=DesignScene-1:1,MC=MM,880,200,0,0,"None",-8585681366837701075
+S=1001,WC=DesignScene-1:1,JAE=MLV,DesignScene-1:1
+S=1002,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1003,WC=DesignScene-1:1,MC=MM,1114,183,0,0,"None",-8585681366835002351
+S=1004,WC=DesignScene-1:1,MC=MM,1114,182,0,0,"None",-8585681366834602566
+S=1005,WC=DesignScene-1:1,JAE=MLV,DesignScene-1:1
+S=1006,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,5,Inlet 4 - Avg. Static Pressure
+S=1007,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,2,Inlet 1 - Avg. Static Pressure
+S=1008,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,0,Pressure Drop
+S=1009,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,0,Pressure Drop
+// Validation Summary: Total of 1 object (1 Monitor: Pressure Drop)
+S=1010;VC=ValidateObjectsCommand;"ValidationInfo=<ValidationInfo><Items><PressureDropResultsInsightEntity><Name>Pressure Drop</Name><Tables><InsightTableQuantityValidation><Name>Average PressureDrop Mag</Name><Solver>Apollo</Solver><XValues><double>2</double></XValues><YValues><QuantityValidation><Type>Pressure</Type><Value>1290912</Value><Unit>Pascal</Unit></QuantityValidation></YValues></InsightTableQuantityValidation></Tables><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>System</CreatedBy></PressureDropResultsInsightEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1011,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1012,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,1,Max. Velocity
+S=1013,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,1,Max. Velocity
+// Validation Summary: Total of 1 object (1 Monitor: Max. Velocity)
+S=1014;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Max. Velocity</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Speed</Type><Value>82.4694</Value><Unit>MeterPerSecond</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>System</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1015,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1016,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,2,Inlet 1 - Avg. Static Pressure
+S=1017,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,2,Inlet 1 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 1 - Avg. Static Pressure)
+S=1018;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 1 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>-886785.5</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1019,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1020,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,3,Inlet 2 - Avg. Static Pressure
+S=1021,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,3,Inlet 2 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 2 - Avg. Static Pressure)
+S=1022;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 2 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>-1397060</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1023,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1024,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,4,Inlet 3 - Avg. Static Pressure
+S=1025,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,4,Inlet 3 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 3 - Avg. Static Pressure)
+S=1026;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 3 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>-1499871</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1027,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1038,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,5,Inlet 4 - Avg. Static Pressure
+S=1039,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,5,Inlet 4 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 4 - Avg. Static Pressure)
+S=1040;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 4 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>-1401930</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1041,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1042,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,6,Inlet 5 - Avg. Static Pressure
+S=1043,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,6,Inlet 5 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 5 - Avg. Static Pressure)
+S=1044;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 5 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>-1032716</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1045,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1046,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,7,Outlet - Avg. Velocity
+S=1047,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,7,Outlet - Avg. Velocity
+// Validation Summary: Total of 1 object (1 Monitor: Outlet - Avg. Velocity)
+S=1048;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Outlet - Avg. Velocity</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Speed</Type><Value>3.173894</Value><Unit>MeterPerSecond</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1049,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1050,UI_CMD=ScriptEditorContinue_0
+S=1051,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1052,WC=DesignScene-1:1,MC=MM,910,361,0,0,"None",-8585681366363011408
+S=1053,WC=DesignScene-1:1,MC=MM,865,397,0,0,"None",-8585681366362281746
+S=1054,WC=DesignScene-1:1,MC=MM,861,401,0,0,"None",-8585681366361951899
+S=1055,WC=DesignScene-1:1,MC=MM,831,428,0,0,"None",-8585681366361831973
+S=1056,UI_CMD=Disco.EnableScriptAutoExecutionUICommand
+S=1058,ScriptSelectAction,0,198,0
+S=1059,ScriptActiveDocChangedAction,1
+// Selection validation disabled
+// Selection validation disabled
+S=1060,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1061,WC=DesignScene-1:1,MC=MM,797,613,0,0,"None",-8585681366215893901
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+**WaitForAsyncOperation
+S=1071,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1072,WC=DesignScene-1:1,MC=MM,269,698,0,0,"None",-8585681365224273633
+S=1073,WC=DesignScene-1:1,MC=MD,269,698,0,0,"Left",-8585681365224003769
+S=1074,WC=DesignScene-1:1,MC=MU,269,698,0,0,"Left",-8585681365223803865
+//Within drag threshold: 19ms
+//Within drag threshold: 19ms
+S=1075,WC=DesignScene-1:1,KC=KUP,9// Tab
+S=1076,WC=DesignScene-1:1,KC=KUP,16// ShiftKey
+S=1077,WC=DesignScene-1:1,KC=KUP,16// ShiftKey
+S=1078,WC=DesignScene-1:1,KC=KUP,17// ControlKey
+S=1079,WC=DesignScene-1:1,KC=KUP,17// ControlKey
+S=1080,WC=DesignScene-1:1,KC=KUP,9// Tab
+S=1081,WC=DesignScene-1:1,KC=KUP,18// Menu
+S=1082,WC=DesignScene-1:1,KC=KUP,9// Tab
+S=1083,WC=DesignScene-1:1,KC=KUP,18// Menu
+S=1084,WC=DesignScene-1:1,KC=KUP,9// Tab
+S=1085,WC=DesignScene-1:1,MC=MM,205,713,0,0,"None",-8585681365221185009
+S=1086,WC=DesignScene-1:1,JAE=MLV,DesignScene-1:1
+S=1089,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1090,WC=DesignScene-1:1,MC=MM,287,482,0,0,"None",-8585681365160753805
+S=1091,WC=DesignScene-1:1,MC=MM,307,444,0,0,"None",-8585681365160284025
+S=1092,WC=DesignScene-1:1,MC=MM,309,429,0,0,"None",-8585681365159964177
+S=1093,WC=DesignScene-1:1,JAE=MLV,DesignScene-1:1
+S=1094,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0,Physics/Flows/Flow Inlet 1
+S=1095,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1096,UI_CMD=Disco.DesignTree,Action=Select,Preview,1,0/2,Design1/Curves
+S=1097,UI_CMD=Disco.DesignTree,Action=Select,Preview,0
+S=1098,UI_CMD=Disco.DesignTree,Action=Select,Preview,1,0/1,Design1/Solid
+S=1099,UI_CMD=Disco.DesignTree,Action=Select,Primary,1,0/1,Design1/Solid
+// Validation Summary: Total of 1 object (1 Body)
+S=1100;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><Body><Name>Solid</Name><FaceCount>9</FaceCount><EdgeCount>8</EdgeCount><IsClosedBody>true</IsClosedBody><LayerName>Layer0</LayerName><FillStyle>Opaque</FillStyle><Color>128, 128, 255</Color></Body></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1101,UI_CMD=Disco.DesignTree,Action=Select,Preview,0
+S=1102,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/0,Physics/Water (Liquid)
+S=1103,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/0,Physics/Water (Liquid)
+// Validation Summary: Total of 1 object (1 MaterialAssignment)
+S=1104;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MaterialAssignmentEntity><ManufacturingTemperatureMagnitude>22</ManufacturingTemperatureMagnitude><Material>Water</Material><Scope>0:6369</Scope><State>Liquid</State><AppearanceProperties>Green 128, Red 0, Blue 255, Alpha 76, MetallicFinish 0, LightTransmittance 200</AppearanceProperties><PhysicalProperties>Density 997 kg/m³, Viscosity 8.9e-04 Pa·s</PhysicalProperties><MechanicalProperties /><ThermalProperties>CoefficientOfThermalExpansion 2.57e-04 1/°C, IsotropicThermalConductivity 0.6 W/m·K, SpecificHeat 4,181 J/kg.K</ThermalProperties><ElectromagneticProperties>Conductivity 0.01 S/m, RelativePermittivity 81, ElectricLossTangent 0, RelativePermeability 1, MagneticLossTangent 0</ElectromagneticProperties><InformationProperties>Class Fluids, Subclass Liquids</InformationProperties><CreatedBy>System</CreatedBy></MaterialAssignmentEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1105,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1106,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/1,Physics/Gravity
+S=1107,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/1,Physics/Gravity
+// Validation Summary: Total of 1 object (1 GravityCondition)
+S=1108;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><GravityEntity><Magnitude>0</Magnitude><Direction>-0 -0 -1</Direction><IncludeSelfWeight>false</IncludeSelfWeight><IncludeBuoyancy>false</IncludeBuoyancy><CreatedBy>System</CreatedBy></GravityEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1109,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1110,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/2,Physics/Non-Slip Wall (default)
+S=1111,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/2,Physics/Non-Slip Wall (default)
+// Validation Summary: Total of 1 object (1 WallCondition)
+S=1112;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><WallEntity><MotionSpecification>Stationary</MotionSpecification><RotationalVelocityX>-0.70710678118654757</RotationalVelocityX><RotationalVelocityY>-0</RotationalVelocityY><RotationalVelocityZ>-0.70710678118654757</RotationalVelocityZ><SurfaceFriction>NoSlip</SurfaceFriction><ThermalSpecification>Insulated</ThermalSpecification><ConvectionCoefficient>10</ConvectionCoefficient><ExternalTemperature>22</ExternalTemperature><Temperature>22</Temperature><HeatFlux>1</HeatFlux><HeatFlow>1</HeatFlow><Emissivity>1</Emissivity><RadiationTemperature>22</RadiationTemperature><Scope>0:6377, 0:6380, 0:6171, 0:6177, 0:6670, 0:6673</Scope><HasRadiation>false</HasRadiation><CreatedBy>System</CreatedBy></WallEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1113,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1114,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/0,Physics/Flows/Flow Inlet 1
+S=1115,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/0,Physics/Flows/Flow Inlet 1
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=1116;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:6371</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>10</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1117,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1118,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/1,Physics/Flows/Flow Inlet 2
+S=1119,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/1,Physics/Flows/Flow Inlet 2
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=1120;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>In</FlowDirection><FlowSpecification>Velocity</FlowSpecification><Scope>0:6664</Scope><MassFlow>0</MassFlow><Pressure>0</Pressure><Speed>10</Speed><Temperature>22</Temperature><RotationalSpeed>1</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1121,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1122,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,1,0/3/2,Physics/Flows/Flow Outlet
+S=1123,UI_CMD=Disco.PhysicsTree,Action=Select,Primary,1,0/3/2,Physics/Flows/Flow Outlet
+// Validation Summary: Total of 1 object (1 FlowCondition)
+S=1124;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><FlowEntity><FlowDirection>Out</FlowDirection><FlowSpecification>Pressure</FlowSpecification><Scope>0:6174</Scope><MassFlow>0</MassFlow><Pressure>15</Pressure><Speed>0</Speed><Temperature>22</Temperature><RotationalSpeed>0</RotationalSpeed><IsSwirlActive>false</IsSwirlActive><CreatedBy>User</CreatedBy></FlowEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1125,UI_CMD=Disco.PhysicsTree,Action=Select,Preview,0
+S=1128,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,0,Pressure Drop
+S=1129,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,0,Pressure Drop
+// Validation Summary: Total of 1 object (1 Monitor: Pressure Drop)
+S=1130;VC=ValidateObjectsCommand;"ValidationInfo=<ValidationInfo><Items><PressureDropResultsInsightEntity><Name>Pressure Drop</Name><Tables><InsightTableQuantityValidation><Name>Average PressureDrop Mag</Name><Solver>Apollo</Solver><XValues><double>3</double></XValues><YValues><QuantityValidation><Type>Pressure</Type><Value>67942.5</Value><Unit>Pascal</Unit></QuantityValidation></YValues></InsightTableQuantityValidation></Tables><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>System</CreatedBy></PressureDropResultsInsightEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1131,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1132,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,1,Max. Velocity
+S=1133,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,1,Max. Velocity
+// Validation Summary: Total of 1 object (1 Monitor: Max. Velocity)
+S=1134;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Max. Velocity</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Speed</Type><Value>17.99211</Value><Unit>MeterPerSecond</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>System</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1135,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1136,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,2,Inlet 1 - Avg. Static Pressure
+S=1137,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,2,Inlet 1 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 1 - Avg. Static Pressure)
+S=1138;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 1 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>110336.3</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1139,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1140,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,3,Inlet 2 - Avg. Static Pressure
+S=1141,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,3,Inlet 2 - Avg. Static Pressure
+// Validation Summary: Total of 1 object (1 Monitor: Inlet 2 - Avg. Static Pressure)
+S=1142;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Inlet 2 - Avg. Static Pressure</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Pressure</Type><Value>67355.38</Value><Unit>Pascal</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1143,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1144,UI_CMD=Disco.MonitorTree,Action=Select,Preview,1,4,Outlet - Avg. Velocity
+S=1145,UI_CMD=Disco.MonitorTree,Action=Select,Primary,1,4,Outlet - Avg. Velocity
+// Validation Summary: Total of 1 object (1 Monitor: Outlet - Avg. Velocity)
+S=1146;VC=SetSelectionCommand;"ValidationInfo=<ValidationInfo><Items><MonitorEntity><Name>Outlet - Avg. Velocity</Name><Values><ResultQuantityValidation><Solver>Apollo</Solver><Value><Type>Speed</Type><Value>10.16164</Value><Unit>MeterPerSecond</Unit></Value></ResultQuantityValidation></Values><ValidationTolerance>0.05</ValidationTolerance><CreatedBy>User</CreatedBy></MonitorEntity></Items><Truncated>false</Truncated><TotalCount>1</TotalCount></ValidationInfo>"
+S=1147,UI_CMD=Disco.MonitorTree,Action=Select,Preview,0
+S=1148,WC=DesignScene-1:1,JAE=MER,DesignScene-1:1
+S=1149,WC=DesignScene-1:1,MC=MM,1219,186,0,0,"None",-8585681364665083973
+S=1150,WC=DesignScene-1:1,JAE=MLV,DesignScene-1:1
+S=1151,ScriptActiveDocChangedAction,0
+S=1152,ScriptSelectAction,0,0,0
+S=1153,UI_CMD=ScriptEditorContinue_0

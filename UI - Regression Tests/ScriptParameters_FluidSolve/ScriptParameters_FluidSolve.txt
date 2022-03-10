@@ -1,0 +1,50 @@
+
+ScriptParameter1 = 0.0
+ScriptParameter2 = 0.0
+ScriptParameter3 = 0.0
+ScriptParameter4 = 0.0
+ScriptParameter5 = 0.0
+ScriptParameter6 = 0.0
+
+Inlet_Diameter = 0.0
+Inlet_Quantity = 0.0
+Inlet_Velocity = 0.0
+MainPipe_Diameter = 0.0
+MainPipe_Length = 0.0
+Outlet_Pressure = 0.0
+
+Inlet_Diameter = 4.5
+Inlet_Quantity = 5.0
+Inlet_Velocity = 50.0
+MainPipe_Diameter = 100.0
+MainPipe_Length = 50.0
+Outlet_Pressure = 0.0
+
+Inlet_Diameter = 4.5
+Inlet_Quantity = 5.0
+Inlet_Velocity = 50.0
+MainPipe_Diameter = 100.0
+MainPipe_Length = 50.0
+Outlet_Pressure = 0.0
+
+Inlet_Diameter = 4.5
+Inlet_Quantity = 5.0
+Inlet_Velocity = 50.0
+MainPipe_Diameter = 100.0
+MainPipe_Length = 125.0
+Outlet_Pressure = 0.0
+
+Inlet_Diameter = 50.0
+Inlet_Quantity = 2.0
+Inlet_Velocity = 10.0
+MainPipe_Diameter = 75.0
+MainPipe_Length = 250.0
+Outlet_Pressure = 15.0
+
+Inlet_Diameter = 50.0
+Inlet_Quantity = 2.0
+Inlet_Velocity = 10.0
+MainPipe_Diameter = 75.0
+MainPipe_Length = 250.0
+Outlet_Pressure = 15.0
+
