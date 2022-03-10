@@ -5,4 +5,6 @@ The "UI Regression - Tests" folder contains samples of tests I created using SCJ
 
 The "Python API - Regression Tests" folder contains samples of tests that I programmed to cover Discovery's Python scripting API. Like the UI tests, these are also set up within the Testing Framework.
 
+For most regression test samples, a GIF file is included which shows a screen recording of the test running to demonstrate its features and coverage.
+
 Finally, the "Misc Python Tools" folder contains miscellaneous scripts that I programmed to complete helpful tasks, such as checking for overlap in the names of regression tests and creating Visual Studio playlists to be run in Test Explorer. The PerformanceTool contains code I worked on related to an automated performance triage tool that we tied in with the daily regression test runs.
